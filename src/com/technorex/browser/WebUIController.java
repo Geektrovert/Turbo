@@ -23,13 +23,16 @@ public class WebUIController implements Initializable {
 
     @FXML
     private void goAction() {
-        webEngine.load(txtURL.getText().startsWith("http://") ? txtURL.getText() : "http://" + txtURL.getText());
+        webEngine.load(
+                (txtURL.getText().startsWith("http://")||txtURL.getText().startsWith("https://"))
+                        ? txtURL.getText() : "http://" + txtURL.getText());
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         webEngine = webView.getEngine();
         webEngine.locationProperty().addListener((observable, oldValue, newValue) -> txtURL.setText(newValue));
-        txtURL.setText("http://www.google.com");
+        txtURL.setText("https://duckduckgo.com");
+        webEngine.load(txtURL.getText());
     }
 }
