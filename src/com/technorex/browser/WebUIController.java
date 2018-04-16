@@ -5,7 +5,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -14,7 +13,6 @@ import java.util.ResourceBundle;
  * @author Samnan Rahee
  */
 public class WebUIController implements Initializable {
-
     @FXML
     TextField txtURL;
     @FXML
