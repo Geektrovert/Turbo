@@ -30,7 +30,7 @@ public class WebUIController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         webEngine = webView.getEngine();
         webEngine.locationProperty().addListener((observable, oldValue, newValue) -> txtURL.setText(newValue));
-        txtURL.setText("https://duckduckgo.com");
+        txtURL.setText("http://www.google.com");
         webEngine.load(txtURL.getText());
     }
 }
