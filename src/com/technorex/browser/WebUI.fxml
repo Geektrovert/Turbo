@@ -31,7 +31,7 @@
         </center>
         <top>
             <HBox prefHeight="27.0" prefWidth="431.0">
-                <TextField fx:id="txtURL" onAction="#goAction" prefHeight="87.0" prefWidth="379.0" HBox.hgrow="ALWAYS" />
+                <TextField fx:id="txtURL" alignment="TOP_CENTER" onAction="#goAction" prefHeight="87.0" prefWidth="379.0" HBox.hgrow="ALWAYS" />
                 <Button mnemonicParsing="false" onAction="#goAction" prefHeight="27.0" prefWidth="47.0" textFill="#31bfaf" HBox.hgrow="NEVER">
                <graphic>
                    <ImageView fitHeight="19.0" fitWidth="40.0" nodeOrientation="INHERIT" pickOnBounds="true">
