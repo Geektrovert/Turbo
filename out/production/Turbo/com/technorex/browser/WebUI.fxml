@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane id="AnchorPane" prefHeight="371.0" prefWidth="431.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.technorex.browser.WebUIController">
+<AnchorPane id="AnchorPane" prefHeight="371.0" prefWidth="431.0" xmlns="http://j...content-available-to-author-only...x.com/javafx/8.0.121" xmlns:fx="http://j...content-available-to-author-only...x.com/fxml/1" fx:controller="com.technorex.browser.WebUIController">
     <AnchorPane id="AnchorPane">
         <AnchorPane id="AnchorPane">
             <GridPane id="GridPane">
@@ -57,14 +57,14 @@
         <top>
             <HBox prefHeight="27.0" prefWidth="300.0" AnchorPane.leftAnchor="30">
                 <TextField fx:id="txtURL" alignment="TOP_LEFT" onAction="#goAction" prefHeight="29.0" prefWidth="386.0" AnchorPane.leftAnchor="0" HBox.hgrow="ALWAYS">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin></TextField>
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin></TextField>
                 <ImageView fx:id="imageView" fitHeight="29.0" fitWidth="40.0" nodeOrientation="INHERIT" onMousePressed="#goAction" onMouseReleased="#release" pickOnBounds="true">
                     <Image url="@/Icons/Go.png" />
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
                 </ImageView>
             </HBox>
         </top>
