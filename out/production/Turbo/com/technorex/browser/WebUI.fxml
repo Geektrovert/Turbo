@@ -6,6 +6,8 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -56,7 +58,15 @@
         </center>
         <top>
             <HBox prefHeight="27.0" prefWidth="300.0" AnchorPane.leftAnchor="30">
+<<<<<<< Updated upstream
                 <TextField fx:id="txtURL" alignment="TOP_LEFT" onAction="#goAction" prefHeight="29.0" prefWidth="413.0" AnchorPane.leftAnchor="0" HBox.hgrow="ALWAYS">
+=======
+            <ToggleButton fx:id="toggleJS" mnemonicParsing="false" onAction="#changeJS" text="JS"  >
+               <toggleGroup>
+                  <ToggleGroup fx:id="JS" />
+               </toggleGroup></ToggleButton>
+                <TextField fx:id="txtURL" alignment="TOP_LEFT" onAction="#goAction" prefHeight="29.0" prefWidth="386.0" AnchorPane.leftAnchor="0" HBox.hgrow="ALWAYS">
+>>>>>>> Stashed changes
                     <HBox.margin>
                         <Insets />
                     </HBox.margin></TextField>

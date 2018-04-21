@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.InputEvent;
@@ -21,7 +22,8 @@ import java.util.ResourceBundle;
  */
 public class WebUIController implements Initializable {
 
-
+    @FXML
+    public ToggleButton toggleJS;
     @FXML
     TextField txtURL;
     @FXML
@@ -33,6 +35,7 @@ public class WebUIController implements Initializable {
     private Image pressed=new Image("Icons/stay.png");
     @FXML
     public MenuBar menuBar;
+    private boolean JSVal = true;
 
     /**
      * Handle action related to "About" menu item.
@@ -75,12 +78,15 @@ public class WebUIController implements Initializable {
         webEngine.load(
                 (txtURL.getText().startsWith("http://")||txtURL.getText().startsWith("https://"))
                         ? txtURL.getText() : "http://" + txtURL.getText());
+        System.out.println("Website name: "+webEngine.getTitle());
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         webEngine = webView.getEngine();
         webEngine.locationProperty().addListener((observable, oldValue, newValue) -> txtURL.setText(newValue));
+        if (!webEngine.isJavaScriptEnabled())
+            webEngine.setJavaScriptEnabled(true);
         txtURL.setText("https://duckduckgo.com");
         webEngine.load(txtURL.getText());
     }
@@ -91,5 +97,19 @@ public class WebUIController implements Initializable {
     public void close(){
         Platform.exit();
         System.exit(0);
+    }
+
+    @FXML
+    public void changeJS() {
+        if (JSVal) {
+            JSVal = false;
+            webEngine.setJavaScriptEnabled(false);
+            webEngine.reload();
+        }
+        else {
+            JSVal = true;
+            webEngine.setJavaScriptEnabled(true);
+            webEngine.reload();
+        }
     }
 }
