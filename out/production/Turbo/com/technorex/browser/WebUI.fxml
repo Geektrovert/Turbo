@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -24,19 +29,43 @@
             </GridPane>
         </AnchorPane>
     </AnchorPane>
-    <BorderPane prefHeight="371.0" prefWidth="431.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <MenuBar fx:id="menuBar" onKeyPressed="#handleKeyInput" prefHeight="25.0" prefWidth="122.0" AnchorPane.bottomAnchor="340.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
+        <Menu text="File">
+            <MenuItem text="New" />
+            <MenuItem text="Open" />
+            <MenuItem text="Save" />
+            <MenuItem text="Save As" />
+            <SeparatorMenuItem />
+            <MenuItem onAction="#close" text="Exit" />
+        </Menu>
+        <Menu text="Edit">
+            <MenuItem text="Copy" />
+            <MenuItem text="Cut" />
+            <MenuItem text="Paste" />
+        </Menu>
+        <Menu text="Help">
+            <MenuItem disable="true" text="Search" />
+            <MenuItem text="Online Manual" visible="false" />
+            <SeparatorMenuItem />
+            <MenuItem onAction="#handleAboutAction" text="About" />
+        </Menu>
+    </MenuBar>
+    <BorderPane prefHeight="371.0" prefWidth="431.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="30.0">
         <center>
-            <WebView fx:id="webView" prefHeight="200.0" prefWidth="200.0" />
+            <WebView fx:id="webView" prefHeight="500.0" prefWidth="421.0" />
         </center>
         <top>
-            <HBox prefHeight="27.0" prefWidth="431.0">
-                <TextField fx:id="txtURL" onAction="#goAction" prefHeight="87.0" prefWidth="379.0" HBox.hgrow="ALWAYS" />
-                <!--<Button mnemonicParsing="false" onAction="#goAction" prefHeight="27.0" prefWidth="47.0" textFill="#31bfaf" HBox.hgrow="NEVER">
-               <graphic> -->
+            <HBox prefHeight="27.0" prefWidth="300.0" AnchorPane.leftAnchor="30">
+                <TextField fx:id="txtURL" alignment="TOP_LEFT" onAction="#goAction" prefHeight="29.0" prefWidth="386.0" AnchorPane.leftAnchor="0" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></TextField>
                 <ImageView fx:id="imageView" fitHeight="29.0" fitWidth="40.0" nodeOrientation="INHERIT" onMousePressed="#goAction" onMouseReleased="#release" pickOnBounds="true">
                     <Image url="@/Icons/Go.png" />
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
                 </ImageView>
-               <!--</graphic></Button>-->
             </HBox>
         </top>
     </BorderPane>
