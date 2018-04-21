@@ -17,9 +17,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
+ * This file is associated with controlling of WebUI.fxml for GUI
  *
- * @author Samnan Rahee
+ * @author Samnan Rahee, Sihan Tawsik
  */
+
 public class WebUIController implements Initializable {
 
     @FXML
@@ -39,19 +41,20 @@ public class WebUIController implements Initializable {
 
     /**
      * Handle action related to "About" menu item.
-     *
      */
 
     @FXML
     public void handleAboutAction() {
         provideAboutFunctionality();
     }
+
     /**
      * Handle action related to input (in this case specifically only responds to
      * keyboard event CTRL-A).
      *
      * @param event Input event.
      */
+
     @FXML
     private void handleKeyInput(final InputEvent event)
     {
@@ -72,6 +75,15 @@ public class WebUIController implements Initializable {
     {
         System.out.println("You clicked on About!");
     }
+
+    /**
+     * Perform functionality associated with "Exit" menu selection.
+     */
+    public void close(){
+        Platform.exit();
+        System.exit(0);
+    }
+
     @FXML
     private void goAction() {
         imageView.setImage(pressed);
@@ -81,6 +93,11 @@ public class WebUIController implements Initializable {
         System.out.println("Website name: "+webEngine.getTitle());
     }
 
+    /**
+     * Perform functionality associated with starting the browser for every time.
+     * @param url Input URL
+     * @param rb Input ResourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         webEngine = webView.getEngine();
@@ -91,14 +108,16 @@ public class WebUIController implements Initializable {
         webEngine.load(txtURL.getText());
     }
 
+    /**
+     * Perform functionality associated with the image on the right of SearchBar.
+     */
     public void release() {
         imageView.setImage(notPressed);
     }
-    public void close(){
-        Platform.exit();
-        System.exit(0);
-    }
 
+    /**
+     * Perform functionality associated with "JS" toggle button.
+     */
     @FXML
     public void changeJS() {
         if (JSVal) {

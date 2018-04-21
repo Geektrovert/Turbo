@@ -19,7 +19,7 @@
             </GridPane>
         </AnchorPane>
     </AnchorPane>
-    <MenuBar fx:id="menuBar" onKeyPressed="#handleKeyInput" prefHeight="25.0" prefWidth="122.0" AnchorPane.bottomAnchor="340.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
+    <MenuBar fx:id="menuBar" onKeyPressed="#handleKeyInput" prefHeight="25.0" prefWidth="122.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
         <Menu text="File">
             <MenuItem text="New" />
             <MenuItem text="Open" />
@@ -40,7 +40,7 @@
             <MenuItem onAction="#handleAboutAction" text="About" />
         </Menu>
     </MenuBar>
-    <BorderPane prefHeight="371.0" prefWidth="431.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="30.0">
+    <BorderPane prefHeight="371.0" prefWidth="431.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="30.0">
         <center>
             <WebView fx:id="webView" prefHeight="500.0" prefWidth="421.0" />
         </center>
