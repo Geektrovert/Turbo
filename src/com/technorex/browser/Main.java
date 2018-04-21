@@ -4,10 +4,11 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 /**
  *
- * @author Samnan Rahee
+ * @author Samnan Rahee, Sihan Tawsik
  */
 public class Main extends Application {
 
@@ -16,8 +17,11 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("WebUI.fxml"));
 
         Scene scene = new Scene(root);
-
+        stage.setTitle("Turbo");
+        stage.getIcons().add(new Image("Icons/icon.png"));
         stage.setScene(scene);
+        stage.setMaximized(true);
+        stage.setOpacity(1);
         stage.show();
     }
 
