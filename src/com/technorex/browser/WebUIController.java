@@ -1,5 +1,6 @@
 package com.technorex.browser;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.MenuBar;
@@ -11,6 +12,7 @@ import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebHistory;
 import javafx.scene.web.WebView;
 
 import java.net.URL;
@@ -90,7 +92,7 @@ public class WebUIController implements Initializable {
         webEngine.load(
                 (txtURL.getText().startsWith("http://")||txtURL.getText().startsWith("https://"))
                         ? txtURL.getText() : "http://" + txtURL.getText());
-        System.out.println("Website name: "+webEngine.getTitle());
+        //System.out.println(webEngine.getTitle());
     }
 
     /**
@@ -106,6 +108,7 @@ public class WebUIController implements Initializable {
             webEngine.setJavaScriptEnabled(true);
         txtURL.setText("https://duckduckgo.com");
         webEngine.load(txtURL.getText());
+        //System.out.println(webEngine.getTitle());
     }
 
     /**
@@ -129,6 +132,16 @@ public class WebUIController implements Initializable {
             JSVal = true;
             webEngine.setJavaScriptEnabled(true);
             webEngine.reload();
+        }
+    }
+
+    @FXML
+    public void printHistory() {
+        ObservableList<WebHistory.Entry> entries = webEngine.getHistory().getEntries();
+        System.out.println("Web History--->>>");
+        for (WebHistory.Entry entry:
+                entries){
+            System.out.println(entry);
         }
     }
 }
