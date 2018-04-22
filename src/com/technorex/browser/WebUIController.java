@@ -135,6 +135,9 @@ public class WebUIController implements Initializable {
         }
     }
 
+    /**
+     * Performs functionality associated with printing WebHistory
+     */
     @FXML
     public void printHistory() {
         ObservableList<WebHistory.Entry> entries = webEngine.getHistory().getEntries();
