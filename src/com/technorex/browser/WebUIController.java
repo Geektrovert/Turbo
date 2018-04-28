@@ -51,8 +51,7 @@ public class WebUIController implements Initializable {
     }
 
     /**
-     * Handle action related to input (in this case specifically only responds to
-     * keyboard event CTRL-A).
+     * Handle action related to input
      *
      * @param event Input event.
      */
