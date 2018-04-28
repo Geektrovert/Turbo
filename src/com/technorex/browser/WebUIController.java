@@ -39,7 +39,7 @@ public class WebUIController implements Initializable {
     private Image hovered = new Image("Icons/SearchOnHover.png");
     @FXML
     public MenuBar menuBar;
-    private boolean JSVal = true, hoverVal = false;
+    private boolean JSVal = true;
 
     /**
      * Handle action related to "About" menu item.
