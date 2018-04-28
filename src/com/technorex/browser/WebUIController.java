@@ -1,15 +1,10 @@
 package com.technorex.browser;
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.InputEvent;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebHistory;
 import javafx.scene.web.WebView;
@@ -42,57 +37,13 @@ public class WebUIController implements Initializable {
     private WebEngine webEngine;
     @FXML
     public ImageView imageView;
+    @FXML
+    public ImageView menuBar;
     private Image searchIconNotHovered = new Image("Icons/Search.png");
     private Image searchIconHovered = new Image("Icons/SearchOnHover.png");
     private Image JSImageOn = new Image("Icons/JS.png");
     private Image JSImageOff = new Image("Icons/JSOff.png");
-    @FXML
-    public MenuBar menuBar;
     private boolean JSVal = true;
-
-    /**
-     * Handle action related to "About" menu item.
-     */
-
-    @FXML
-    public void handleAboutAction() {
-        provideAboutFunctionality();
-    }
-
-    /**
-     * Handle action related to input
-     *
-     * @param event Input event.
-     */
-
-    @FXML
-    private void handleKeyInput(final InputEvent event)
-    {
-        if (event instanceof KeyEvent)
-        {
-            final KeyEvent keyEvent = (KeyEvent) event;
-            if (keyEvent.isControlDown() && keyEvent.getCode() == KeyCode.A)
-            {
-                provideAboutFunctionality();
-            }
-        }
-    }
-
-    /**
-     * Perform functionality associated with "About" menu selection or CTRL-A.
-     */
-    private void provideAboutFunctionality()
-    {
-        System.out.println("You clicked on About!");
-    }
-
-    /**
-     * Perform functionality associated with "Exit" menu selection.
-     */
-    public void close(){
-        Platform.exit();
-        System.exit(0);
-    }
 
     @FXML
     private void goAction() {
