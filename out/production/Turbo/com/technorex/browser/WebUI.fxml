@@ -32,7 +32,7 @@
         </AnchorPane>
     </AnchorPane>
     <MenuBar fx:id="menuBar" onKeyPressed="#handleKeyInput" prefHeight="25.0" prefWidth="122.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
-        <Menu text="File">
+        <Menu text="File" >
             <MenuItem text="New" />
             <MenuItem text="Open" />
             <MenuItem text="Save" />
@@ -60,7 +60,7 @@
             <HBox prefHeight="27.0" prefWidth="300.0" AnchorPane.leftAnchor="30">
                 <ToggleButton fx:id="toggleJS" mnemonicParsing="false" onAction="#changeJS" text="JS">
                 </ToggleButton>
-            <Button mnemonicParsing="false" onAction="#printHistory" text="History" />
+            <Button mnemonicParsing="false" onAction="#printHistory" style="-fx-background-image: url('Icons/test.jpg'); -fx-background-size: 100 100; -fx-text-fill: #ffffff" text="History" />
                 <TextField fx:id="txtURL" alignment="TOP_LEFT" onAction="#goAction" prefHeight="29.0" prefWidth="386.0" AnchorPane.leftAnchor="0" HBox.hgrow="ALWAYS">
                     <HBox.margin>
                         <Insets />
