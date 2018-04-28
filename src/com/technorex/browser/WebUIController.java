@@ -35,11 +35,11 @@ public class WebUIController implements Initializable {
     private WebEngine webEngine;
     @FXML
     public ImageView imageView;
-    private Image notPressed=new Image("Icons/Go.png");
-    private Image pressed=new Image("Icons/stay.png");
+    private Image notHovered = new Image("Icons/Search.png");
+    private Image hovered = new Image("Icons/SearchOnHover.png");
     @FXML
     public MenuBar menuBar;
-    private boolean JSVal = true;
+    private boolean JSVal = true, hoverVal = false;
 
     /**
      * Handle action related to "About" menu item.
@@ -87,7 +87,6 @@ public class WebUIController implements Initializable {
 
     @FXML
     private void goAction() {
-        imageView.setImage(pressed);
         webEngine.load(
                 (txtURL.getText().startsWith("http://")||txtURL.getText().startsWith("https://"))
                         ? txtURL.getText() : "http://" + txtURL.getText());
@@ -108,13 +107,6 @@ public class WebUIController implements Initializable {
         txtURL.setText("https://duckduckgo.com");
         webEngine.load(txtURL.getText());
         //System.out.println(webEngine.getTitle());
-    }
-
-    /**
-     * Perform functionality associated with the image on the right of SearchBar.
-     */
-    public void release() {
-        imageView.setImage(notPressed);
     }
 
     /**
@@ -145,5 +137,13 @@ public class WebUIController implements Initializable {
                 entries){
             System.out.println(entry);
         }
+    }
+
+    public void onHover() {
+        imageView.setImage(hovered);
+    }
+
+    public void notHovered() {
+        imageView.setImage(notHovered);
     }
 }

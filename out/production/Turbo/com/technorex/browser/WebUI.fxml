@@ -60,13 +60,13 @@
             <HBox prefHeight="27.0" prefWidth="300.0" AnchorPane.leftAnchor="30">
                 <ToggleButton fx:id="toggleJS" mnemonicParsing="false" onAction="#changeJS" text="JS">
                 </ToggleButton>
-            <Button mnemonicParsing="false" onAction="#printHistory" style="-fx-background-image: url('Icons/test.jpg'); -fx-background-size: 100 100; -fx-text-fill: #ffffff" text="History" />
+            <Button mnemonicParsing="false" onAction="#printHistory" style="-fx-background-image: url('/Icons/test.jpg'); -fx-background-size: 100 100; -fx-text-fill: #ffffff" text="History" />
                 <TextField fx:id="txtURL" alignment="TOP_LEFT" onAction="#goAction" prefHeight="29.0" prefWidth="386.0" AnchorPane.leftAnchor="0" HBox.hgrow="ALWAYS">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin></TextField>
-                <ImageView fx:id="imageView" fitHeight="29.0" fitWidth="40.0" nodeOrientation="INHERIT" onMousePressed="#goAction" onMouseReleased="#release" pickOnBounds="true">
-                    <Image url="@/Icons/Go.png" />
+                <ImageView fx:id="imageView" fitHeight="29.0" fitWidth="29.0" nodeOrientation="INHERIT" onMousePressed="#goAction" pickOnBounds="true" onMouseMoved="#onHover" onMouseExited="#notHovered">
+                    <Image url="@/Icons/Search.png" />
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
