@@ -28,6 +28,14 @@ public class WebUIController implements Initializable {
     @FXML
     public ImageView toggleJS;
     @FXML
+    public ImageView HistoryButton;
+    @FXML
+    public ImageView backward;
+    @FXML
+    public ImageView forward;
+    @FXML
+    public ImageView bookmark;
+    @FXML
     TextField txtURL;
     @FXML
     WebView webView;

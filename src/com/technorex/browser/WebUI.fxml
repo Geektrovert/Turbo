@@ -46,19 +46,31 @@
         </center>
         <top>
             <HBox prefHeight="27.0" prefWidth="300.0" AnchorPane.leftAnchor="30">
-                <ImageView fx:id="toggleJS" fitHeight="36.0" fitWidth="36.0" nodeOrientation="INHERIT" onMousePressed="#changeJS" pickOnBounds="true" onMouseMoved="#onHover" onMouseExited="#notHovered">
+                <ImageView fx:id="backward" fitHeight="36.0" fitWidth="36.0" nodeOrientation="INHERIT" pickOnBounds="true">
+                    <Image url="@/Icons/Back.png" />
+                </ImageView>
+                <ImageView fx:id="forward" fitHeight="36.0" fitWidth="36.0" nodeOrientation="INHERIT" pickOnBounds="true">
+                    <Image url="@/Icons/Forward.png" />
+                </ImageView>
+                <ImageView fx:id="toggleJS" fitHeight="36.0" fitWidth="36.0" nodeOrientation="INHERIT" onMousePressed="#changeJS" pickOnBounds="true">
                     <Image url="@/Icons/JS.png" />
                 </ImageView>
-            <Button mnemonicParsing="false" onAction="#printHistory" prefHeight="36.0" style="-fx-background-image: url('/Icons/test.jpg'); -fx-background-size: 100 100; -fx-text-fill: #ffffff" text="History" />
+                <ImageView fx:id="HistoryButton" fitHeight="36.0" fitWidth="36.0" nodeOrientation="INHERIT" onMousePressed="#printHistory" pickOnBounds="true">
+                    <Image url="@/Icons/History.png" />
+                </ImageView>
                 <TextField fx:id="txtURL" style="-fx-font-size: 16px" alignment="TOP_LEFT" onAction="#goAction" prefHeight="36.0" prefWidth="386.0" AnchorPane.leftAnchor="0" HBox.hgrow="ALWAYS">
                     <HBox.margin>
                         <Insets />
-                    </HBox.margin></TextField>
+                    </HBox.margin>
+                </TextField>
                 <ImageView fx:id="imageView" fitHeight="36.0" fitWidth="36.0" nodeOrientation="INHERIT" onMousePressed="#goAction" pickOnBounds="true" onMouseMoved="#onHover" onMouseExited="#notHovered">
                     <Image url="@/Icons/Search.png" />
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
+                </ImageView>
+                <ImageView fx:id="bookmark" fitHeight="36.0" fitWidth="36.0" nodeOrientation="INHERIT" pickOnBounds="true">
+                    <Image url="@/Icons/Bookmark.png" />
                 </ImageView>
             </HBox>
         </top>
