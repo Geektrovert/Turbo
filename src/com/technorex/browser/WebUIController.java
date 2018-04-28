@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.InputEvent;
@@ -27,7 +26,7 @@ import java.util.ResourceBundle;
 public class WebUIController implements Initializable {
 
     @FXML
-    public ToggleButton toggleJS;
+    public ImageView toggleJS;
     @FXML
     TextField txtURL;
     @FXML
@@ -35,8 +34,10 @@ public class WebUIController implements Initializable {
     private WebEngine webEngine;
     @FXML
     public ImageView imageView;
-    private Image notHovered = new Image("Icons/Search.png");
-    private Image hovered = new Image("Icons/SearchOnHover.png");
+    private Image searchIconNotHovered = new Image("Icons/Search.png");
+    private Image searchIconHovered = new Image("Icons/SearchOnHover.png");
+    private Image JSImageOn = new Image("Icons/JS.png");
+    private Image JSImageOff = new Image("Icons/JSOff.png");
     @FXML
     public MenuBar menuBar;
     private boolean JSVal = true;
@@ -115,15 +116,16 @@ public class WebUIController implements Initializable {
     @FXML
     public void changeJS() {
         if (JSVal) {
-            JSVal = false;
             webEngine.setJavaScriptEnabled(false);
+            toggleJS.setImage(JSImageOff);
             webEngine.reload();
         }
         else {
-            JSVal = true;
             webEngine.setJavaScriptEnabled(true);
+            toggleJS.setImage(JSImageOn);
             webEngine.reload();
         }
+        JSVal = !JSVal; //Toggles the value of JSVal every time this function is called
     }
 
     /**
@@ -140,10 +142,10 @@ public class WebUIController implements Initializable {
     }
 
     public void onHover() {
-        imageView.setImage(hovered);
+        imageView.setImage(searchIconHovered);
     }
 
     public void notHovered() {
-        imageView.setImage(notHovered);
+        imageView.setImage(searchIconNotHovered);
     }
 }
