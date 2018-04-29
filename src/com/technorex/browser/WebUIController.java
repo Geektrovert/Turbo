@@ -61,7 +61,19 @@ public class WebUIController implements Initializable {
             history.remove(currIndex);
         //System.out.println(webEngine.getTitle());
     }
-
+    @FXML
+    private void goAction(String historyUrl) {
+        String url;
+        if (txtURL.getText().startsWith("http://") || txtURL.getText().startsWith("https://"))
+            url = historyUrl;
+        else
+            url = "https://" + historyUrl;
+        webEngine.load(url);
+        history.add(++currIndex,url);
+        for(int ind = currIndex+1; ind<history.size(); ind++)
+            history.remove(currIndex);
+        //System.out.println(webEngine.getTitle());
+    }
     /**
      * Perform functionality associated with starting the browser for every time.
      * @param url Input URL
