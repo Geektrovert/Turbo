@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebHistory;
 import javafx.scene.web.WebView;
 
 import java.net.URL;
@@ -23,7 +24,7 @@ public class WebUIController implements Initializable {
     @FXML
     public ImageView toggleJS;
     @FXML
-    public ComboBox historyButton;
+    public ComboBox<WebHistory.Entry> historyButton;
     @FXML
     public ImageView backward;
     @FXML
@@ -39,6 +40,7 @@ public class WebUIController implements Initializable {
     public ImageView search;
     @FXML
     public ImageView menuBar;
+    private volatile String titleName = null;
     private Image JSImageOn = new Image("Icons/JS.png");
     private Image JSImageOff = new Image("Icons/JSOff.png");
     private ArrayList<String> history = new ArrayList<>();
@@ -52,7 +54,7 @@ public class WebUIController implements Initializable {
         if (txtURL.getText().startsWith("http://") || txtURL.getText().startsWith("https://"))
             url = txtURL.getText();
         else
-            url = "http://" + txtURL.getText();
+            url = "https://" + txtURL.getText();
         webEngine.load(url);
         history.add(++currIndex,url);
         for(int ind = currIndex+1; ind<history.size(); ind++)
@@ -101,11 +103,18 @@ public class WebUIController implements Initializable {
      */
     @FXML
     public void printHistory() {
+        historyButton.setItems(webEngine.getHistory().getEntries());
         System.out.println("History:--->>>");
         for(String st: history)
             System.out.println(st);
-        System.out.println("Current: " + history.get(currIndex));
+        titleName = webEngine.getHistory().getEntries().get(webEngine.getHistory().getEntries().size() - 1).getTitle();
+        System.out.println("Current: " + titleName);
     }
+
+    /**
+     * Following functions performs functionality associated with hovering activity over icons
+     *
+     */
 
     public void menuOnHover() {
         menuBar.setOpacity(hoverVal);
