@@ -23,7 +23,7 @@ public class WebUIController implements Initializable {
     @FXML
     public ImageView toggleJS;
     @FXML
-    public ImageView HistoryButton;
+    public ImageView historyButton;
     @FXML
     public ImageView backward;
     @FXML
@@ -36,11 +36,9 @@ public class WebUIController implements Initializable {
     WebView webView;
     private WebEngine webEngine;
     @FXML
-    public ImageView imageView;
+    public ImageView search;
     @FXML
     public ImageView menuBar;
-    private Image searchIconNotHovered = new Image("Icons/Search.png");
-    private Image searchIconHovered = new Image("Icons/SearchOnHover.png");
     private Image JSImageOn = new Image("Icons/JS.png");
     private Image JSImageOff = new Image("Icons/JSOff.png");
     private boolean JSVal = true;
@@ -101,11 +99,59 @@ public class WebUIController implements Initializable {
         }
     }
 
-    public void onHover() {
-        imageView.setImage(searchIconHovered);
+    public void menuOnHover() {
+        menuBar.setOpacity(1.0);
     }
 
-    public void notHovered() {
-        imageView.setImage(searchIconNotHovered);
+    public void menuNotHovered() {
+        menuBar.setOpacity(0.8);
+    }
+
+    public void backOnHover() {
+        backward.setOpacity(1.0);
+    }
+
+    public void backNotHovered() {
+        backward.setOpacity(0.8);
+    }
+
+    public void forwardOnHover() {
+        forward.setOpacity(1.0);
+    }
+
+    public void forwardNotHovered() {
+        forward.setOpacity(0.8);
+    }
+
+    public void JSOnHover() {
+        toggleJS.setOpacity(1.0);
+    }
+
+    public void JSNotHovered() {
+        toggleJS.setOpacity(0.8);
+    }
+
+    public void historyOnHover() {
+        historyButton.setOpacity(1.0);
+    }
+
+    public void historyNotHovered() {
+        historyButton.setOpacity(0.8);
+    }
+
+    public void searchOnHover() {
+        search.setOpacity(1.0);
+    }
+
+    public void searchNotHovered() {
+        search.setOpacity(0.8);
+    }
+
+    public void bookmarkOnHover() {
+        bookmark.setOpacity(1.0);
+    }
+
+    public void bookmarkNotHovered() {
+        bookmark.setOpacity(0.8);
     }
 }
