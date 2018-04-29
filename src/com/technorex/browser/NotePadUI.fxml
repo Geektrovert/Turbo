@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.TextField?>
 <AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.technorex.browser.NotePadUIController"
-            prefHeight="400.0" prefWidth="600.0">
-
+            prefHeight="400.0" prefWidth="600.0"
+            style="-fx-background-color: #f7f7f7"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.technorex.browser.NotePadUIController">
+    <BorderPane fx:id="notePad"
+                prefHeight="400.0" prefWidth="600.0"
+                style="-fx-background-color: #f7f7f7"
+                AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="30.0"
+                AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
+        <TextField>
+            <TextField fx:id="noteTXT" alignment="TOP_LEFT"
+                       onAction="#saveNote"
+                       prefHeight="36.0" prefWidth="386.0"
+                       style="-fx-font-size: 16px"
+                       AnchorPane.leftAnchor="0">
+            </TextField>
+        </TextField>
+    </BorderPane>
 </AnchorPane>

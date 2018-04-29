@@ -205,6 +205,6 @@ public class WebUIController implements Initializable {
     }
 
     public void takeNotes() {
-
+        System.out.println("Clicked Notes");
     }
 }
