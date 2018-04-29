@@ -6,40 +6,92 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.web.WebView?>
-<AnchorPane id="AnchorPane" prefHeight="371.0" prefWidth="431.0" style="-fx-background-color: #f7f7f7" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.technorex.browser.WebUIController">
-    <BorderPane prefHeight="371.0" prefWidth="431.0" style="-fx-background-color: #F7F7F7" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="30.0">
+<AnchorPane id="AnchorPane"
+            prefHeight="371.0" prefWidth="431.0"
+            style="-fx-background-color: #f7f7f7"
+            xmlns="http://javafx.com/javafx/8.0.121"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.technorex.browser.WebUIController">
+    <BorderPane prefHeight="371.0"
+                prefWidth="431.0"
+                style="-fx-background-color: #F7F7F7"
+                AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="30.0"
+                AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
         <center>
             <WebView fx:id="webView" prefHeight="500.0" prefWidth="421.0" />
         </center>
         <top>
             <HBox prefHeight="27.0" prefWidth="300.0" AnchorPane.leftAnchor="30">
-                <ImageView fx:id="menuBar" fitHeight="36.0" fitWidth="36.0" nodeOrientation="INHERIT" onMouseExited="#menuNotHovered" onMouseMoved="#menuOnHover" opacity="0.6" pickOnBounds="true">
+                <ImageView fx:id="menuBar"
+                           fitHeight="36.0" fitWidth="36.0"
+                           opacity="0.6" nodeOrientation="INHERIT"
+                           onMouseExited="#menuNotHovered"
+                           onMouseMoved="#menuOnHover"
+                           pickOnBounds="true">
                     <Image url="@/Icons/Menu.png" />
                 </ImageView>
-                <ImageView fx:id="backward" fitHeight="36.0" fitWidth="36.0" nodeOrientation="INHERIT" onMouseExited="#backNotHovered" onMouseMoved="#backOnHover" onMousePressed="#goBack" opacity="0.6" pickOnBounds="true">
+                <ImageView fx:id="backward"
+                           fitHeight="36.0" fitWidth="36.0"
+                           opacity="0.6" nodeOrientation="INHERIT"
+                           onMouseExited="#backNotHovered" onMouseMoved="#backOnHover"
+                           onMousePressed="#goBack" pickOnBounds="true">
                     <Image url="@/Icons/Back.png" />
                 </ImageView>
-                <ImageView fx:id="forward" fitHeight="36.0" fitWidth="36.0" nodeOrientation="INHERIT" onMouseExited="#forwardNotHovered" onMouseMoved="#forwardOnHover" onMousePressed="#goForward" opacity="0.6" pickOnBounds="true">
+                <ImageView fx:id="forward"
+                           fitHeight="36.0" fitWidth="36.0"
+                           opacity="0.6" nodeOrientation="INHERIT"
+                           onMouseExited="#forwardNotHovered" onMouseMoved="#forwardOnHover"
+                           onMousePressed="#goForward" pickOnBounds="true">
                     <Image url="@/Icons/Forward.png" />
                 </ImageView>
-                <ImageView fx:id="toggleJS" fitHeight="36.0" fitWidth="36.0" nodeOrientation="INHERIT" onMouseExited="#JSNotHovered" onMouseMoved="#JSOnHover" onMousePressed="#toggleJS" opacity="0.6" pickOnBounds="true">
+                <ImageView fx:id="toggleJS"
+                           fitHeight="36.0" fitWidth="36.0"
+                           opacity="0.6" nodeOrientation="INHERIT"
+                           onMouseExited="#JSNotHovered" onMouseMoved="#JSOnHover"
+                           onMousePressed="#toggleJS" pickOnBounds="true">
                     <Image url="@/Icons/JS.png" />
                 </ImageView>
-                <ComboBox fx:id="historyButton" maxWidth="36.0" minWidth="36.0" onMouseExited="#historyNotHovered" onMouseMoved="#historyOnHover" onMousePressed="#printHistory" prefHeight="36.0" prefWidth="36.0" stylesheets="@HistoryButton.css" opacity="0.6">
+                <ComboBox fx:id="historyButton"
+                          maxWidth="36.0" minWidth="36.0"
+                          onMouseMoved="#historyOnHover" onMouseExited="#historyNotHovered"
+                          onMousePressed="#printHistory"
+                          prefHeight="36.0" prefWidth="36.0"
+                          stylesheets="@HistoryButton.css"
+                          opacity="0.6">
                 </ComboBox>
-                <TextField fx:id="txtURL" alignment="TOP_LEFT" onAction="#goAction" prefHeight="36.0" prefWidth="386.0" style="-fx-font-size: 16px" AnchorPane.leftAnchor="0" HBox.hgrow="ALWAYS">
+                <TextField fx:id="txtURL" alignment="TOP_LEFT"
+                           onAction="#goAction"
+                           prefHeight="36.0" prefWidth="386.0"
+                           style="-fx-font-size: 16px"
+                           AnchorPane.leftAnchor="0"
+                           HBox.hgrow="ALWAYS">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
                 </TextField>
-                <ImageView fx:id="search" fitHeight="36.0" fitWidth="36.0" nodeOrientation="INHERIT" onMouseExited="#searchNotHovered" onMouseMoved="#searchOnHover" onMousePressed="#goAction" opacity="0.6" pickOnBounds="true">
+                <ImageView fx:id="search"
+                           fitHeight="36.0" fitWidth="36.0"
+                           opacity="0.6" nodeOrientation="INHERIT"
+                           onMouseExited="#searchNotHovered" onMouseMoved="#searchOnHover"
+                           onMousePressed="#goAction" pickOnBounds="true">
                     <Image url="@/Icons/Search.png" />
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
                 </ImageView>
-                <ImageView fx:id="bookmark" fitHeight="36.0" fitWidth="36.0" nodeOrientation="INHERIT" onMouseExited="#bookmarkNotHovered" onMouseMoved="#bookmarkOnHover" opacity="0.6" pickOnBounds="true">
+                <ImageView fx:id="bookmark"
+                           fitHeight="36.0" fitWidth="36.0"
+                           opacity="0.6" nodeOrientation="INHERIT"
+                           onMouseExited="#bookmarkNotHovered" onMouseMoved="#bookmarkOnHover"
+                           pickOnBounds="true">
                     <Image url="@/Icons/Bookmark.png" />
+                </ImageView>
+                <ImageView fx:id="note"
+                           fitHeight="36.0" fitWidth="36.0"
+                           opacity="0.6" nodeOrientation="INHERIT"
+                           onMousePressed="#takeNotes" onMouseExited="#noteNotHovered"
+                           onMouseMoved="#noteOnHover" pickOnBounds="true">
+                    <Image url="@/Icons/Note.png" />
                 </ImageView>
             </HBox>
         </top>

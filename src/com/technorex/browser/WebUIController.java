@@ -33,6 +33,8 @@ public class WebUIController implements Initializable {
     @FXML
     public TextField txtURL;
     @FXML
+    public ImageView note;
+    @FXML
     WebView webView;
     private WebEngine webEngine;
     @FXML
@@ -184,6 +186,14 @@ public class WebUIController implements Initializable {
         bookmark.setOpacity(hoverRelease);
     }
 
+    public void noteOnHover() {
+        note.setOpacity(hoverVal);
+    }
+
+    public void noteNotHovered() {
+        note.setOpacity(hoverRelease);
+    }
+
     public void goBack() {
         if(currIndex>0)
             webEngine.load(history.get(--currIndex));
@@ -192,5 +202,9 @@ public class WebUIController implements Initializable {
     public void goForward() {
         if(currIndex<history.size()-1)
             webEngine.load(history.get(++currIndex));
+    }
+
+    public void takeNotes() {
+
     }
 }
