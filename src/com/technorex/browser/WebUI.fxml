@@ -6,7 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.web.WebView?>
-<AnchorPane id="AnchorPane" prefHeight="371.0" prefWidth="431.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.technorex.browser.WebUIController">
+<AnchorPane id="AnchorPane" style="-fx-background-color: #f7f7f7" prefHeight="371.0" prefWidth="431.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.technorex.browser.WebUIController">
     <AnchorPane id="AnchorPane">
         <AnchorPane id="AnchorPane">
             <GridPane id="GridPane">
@@ -19,7 +19,7 @@
             </GridPane>
         </AnchorPane>
     </AnchorPane>
-    <BorderPane prefHeight="371.0" prefWidth="431.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="30.0">
+    <BorderPane prefHeight="371.0" style="-fx-background-color: #F7F7F7" prefWidth="431.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="30.0">
         <center>
             <WebView fx:id="webView" prefHeight="500.0" prefWidth="421.0" />
         </center>
