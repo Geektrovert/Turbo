@@ -45,8 +45,8 @@ public class Tabs{
         return currentIndex;
     }
 
-    public void setCurrentIndex(int currenetIndex) {
-        this.currentIndex = currenetIndex;
+    public void setCurrentIndex(int currentIndex) {
+        this.currentIndex = currentIndex;
     }
 
     public WebView getWebView() {
