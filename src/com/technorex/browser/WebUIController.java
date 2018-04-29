@@ -1,6 +1,7 @@
 package com.technorex.browser;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,7 +23,7 @@ public class WebUIController implements Initializable {
     @FXML
     public ImageView toggleJS;
     @FXML
-    public ImageView historyButton;
+    public ComboBox historyButton;
     @FXML
     public ImageView backward;
     @FXML
