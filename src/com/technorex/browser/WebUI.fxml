@@ -3,29 +3,10 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.web.WebView?>
-
 <AnchorPane id="AnchorPane" prefHeight="371.0" prefWidth="431.0" style="-fx-background-color: #f7f7f7" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.technorex.browser.WebUIController">
-    <AnchorPane id="AnchorPane">
-        <AnchorPane id="AnchorPane">
-            <GridPane id="GridPane">
-                <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                </columnConstraints>
-                <rowConstraints>
-                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                </rowConstraints>
-            </GridPane>
-        </AnchorPane>
-    </AnchorPane>
     <BorderPane prefHeight="371.0" prefWidth="431.0" style="-fx-background-color: #F7F7F7" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="30.0">
         <center>
             <WebView fx:id="webView" prefHeight="500.0" prefWidth="421.0" />
@@ -44,7 +25,7 @@
                 <ImageView fx:id="toggleJS" fitHeight="36.0" fitWidth="36.0" nodeOrientation="INHERIT" onMouseExited="#JSNotHovered" onMouseMoved="#JSOnHover" onMousePressed="#toggleJS" opacity="0.6" pickOnBounds="true">
                     <Image url="@/Icons/JS.png" />
                 </ImageView>
-                <ComboBox fx:id="historyButton" maxWidth="36.0" minWidth="36.0" prefHeight="36.0" prefWidth="36.0" stylesheets="@HistoryButton.css" onMouseExited="#historyNotHovered" onMouseMoved="#historyOnHover" onMousePressed="#printHistory" opacity="0.6">
+                <ComboBox fx:id="historyButton" maxWidth="36.0" minWidth="36.0" onMouseExited="#historyNotHovered" onMouseMoved="#historyOnHover" onMousePressed="#printHistory" prefHeight="36.0" prefWidth="36.0" stylesheets="@HistoryButton.css" opacity="0.6">
                 </ComboBox>
                 <TextField fx:id="txtURL" alignment="TOP_LEFT" onAction="#goAction" prefHeight="36.0" prefWidth="386.0" style="-fx-font-size: 16px" AnchorPane.leftAnchor="0" HBox.hgrow="ALWAYS">
                     <HBox.margin>
