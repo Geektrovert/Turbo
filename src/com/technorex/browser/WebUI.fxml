@@ -86,13 +86,12 @@
                            pickOnBounds="true">
                     <Image url="@/Icons/Bookmark.png" />
                 </ImageView>
-                <ImageView fx:id="note"
-                           fitHeight="36.0" fitWidth="36.0"
-                           opacity="0.6" nodeOrientation="INHERIT"
+                <ComboBox fx:id="note"
+                          maxWidth="36.0" minWidth="36.0"
+                           opacity="0.6" stylesheets="@NotePadUI.css"
                            onMousePressed="#takeNotes" onMouseExited="#noteNotHovered"
-                           onMouseMoved="#noteOnHover" pickOnBounds="true">
-                    <Image url="@/Icons/Note.png" />
-                </ImageView>
+                           onMouseMoved="#noteOnHover">
+                </ComboBox>
             </HBox>
         </top>
     </BorderPane>

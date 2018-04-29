@@ -33,7 +33,7 @@ public class WebUIController implements Initializable {
     @FXML
     public TextField txtURL;
     @FXML
-    public ImageView note;
+    public ComboBox<TextField> note;
     @FXML
     WebView webView;
     private WebEngine webEngine;
@@ -206,5 +206,9 @@ public class WebUIController implements Initializable {
 
     public void takeNotes() {
         System.out.println("Clicked Notes");
+        note.getItems().removeAll(note.getItems());
+        note.getItems().add(new TextField());
+        String noteTxt = note.getItems().get(0).getText();
+        System.out.println("Note: " + noteTxt);
     }
 }
