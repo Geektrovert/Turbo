@@ -2,7 +2,6 @@ package com.technorex.browser;
 
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -17,13 +16,8 @@ public class Tabs{
         return webEngine;
     }
 
-    public void setWebEngine(WebEngine webEngine) {
-        this.webEngine = webEngine;
-    }
-
-    Tabs(WebView webView) {
-        webEngine = webView.getEngine();
-        webEngine.load("duckduckgo.com");
+    public void setWebEngine() {
+        webEngine=webView.getEngine();
     }
     public URL getCurrURL() {
         return currURL;

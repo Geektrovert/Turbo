@@ -32,6 +32,7 @@ public class App extends Application {
      *
      * @param stage Input Stage.
      */
+    //private boolean JSVal;
     @Override
     public void start(Stage stage) {
         init(stage);
@@ -39,7 +40,7 @@ public class App extends Application {
     }
 
     private void init(Stage stage) {
-        final String DEFAULT_URL = "https:\\www.example.com";
+        final String DEFAULT_URL = "www.example.com";
         Group root = new  Group();
         stage.setTitle("Turbo");
         stage.getIcons().add(new Image("Icons/icon.png"));
@@ -62,21 +63,48 @@ public class App extends Application {
                 final WebEngine webEngine = webView.getEngine();
                 webEngine.load(DEFAULT_URL);
                 final TextField urlField = new TextField(DEFAULT_URL);
+                urlField.setMinHeight(35.0);
                 webEngine.locationProperty().addListener((observable1, oldValue, newValue) -> urlField.setText(newValue));
                 EventHandler<ActionEvent> goAction = event -> webEngine.load( (urlField.getText().startsWith("http://") ||urlField.getText().startsWith("https://"))
                         ? urlField.getText()
                         : "https://" + urlField.getText());
                 urlField.setOnAction(goAction);
-                Button goButton = new Button("Go");
-                goButton.setStyle("-fx-background-color: #f7f7f7;");
+                Button goButton = new Button();
+                goButton.getStylesheets().add("/com/technorex/browser/GoButton.css");
+                goButton.setMinWidth(36.0);
+                goButton.setMinWidth(36.0);
                 goButton.setDefaultButton(true);
                 goButton.setOnAction(goAction);
+                Button toggleJs = new Button();
+                toggleJs.setMinWidth(36.0);
+                toggleJs.setMinWidth(36.0);
+                toggleJs.getStylesheets().add("/com/technorex/browser/ToggleJs.css");
+                toggleJs.setDefaultButton(true);
+                Button forward = new Button();
+                forward.setMinWidth(36.0);
+                forward.setMinWidth(36.0);
+                forward.getStylesheets().add("/com/technorex/browser/Forward.css");
+                forward.setDefaultButton(true);
+                Button backward = new Button();
+                backward.setMinWidth(36.0);
+                backward.setMinWidth(36.0);
+                backward.getStylesheets().add("/com/technorex/browser/Backward.css");
+                backward.setDefaultButton(true);
+                ComboBox<String> history = new ComboBox<>();
+                history.setMinWidth(36.0);
+                history.setMinWidth(36.0);
+                history.getStylesheets().add("/com/technorex/browser/HistoryButton.css");
+                //history.setDefaultButton(true);
+                //toggleJs.setOnAction(toggleJS());
                 HBox hBox = new HBox(10);
-                hBox.getChildren().setAll(urlField, goButton);
+                hBox.getChildren().setAll(history,backward,forward,toggleJs,urlField, goButton);
+                hBox.setStyle("-fx-background-color: #f7f7f7");
+                hBox.setMinHeight(36);
                 HBox.setHgrow(urlField, Priority.ALWAYS);
                 final VBox vBox = new VBox(5);
                 vBox.getChildren().setAll(hBox, webView);
                 VBox.setVgrow(webView, Priority.ALWAYS);
+                vBox.setMinHeight(36);
                 tab.setContent(vBox);
                 final ObservableList<Tab> tabs = tabPane.getTabs();
                 tab.closableProperty().bind(Bindings.size(tabs).greaterThan(2));
@@ -102,7 +130,16 @@ public class App extends Application {
         tabs.add(tabs.size() - 1, tab);
         tabPane.getSelectionModel().select(tab);
     }
-
+    public void toggleJS() {
+        /*if (JSVal) {
+            //webEngine.setJavaScriptEnabled(false);
+        }
+        else {
+            //webEngine.setJavaScriptEnabled(true);
+        }
+        JSVal = !JSVal; //Toggles the value of JSVal every time this function is called
+        */
+    }
     public static void main(String[] args) {
         launch(args);
     }

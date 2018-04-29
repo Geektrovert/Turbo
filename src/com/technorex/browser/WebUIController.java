@@ -81,7 +81,7 @@ public class WebUIController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        tabs=new Tabs(webView);
+        tabs=new Tabs();
         webEngine = tabs.getWebEngine();
         webEngine.locationProperty().addListener((observable, oldValue, newValue) -> txtURL.setText(newValue));
         if (!webEngine.isJavaScriptEnabled())

@@ -1,0 +1,10 @@
+.button{
+    -fx-background-image: url('/Icons/Forward.png');
+    -fx-width: 40px;
+    -fx-height: 36px;
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-border-width: 0;
+    -fx-background-color: #f7f7f7;
+    -fx-border-color: transparent;
+}
