@@ -1,12 +1,10 @@
 package com.technorex.browser;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebHistory;
 import javafx.scene.web.WebView;
 
 import java.net.URL;
@@ -42,14 +40,22 @@ public class WebUIController implements Initializable {
     public ImageView menuBar;
     private Image JSImageOn = new Image("Icons/JS.png");
     private Image JSImageOff = new Image("Icons/JSOff.png");
-    private ArrayList<URL> history,future;
+    private ArrayList<String> history = new ArrayList<>();
     private boolean JSVal = true;
+    private int currIndex = 0;
+    private final double hoverVal = 1.0, hoverRelease = 0.6;
 
     @FXML
     private void goAction() {
-        webEngine.load(
-                (txtURL.getText().startsWith("http://")||txtURL.getText().startsWith("https://"))
-                        ? txtURL.getText() : "http://" + txtURL.getText());
+        String url;
+        if (txtURL.getText().startsWith("http://") || txtURL.getText().startsWith("https://"))
+            url = txtURL.getText();
+        else
+            url = "http://" + txtURL.getText();
+        webEngine.load(url);
+        history.add(++currIndex,url);
+        for(int ind = currIndex+1; ind<history.size(); ind++)
+            history.remove(currIndex);
         //System.out.println(webEngine.getTitle());
     }
 
@@ -67,6 +73,7 @@ public class WebUIController implements Initializable {
             webEngine.setJavaScriptEnabled(true);
         txtURL.setText("https://duckduckgo.com");
         webEngine.load(txtURL.getText());
+        history.add(webEngine.getLocation());
         //System.out.println(webEngine.getTitle());
     }
 
@@ -93,85 +100,77 @@ public class WebUIController implements Initializable {
      */
     @FXML
     public void printHistory() {
-        ObservableList<WebHistory.Entry> entries = webEngine.getHistory().getEntries();
-        System.out.println("Web History--->>>");
-        for (WebHistory.Entry entry:
-                entries){
-            System.out.println(entry);
-        }
+        System.out.println("History:--->>>");
+        for(String st: history)
+            System.out.println(st);
+        System.out.println("Current: " + history.get(currIndex));
     }
 
     public void menuOnHover() {
-        menuBar.setOpacity(1.0);
+        menuBar.setOpacity(hoverVal);
     }
 
     public void menuNotHovered() {
-        menuBar.setOpacity(0.8);
+        menuBar.setOpacity(hoverRelease);
     }
 
     public void backOnHover() {
-        backward.setOpacity(1.0);
+        if(currIndex>0)
+            backward.setOpacity(hoverVal);
     }
 
     public void backNotHovered() {
-        backward.setOpacity(0.8);
+        backward.setOpacity(hoverRelease);
     }
 
     public void forwardOnHover() {
-        forward.setOpacity(1.0);
+        if(currIndex<history.size()-1)
+            forward.setOpacity(hoverVal);
     }
 
     public void forwardNotHovered() {
-        forward.setOpacity(0.8);
+        forward.setOpacity(hoverRelease);
     }
 
     public void JSOnHover() {
-        toggleJS.setOpacity(1.0);
+        toggleJS.setOpacity(hoverVal);
     }
 
     public void JSNotHovered() {
-        toggleJS.setOpacity(0.8);
+        toggleJS.setOpacity(hoverRelease);
     }
 
     public void historyOnHover() {
-        historyButton.setOpacity(1.0);
+        historyButton.setOpacity(hoverVal);
     }
 
     public void historyNotHovered() {
-        historyButton.setOpacity(0.8);
+        historyButton.setOpacity(hoverRelease);
     }
 
     public void searchOnHover() {
-        search.setOpacity(1.0);
+        search.setOpacity(hoverVal);
     }
 
     public void searchNotHovered() {
-        search.setOpacity(0.8);
+        search.setOpacity(hoverRelease);
     }
 
     public void bookmarkOnHover() {
-        bookmark.setOpacity(1.0);
+        bookmark.setOpacity(hoverVal);
     }
 
     public void bookmarkNotHovered() {
-        bookmark.setOpacity(0.8);
+        bookmark.setOpacity(hoverRelease);
     }
 
     public void goBack() {
-        ObservableList<WebHistory.Entry> entries = webEngine.getHistory().getEntries();
-        WebHistory.Entry last = null;
-        if(entries.size()>=2)
-            last = entries.get(entries.size()-2);
-        assert last != null;
-        webEngine.load(last.getUrl());
+        if(currIndex>0)
+            webEngine.load(history.get(--currIndex));
     }
 
     public void goForward() {
-        System.out.println("TESTING:--->>>");
-        ObservableList<WebHistory.Entry> entries = webEngine.getHistory().getEntries();
-        for (WebHistory.Entry entry: entries){
-            System.out.println(entry);
-        }
-        System.out.println(webEngine.getHistory().getCurrentIndex());
+        if(currIndex<history.size()-1)
+            webEngine.load(history.get(++currIndex));
     }
 }
