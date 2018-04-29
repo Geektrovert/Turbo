@@ -6,12 +6,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebHistory;
 import javafx.scene.web.WebView;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.StringTokenizer;
 
 /**
  * This file is associated with controlling of WebUI.fxml for GUI
@@ -24,7 +24,7 @@ public class WebUIController implements Initializable {
     @FXML
     public ImageView toggleJS;
     @FXML
-    public ComboBox<WebHistory.Entry> historyButton;
+    public ComboBox<String> historyButton;
     @FXML
     public ImageView backward;
     @FXML
@@ -40,7 +40,7 @@ public class WebUIController implements Initializable {
     public ImageView search;
     @FXML
     public ImageView menuBar;
-    private volatile String titleName = null;
+    private volatile String titleName = "";
     private Image JSImageOn = new Image("Icons/JS.png");
     private Image JSImageOff = new Image("Icons/JSOff.png");
     private ArrayList<String> history = new ArrayList<>();
@@ -103,11 +103,14 @@ public class WebUIController implements Initializable {
      */
     @FXML
     public void printHistory() {
-        historyButton.setItems(webEngine.getHistory().getEntries());
         System.out.println("History:--->>>");
-        for(String st: history)
-            System.out.println(st);
+        historyButton.getItems().removeAll(historyButton.getItems());
+        for(int i=history.size()-1;i>=0;i--) {
+            historyButton.getItems().add(history.get(i));
+        }
         titleName = webEngine.getHistory().getEntries().get(webEngine.getHistory().getEntries().size() - 1).getTitle();
+        StringTokenizer currentTitle = new StringTokenizer(titleName," -,/");
+        titleName = currentTitle.nextToken();
         System.out.println("Current: " + titleName);
     }
 
