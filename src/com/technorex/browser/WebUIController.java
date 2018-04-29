@@ -32,7 +32,7 @@ public class WebUIController implements Initializable {
     @FXML
     public ImageView bookmark;
     @FXML
-    TextField txtURL;
+    public TextField txtURL;
     @FXML
     WebView webView;
     private WebEngine webEngine;
@@ -47,7 +47,7 @@ public class WebUIController implements Initializable {
     private boolean JSVal = true;
     private int currIndex = 0;
     private final double hoverVal = 1.0, hoverRelease = 0.6;
-
+    private Tabs tabs;
     @FXML
     private void goAction() {
         String url;
@@ -82,7 +82,8 @@ public class WebUIController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        webEngine = webView.getEngine();
+        tabs=new Tabs(webView);
+        webEngine = tabs.getWebEngine();
         webEngine.locationProperty().addListener((observable, oldValue, newValue) -> txtURL.setText(newValue));
         if (!webEngine.isJavaScriptEnabled())
             webEngine.setJavaScriptEnabled(true);
