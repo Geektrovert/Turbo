@@ -58,6 +58,7 @@ public class WebUIController implements Initializable {
      * @param url Input URL
      * @param rb Input ResourceBundle
      */
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         webEngine = webView.getEngine();
