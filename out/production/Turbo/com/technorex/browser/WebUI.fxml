@@ -28,13 +28,13 @@
                 <ImageView fx:id="menuBar" fitHeight="36.0" fitWidth="36.0" nodeOrientation="INHERIT" pickOnBounds="true" onMouseMoved="#menuOnHover" onMouseExited="#menuNotHovered" opacity="0.8">
                     <Image url="@/Icons/Menu.png" />
                 </ImageView>
-                <ImageView fx:id="backward" fitHeight="36.0" fitWidth="36.0" nodeOrientation="INHERIT" pickOnBounds="true" onMouseMoved="#backOnHover" onMouseExited="#backNotHovered" opacity="0.8">
+                <ImageView fx:id="backward" fitHeight="36.0" fitWidth="36.0" nodeOrientation="INHERIT" pickOnBounds="true" onMousePressed="#goBack" onMouseMoved="#backOnHover" onMouseExited="#backNotHovered" opacity="0.8">
                     <Image url="@/Icons/Back.png" />
                 </ImageView>
-                <ImageView fx:id="forward" fitHeight="36.0" fitWidth="36.0" nodeOrientation="INHERIT" pickOnBounds="true" onMouseMoved="#forwardOnHover" onMouseExited="#forwardNotHovered" opacity="0.8">
+                <ImageView fx:id="forward" fitHeight="36.0" fitWidth="36.0" nodeOrientation="INHERIT" pickOnBounds="true" onMousePressed="#goForward" onMouseMoved="#forwardOnHover" onMouseExited="#forwardNotHovered" opacity="0.8">
                     <Image url="@/Icons/Forward.png" />
                 </ImageView>
-                <ImageView fx:id="toggleJS" fitHeight="36.0" fitWidth="36.0" nodeOrientation="INHERIT" onMousePressed="#changeJS" pickOnBounds="true" onMouseMoved="#JSOnHover" onMouseExited="#JSNotHovered" opacity="0.8">
+                <ImageView fx:id="toggleJS" fitHeight="36.0" fitWidth="36.0" nodeOrientation="INHERIT" onMousePressed="#toggleJS" pickOnBounds="true" onMouseMoved="#JSOnHover" onMouseExited="#JSNotHovered" opacity="0.8">
                     <Image url="@/Icons/JS.png" />
                 </ImageView>
                 <ImageView fx:id="historyButton" fitHeight="36.0" fitWidth="36.0" nodeOrientation="INHERIT" onMousePressed="#printHistory" pickOnBounds="true" onMouseMoved="#historyOnHover" onMouseExited="#historyNotHovered" opacity="0.8">

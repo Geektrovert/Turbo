@@ -10,6 +10,7 @@ import javafx.scene.web.WebHistory;
 import javafx.scene.web.WebView;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -41,6 +42,7 @@ public class WebUIController implements Initializable {
     public ImageView menuBar;
     private Image JSImageOn = new Image("Icons/JS.png");
     private Image JSImageOff = new Image("Icons/JSOff.png");
+    private ArrayList<URL> history,future;
     private boolean JSVal = true;
 
     @FXML
@@ -72,7 +74,7 @@ public class WebUIController implements Initializable {
      * Perform functionality associated with "JS" toggle button.
      */
     @FXML
-    public void changeJS() {
+    public void toggleJS() {
         if (JSVal) {
             webEngine.setJavaScriptEnabled(false);
             toggleJS.setImage(JSImageOff);
@@ -153,5 +155,23 @@ public class WebUIController implements Initializable {
 
     public void bookmarkNotHovered() {
         bookmark.setOpacity(0.8);
+    }
+
+    public void goBack() {
+        ObservableList<WebHistory.Entry> entries = webEngine.getHistory().getEntries();
+        WebHistory.Entry last = null;
+        if(entries.size()>=2)
+            last = entries.get(entries.size()-2);
+        assert last != null;
+        webEngine.load(last.getUrl());
+    }
+
+    public void goForward() {
+        System.out.println("TESTING:--->>>");
+        ObservableList<WebHistory.Entry> entries = webEngine.getHistory().getEntries();
+        for (WebHistory.Entry entry: entries){
+            System.out.println(entry);
+        }
+        System.out.println(webEngine.getHistory().getCurrentIndex());
     }
 }
