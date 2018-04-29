@@ -11,7 +11,6 @@ import javafx.scene.web.WebView;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.StringTokenizer;
 
 /**
  * This file is associated with controlling of WebUI.fxml for GUI
@@ -40,7 +39,6 @@ public class WebUIController implements Initializable {
     public ImageView search;
     @FXML
     public ImageView menuBar;
-    private volatile String titleName = "";
     private Image JSImageOn = new Image("Icons/JS.png");
     private Image JSImageOff = new Image("Icons/JSOff.png");
     private ArrayList<String> history = new ArrayList<>();
@@ -58,8 +56,7 @@ public class WebUIController implements Initializable {
         webEngine.load(url);
         history.add(++currIndex,url);
         for(int ind = currIndex+1; ind<history.size(); ind++)
-            history.remove(currIndex);
-        //System.out.println(webEngine.getTitle());
+            history.remove(ind);
     }
     @FXML
     private void goAction(String historyUrl) {
@@ -90,7 +87,6 @@ public class WebUIController implements Initializable {
         txtURL.setText("https://duckduckgo.com");
         webEngine.load(txtURL.getText());
         history.add(webEngine.getLocation());
-        //System.out.println(webEngine.getTitle());
     }
 
     /**
@@ -121,9 +117,7 @@ public class WebUIController implements Initializable {
         for(int i=history.size()-1;i>=0;i--) {
             historyButton.getItems().add(history.get(i));
         }
-        titleName = webEngine.getHistory().getEntries().get(webEngine.getHistory().getEntries().size() - 1).getTitle();
-        StringTokenizer currentTitle = new StringTokenizer(titleName," -,/");
-        titleName = currentTitle.nextToken();
+        String titleName = webEngine.getHistory().getEntries().get(webEngine.getHistory().getEntries().size() - 1).getTitle();
         System.out.println("Current: " + titleName);
     }
 
