@@ -1,0 +1,11 @@
+.combo-box{
+	-fx-background-image: url('/Icons/History.png');
+	-fx-background-repeat: no-repeat;
+	-fx-background-size: 100% 100%;
+	-fx-border-width: 0;
+	-fx-border-color: transparent;
+	-fx-background-color: transparent;
+}
+.combo-box, .arrow, .arrow-button{
+	-fx-background-color: transparent;
+}
