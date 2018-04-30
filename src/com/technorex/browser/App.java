@@ -46,8 +46,15 @@ public class App extends Application {
      */
     @Override
     public void start(Stage stage) {
-        init(stage);
+        InitPage initPage = new InitPage();
+        stage.setScene(initPage.getInitPage());
+        stage.setMaximized(false);
+        stage.setTitle("Turbo");
+        stage.getIcons().add(new Image("Icons/icon.png"));
+        stage.initStyle(StageStyle.DECORATED);
         stage.show();
+        waitSeconds(5);
+        init(stage);
     }
 
     private void init(Stage stage) {
@@ -56,7 +63,6 @@ public class App extends Application {
           Necessary Variables
          */
         Group root = new  Group();
-        InitPage initPage = new InitPage();
         BorderPane borderPane = new BorderPane();
         final TabPane tabPane = new TabPane();
         final Tab newTab = new Tab();
@@ -72,14 +78,7 @@ public class App extends Application {
         /*
           Logic and Graphics handling
          */
-        stage.setTitle("Turbo");
-        stage.getIcons().add(new Image("Icons/icon.png"));
-        stage.initStyle(StageStyle.DECORATED);
-        stage.setScene(initPage.getInitPage());
-        stage.setMaximized(false);
-        waitSeconds(5);
         stage.setScene(new Scene(root,scWidth,scHeight));
-        stage.setMaximized(true);
         tabPane.setPrefSize(scWidth,scHeight);
         tabPane.setSide(Side.TOP);
         tabPane.setStyle("-fx-background-color: #f7f7f7");
@@ -229,11 +228,11 @@ public class App extends Application {
         tabPane.getSelectionModel().select(tab);
     }
 
-    private void waitSeconds(int n) {
+    private void waitSeconds(int seconds) {
         String currTime = LocalDateTime.now().format(formatter);
         currTime = currTime.substring(6,currTime.length()-3);
         String temp = currTime;
-        while ((Integer.parseInt(currTime) + n) != Integer.parseInt(temp)) {
+        while ((Integer.parseInt(currTime) + seconds) != Integer.parseInt(temp)) {
             temp = LocalDateTime.now().format(formatter);
             temp = temp.substring(6,temp.length()-3);
         }
