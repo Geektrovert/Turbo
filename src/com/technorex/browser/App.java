@@ -11,10 +11,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.web.WebEngine;
@@ -31,8 +28,10 @@ import javafx.stage.StageStyle;
 
 public class App extends Application {
 
-    private boolean JSval = true;
-
+    private static boolean JSval = true;
+    private final String DEFAULT_URL = "https://www.duckduckgo.com";
+    private double scWidth = Screen.getPrimary().getBounds().getWidth();
+    private double scHeight = Screen.getPrimary().getBounds().getHeight();
     /**
      * Performs activity associated with the initialization of the Stage and Scene
      *
@@ -49,9 +48,6 @@ public class App extends Application {
         /*
           Necessary Variables
          */
-        double scWidth = Screen.getPrimary().getBounds().getWidth();
-        double scHeight = Screen.getPrimary().getBounds().getHeight();
-        final String DEFAULT_URL = "www.example.com";
         Group root = new  Group();
         BorderPane borderPane = new BorderPane();
         final TabPane tabPane = new TabPane();
@@ -61,6 +57,8 @@ public class App extends Application {
         Button toggleJs = new Button();
         Button backward = new Button();
         ComboBox<String> history = new ComboBox<>();
+        ComboBox<TextField> notePad = new ComboBox<>();
+        Button bookmark = new Button();
 
         /*
           Logic and Graphics handling
@@ -72,6 +70,7 @@ public class App extends Application {
         stage.setMaximized(true);
         tabPane.setPrefSize(scWidth,scHeight);
         tabPane.setSide(Side.TOP);
+        tabPane.setStyle("-fx-background-color: #f7f7f7");
         newTab.setText("+");
         newTab.setClosable(false);
         tabPane.getTabs().addAll(newTab);
@@ -80,27 +79,43 @@ public class App extends Application {
             if (newSelectedTab == newTab) {
                 Tab tab = new Tab();
                 tab.setText("New Tab");
+                tab.setStyle("-fx-background-color: #f7f7f7");
                 WebView webView = new WebView();
                 final WebEngine webEngine = webView.getEngine();
-                webEngine.load(DEFAULT_URL);
                 final TextField urlField = new TextField(DEFAULT_URL);
                 urlField.setMinHeight(36.0);
+
+
+                /*
+                Action Handler for WebEngine
+                 */
                 webEngine.locationProperty().addListener((observable1, oldValue, newValue) -> urlField.setText(newValue));
+
                 EventHandler<ActionEvent> goAction = event -> webEngine.load( (urlField.getText().startsWith("http://") ||urlField.getText().startsWith("https://"))
                         ? urlField.getText()
                         : "https://" + urlField.getText());
+
+
+                /*
+                Action handler for JS toggle button
+                 */
                 EventHandler<ActionEvent> toggleJS = event -> {
-                    JSval = (!JSval);
+                    JSval=!JSval;
                     if(JSval) {
-                        webEngine.setJavaScriptEnabled(JSval);
-                        toggleJs.getStylesheets().add("/com/technorex/browser/ToggleJs.css");
+                        webEngine.setJavaScriptEnabled(true);
+                        toggleJs.getStylesheets().add("/stylesheets/ToggleJs.css");
                         webEngine.reload();
                     }
                     else {
-                        webEngine.setJavaScriptEnabled(JSval);
-                        toggleJs.getStylesheets().add("/com/technorex/browser/notToggleJs.css");
+                        webEngine.setJavaScriptEnabled(false);
+                        toggleJs.getStylesheets().add("/stylesheets/notToggleJs.css");
                         webEngine.reload();
                     }
+                };
+
+                EventHandler<ActionEvent> notePadClicked = event -> {
+                    notePad.getItems().removeAll(notePad.getItems());
+                    notePad.getItems().add(new TextField());
                 };
 
                 /*
@@ -110,16 +125,31 @@ public class App extends Application {
                 toggleJs.setPrefSize(36.0,36.0);
                 forward.setPrefSize(36.0,36.0);
                 backward.setPrefSize(36.0,36.0);
-                history.setMaxSize(36.0,36.0);
+                history.setPrefSize(36.0,36.0);
+                bookmark.setPrefSize(36.0,36.0);
+                notePad.setPrefSize(36.0,36.0);
+
+                goButton.setMinSize(36.0,36.0);
+                toggleJs.setMinSize(36.0,36.0);
+                forward.setMinSize(36.0,36.0);
+                backward.setMinSize(36.0,36.0);
+                history.setMinSize(36.0,36.0);
+                bookmark.setMinSize(36.0,36.0);
+                notePad.setMinSize(36.0,36.0);
+
                 goButton.setDefaultButton(true);
                 toggleJs.setDefaultButton(true);
                 forward.setDefaultButton(true);
                 backward.setDefaultButton(true);
-                goButton.getStylesheets().add("/com/technorex/browser/GoButton.css");
-                toggleJs.getStylesheets().add("/com/technorex/browser/ToggleJs.css");
-                forward.getStylesheets().add("/com/technorex/browser/Forward.css");
-                backward.getStylesheets().add("/com/technorex/browser/Backward.css");
-                history.getStylesheets().add("/com/technorex/browser/HistoryButton.css");
+                bookmark.setDefaultButton(true);
+                goButton.getStylesheets().add("/stylesheets/GoButton.css");
+                toggleJs.getStylesheets().add("/stylesheets/ToggleJs.css");
+                forward.getStylesheets().add("/stylesheets/Forward.css");
+                backward.getStylesheets().add("/stylesheets/Backward.css");
+                history.getStylesheets().add("/stylesheets/HistoryButton.css");
+                bookmark.getStylesheets().add("/stylesheets/bookmark.css");
+                notePad.getStylesheets().add("/stylesheets/notePad.css");
+
 
                 /*
                 Adding event handlers to buttons
@@ -127,12 +157,13 @@ public class App extends Application {
                 urlField.setOnAction(goAction);
                 goButton.setOnAction(goAction);
                 toggleJs.setOnAction(toggleJS);
-                HBox hBox = new HBox(10);
-                hBox.getChildren().setAll(history,backward,forward,toggleJs,urlField, goButton);
+                notePad.setOnAction(notePadClicked);
+                HBox hBox = new HBox(5);
+                hBox.getChildren().setAll(backward,forward,toggleJs,history,urlField,goButton,bookmark,notePad);
                 hBox.setStyle("-fx-background-color: #f7f7f7");
                 hBox.setMinHeight(36);
                 HBox.setHgrow(urlField, Priority.ALWAYS);
-                final VBox vBox = new VBox(5);
+                final VBox vBox = new VBox();
                 vBox.getChildren().setAll(hBox, webView);
                 VBox.setVgrow(webView, Priority.ALWAYS);
                 vBox.setMinHeight(36);
@@ -141,6 +172,7 @@ public class App extends Application {
                 tab.closableProperty().bind(Bindings.size(tabs).greaterThan(2));
                 tabs.add(tabs.size() - 1, tab);
                 tabPane.getSelectionModel().select(tab);
+                webEngine.load(DEFAULT_URL);
             }
         });
         borderPane.setCenter(tabPane);
@@ -150,12 +182,13 @@ public class App extends Application {
     private void createAndSelectNewTab(final TabPane tabPane) {
         Tab tab = new Tab("Home");
         Label aboutLabel = new Label();
-        aboutLabel.setText("\n\n\n\n\t\t\t\t\t\t\tTURBO" +
-                "\n\n\t\t\t\t\tA lightweight, Secure and User Friendly Web Browser" +
-                "\n\t\t\t\t\tCSE-2112 Java project, CSEDU" +
-                "\n\t\t\t\t\tStart browsing by opening new tab");
+        aboutLabel.setText("\n\nTURBO" +
+                "\n\n--->>> A lightweight, Secure and User Friendly Web Browser <<<---" +
+                  "\n  ----------------(CSE-2112 Java project, CSEDU)---------------- " +
+                  "\n            -->  Start browsing by opening new tab <--" +
+                "\n\n\n\n  <-------- FEATURES -------->");
         aboutLabel.setFont(Font.font("Consolas", FontWeight.BOLD, 20));
-        aboutLabel.setAlignment(Pos.TOP_CENTER);
+        aboutLabel.setAlignment(Pos.BOTTOM_CENTER);
         tab.setContent(aboutLabel);
         final ObservableList<Tab> tabs = tabPane.getTabs();
         tab.closableProperty().bind(Bindings.size(tabs).greaterThan(2));

@@ -1,0 +1,14 @@
+.combo-box {
+    -fx-background-image: url('/Icons/Note.png');
+    -fx-pref-width: 36px;
+    -fx-pref-height: 36px;
+    -fx-background-repeat: repeat;
+    -fx-background-size: 100% 100%;
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+}
+
+.combo-box .arrow, .arrow-button{
+    -fx-background-color: transparent;
+}
