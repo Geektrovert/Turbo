@@ -103,11 +103,13 @@ public class App extends Application {
                     JSval=!JSval;
                     if(JSval) {
                         webEngine.setJavaScriptEnabled(true);
+                        toggleJs.getStylesheets().removeAll(toggleJs.getStylesheets());
                         toggleJs.getStylesheets().add("/stylesheets/ToggleJs.css");
                         webEngine.reload();
                     }
                     else {
                         webEngine.setJavaScriptEnabled(false);
+                        toggleJs.getStylesheets().removeAll(toggleJs.getStylesheets());
                         toggleJs.getStylesheets().add("/stylesheets/notToggleJs.css");
                         webEngine.reload();
                     }
