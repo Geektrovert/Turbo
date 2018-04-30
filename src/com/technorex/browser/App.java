@@ -11,7 +11,10 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.web.WebEngine;
@@ -19,6 +22,9 @@ import javafx.scene.web.WebView;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Main class that extends Application Class as to initiate the Turbo browser.
@@ -32,6 +38,7 @@ public class App extends Application {
     private final String DEFAULT_URL = "https://www.duckduckgo.com";
     private double scWidth = Screen.getPrimary().getBounds().getWidth();
     private double scHeight = Screen.getPrimary().getBounds().getHeight();
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:s a");
     /**
      * Performs activity associated with the initialization of the Stage and Scene
      *
@@ -49,6 +56,7 @@ public class App extends Application {
           Necessary Variables
          */
         Group root = new  Group();
+        InitPage initPage = new InitPage();
         BorderPane borderPane = new BorderPane();
         final TabPane tabPane = new TabPane();
         final Tab newTab = new Tab();
@@ -59,6 +67,7 @@ public class App extends Application {
         ComboBox<String> history = new ComboBox<>();
         ComboBox<TextField> notePad = new ComboBox<>();
         Button bookmark = new Button();
+        History webHistory = new History();
 
         /*
           Logic and Graphics handling
@@ -66,6 +75,9 @@ public class App extends Application {
         stage.setTitle("Turbo");
         stage.getIcons().add(new Image("Icons/icon.png"));
         stage.initStyle(StageStyle.DECORATED);
+        stage.setScene(initPage.getInitPage());
+        stage.setMaximized(false);
+        waitSeconds(5);
         stage.setScene(new Scene(root,scWidth,scHeight));
         stage.setMaximized(true);
         tabPane.setPrefSize(scWidth,scHeight);
@@ -91,9 +103,12 @@ public class App extends Application {
                  */
                 webEngine.locationProperty().addListener((observable1, oldValue, newValue) -> urlField.setText(newValue));
 
-                EventHandler<ActionEvent> goAction = event -> webEngine.load( (urlField.getText().startsWith("http://") ||urlField.getText().startsWith("https://"))
-                        ? urlField.getText()
-                        : "https://" + urlField.getText());
+                EventHandler<ActionEvent> goAction = event -> {
+                    webEngine.load( (urlField.getText().startsWith("http://") ||urlField.getText().startsWith("https://"))
+                            ? urlField.getText()
+                            : "https://" + urlField.getText());
+                    webHistory.addHistory(webEngine.getLocation());
+                };
 
 
                 /*
@@ -113,10 +128,24 @@ public class App extends Application {
                     }
                 };
 
+
+                /*
+                Action handler for notePad button
+                 */
                 EventHandler<ActionEvent> notePadClicked = event -> {
                     notePad.getItems().removeAll(notePad.getItems());
                     notePad.getItems().add(new TextField());
                 };
+
+                /*
+                Action handler for history button
+                 */
+                EventHandler<ActionEvent> showHistory = event -> {
+                    history.getItems().removeAll(history.getItems());
+                    ComboBox<String> temp = webHistory.getHistory(history);
+                    history.getItems().addAll(temp.getItems());
+                };
+
 
                 /*
                 Defining button sizes and styles
@@ -158,6 +187,10 @@ public class App extends Application {
                 goButton.setOnAction(goAction);
                 toggleJs.setOnAction(toggleJS);
                 notePad.setOnAction(notePadClicked);
+                history.setOnAction(showHistory);
+
+
+
                 HBox hBox = new HBox(5);
                 hBox.getChildren().setAll(backward,forward,toggleJs,history,urlField,goButton,bookmark,notePad);
                 hBox.setStyle("-fx-background-color: #f7f7f7");
@@ -173,6 +206,7 @@ public class App extends Application {
                 tabs.add(tabs.size() - 1, tab);
                 tabPane.getSelectionModel().select(tab);
                 webEngine.load(DEFAULT_URL);
+                webHistory.addHistory(DEFAULT_URL);
             }
         });
         borderPane.setCenter(tabPane);
@@ -189,11 +223,20 @@ public class App extends Application {
                 "\n\n\n\n  <-------- FEATURES -------->");
         aboutLabel.setFont(Font.font("Consolas", FontWeight.BOLD, 20));
         aboutLabel.setAlignment(Pos.BOTTOM_CENTER);
-        tab.setContent(aboutLabel);
         final ObservableList<Tab> tabs = tabPane.getTabs();
         tab.closableProperty().bind(Bindings.size(tabs).greaterThan(2));
         tabs.add(tabs.size() - 1, tab);
         tabPane.getSelectionModel().select(tab);
+    }
+
+    private void waitSeconds(int n) {
+        String currTime = LocalDateTime.now().format(formatter);
+        currTime = currTime.substring(6,currTime.length()-3);
+        String temp = currTime;
+        while ((Integer.parseInt(currTime) + n) != Integer.parseInt(temp)) {
+            temp = LocalDateTime.now().format(formatter);
+            temp = temp.substring(6,temp.length()-3);
+        }
     }
 
     public static void main(String[] args) {
