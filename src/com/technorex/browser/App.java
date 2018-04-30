@@ -19,7 +19,7 @@ import javafx.scene.web.WebView;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
+import javafx.scene.input.MouseEvent;
 /**
  * Main class that extends Application Class as to initiate the Turbo browser.
  *
@@ -117,7 +117,26 @@ public class App extends Application {
                     notePad.getItems().removeAll(notePad.getItems());
                     notePad.getItems().add(new TextField());
                 };
-
+                /*
+                 setting action on for hovering for the buttons
+                */
+                EventHandler<MouseEvent> goButtonHovered = event -> goButton.setOpacity(1.0);
+                EventHandler<MouseEvent> JSButtonHovered = event -> toggleJs.setOpacity(1.0);
+                EventHandler<MouseEvent> forwardHovered = event -> forward.setOpacity(1.0);
+                EventHandler<MouseEvent> backwardHovered = event -> backward.setOpacity(1.0);
+                EventHandler<MouseEvent> historyHovered = event -> history.setOpacity(1.0);
+                EventHandler<MouseEvent> bookmarkHovered = event -> bookmark.setOpacity(1.0);
+                EventHandler<MouseEvent> notepadHovered = event -> notePad.setOpacity(1.0);
+                /*
+                 resetting action on for hovering for the buttons
+                */
+                EventHandler<MouseEvent> goButtonNotHovered = event -> goButton.setOpacity(0.6);
+                EventHandler<MouseEvent> JSButtonNotHovered = event -> toggleJs.setOpacity(0.6);
+                EventHandler<MouseEvent> forwardNotHovered = event -> forward.setOpacity(0.6);
+                EventHandler<MouseEvent> backwardNotHovered = event -> backward.setOpacity(0.6);
+                EventHandler<MouseEvent> historyNotHovered = event -> history.setOpacity(0.6);
+                EventHandler<MouseEvent> bookmarkNotHovered = event -> bookmark.setOpacity(0.6);
+                EventHandler<MouseEvent> notepadNotHovered = event -> notePad.setOpacity(0.6);
                 /*
                 Defining button sizes and styles
                  */
@@ -142,6 +161,15 @@ public class App extends Application {
                 forward.setDefaultButton(true);
                 backward.setDefaultButton(true);
                 bookmark.setDefaultButton(true);
+
+                goButton.setOpacity(0.6);
+                toggleJs.setOpacity(0.6);
+                forward.setOpacity(0.6);
+                backward.setOpacity(0.6);
+                bookmark.setOpacity(0.6);
+                history.setOpacity(0.6);
+                notePad.setOpacity(0.6);
+
                 goButton.getStylesheets().add("/stylesheets/GoButton.css");
                 toggleJs.getStylesheets().add("/stylesheets/ToggleJs.css");
                 forward.getStylesheets().add("/stylesheets/Forward.css");
@@ -158,6 +186,23 @@ public class App extends Application {
                 goButton.setOnAction(goAction);
                 toggleJs.setOnAction(toggleJS);
                 notePad.setOnAction(notePadClicked);
+
+                goButton.setOnMouseEntered(goButtonHovered);
+                toggleJs.setOnMouseEntered(JSButtonHovered);
+                forward.setOnMouseEntered(forwardHovered);
+                backward.setOnMouseEntered(backwardHovered);
+                bookmark.setOnMouseEntered(bookmarkHovered);
+                notePad.setOnMouseEntered(notepadHovered);
+                history.setOnMouseEntered(historyHovered);
+
+                goButton.setOnMouseExited(goButtonNotHovered);
+                toggleJs.setOnMouseExited(JSButtonNotHovered);
+                forward.setOnMouseExited(forwardNotHovered);
+                backward.setOnMouseExited(backwardNotHovered);
+                bookmark.setOnMouseExited(bookmarkNotHovered);
+                notePad.setOnMouseExited(notepadNotHovered);
+                history.setOnMouseExited(historyNotHovered);
+
                 HBox hBox = new HBox(5);
                 hBox.getChildren().setAll(backward,forward,toggleJs,history,urlField,goButton,bookmark,notePad);
                 hBox.setStyle("-fx-background-color: #f7f7f7");
