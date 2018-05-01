@@ -42,9 +42,9 @@ class TabManager {
         searchField.setPrefHeight(30.0);
 
 
-                /*
-                Action Handler for WebEngine
-                 */
+        /*
+        Action Handler for WebEngine
+         */
         webEngine.locationProperty().addListener((observable1, oldValue, newValue) -> {
             urlField.setText(newValue);
             webHistory.addHistory(webEngine.getLocation());
@@ -52,14 +52,9 @@ class TabManager {
             tempHistory.add(webEngine.getLocation());
         });
 
-        EventHandler<ActionEvent> goAction = event -> {
-            webEngine.load((urlField.getText().startsWith("http://") || urlField.getText().startsWith("https://"))
-                    ? urlField.getText()
-                    : "https://" + urlField.getText());
-            webHistory.addHistory(webEngine.getLocation());
-            App.localHistory.addHistory(webEngine.getLocation());
-            tempHistory.add(webEngine.getLocation());
-        };
+        EventHandler<ActionEvent> goAction = event -> webEngine.load((urlField.getText().startsWith("http://") || urlField.getText().startsWith("https://"))
+                ? urlField.getText()
+                : "https://" + urlField.getText());
 
 
                 /*
@@ -80,17 +75,17 @@ class TabManager {
         };
 
 
-                /*
-                Action handler for notePad button
-                 */
+        /*
+        Action handler for notePad button
+         */
         EventHandler<ActionEvent> notePadClicked = event -> {
             notePad.getItems().removeAll(notePad.getItems());
             notePad.getItems().add(new TextField());
         };
 
-                /*
-                Action handler for history button
-                 */
+        /*
+        Action handler for history button
+         */
         EventHandler<MouseEvent> showHistory = event -> {
             history.getItems().removeAll(history.getItems());
             for(int i=tempHistory.size()-1;i>=0;i--) {
@@ -111,14 +106,16 @@ class TabManager {
         };
 
         EventHandler<ActionEvent> goBackward = event -> {
-            if(webHistory.backward()!=null) {
-                webEngine.load(webHistory.backward());
+            String url = webHistory.backward();
+            if(url!=null) {
+                webEngine.load(url);
             }
         };
 
         EventHandler<ActionEvent> goForward = event -> {
-            if(webHistory.forward()!=null) {
-                webEngine.load(webHistory.forward());
+            String url = webHistory.forward();
+            if(url!=null) {
+                webEngine.load(url);
             }
         };
 
