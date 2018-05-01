@@ -11,7 +11,6 @@
     -fx-text-fill: #ffffff;
     -fx-border-width: 0 0 0 1;
     -fx-border-color: #6f6f6f;
-    -fx-width: 20px;
 }
 
 .tab .tab-label {
@@ -25,8 +24,8 @@
     -fx-text-fill: #ffffff;
     -fx-background-insets: 0;
     -fx-background-radius: 0;
-    -fx-border-radius: 2;
-    -fx-border-width: 2 0 0 1;
+    -fx-border-radius: 1;
+    -fx-border-width: 1 1 0 1;
     -fx-border-color: #9f9f9f;
 }
 

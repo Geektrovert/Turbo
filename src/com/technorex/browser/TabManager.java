@@ -122,21 +122,21 @@ class TabManager {
         /*
         Defining button sizes and styles
         */
-        goButton.setPrefSize(26.0, 26.0);
-        toggleJs.setPrefSize(26.0, 26.0);
-        forward.setPrefSize(26.0, 26.0);
-        backward.setPrefSize(26.0, 26.0);
-        history.setPrefSize(26.0, 26.0);
-        bookmark.setPrefSize(26.0, 26.0);
-        notePad.setPrefSize(26.0, 26.0);
+        goButton.setPrefSize(30.0, 30.0);
+        toggleJs.setPrefSize(30.0, 30.0);
+        forward.setPrefSize(30.0, 30.0);
+        backward.setPrefSize(30.0, 30.0);
+        history.setPrefSize(30.0, 30.0);
+        bookmark.setPrefSize(30.0, 30.0);
+        notePad.setPrefSize(30.0, 30.0);
 
-        goButton.setMinSize(26.0, 26.0);
-        toggleJs.setMinSize(26.0, 26.0);
-        forward.setMinSize(26.0, 26.0);
-        backward.setMinSize(26.0, 26.0);
-        history.setMinSize(26.0, 26.0);
-        bookmark.setMinSize(26.0, 26.0);
-        notePad.setMinSize(26.0, 26.0);
+        goButton.setMinSize(30.0, 30.0);
+        toggleJs.setMinSize(30.0, 30.0);
+        forward.setMinSize(30.0, 30.0);
+        backward.setMinSize(30.0, 30.0);
+        history.setMinSize(30.0, 30.0);
+        bookmark.setMinSize(30.0, 30.0);
+        notePad.setMinSize(30.0, 30.0);
 
 
 
@@ -156,9 +156,9 @@ class TabManager {
         notePad.getStylesheets().add("/stylesheets/notePad.css");
 
 
-                /*
-                Adding event handlers to buttons
-                 */
+        /*
+        Adding event handlers to buttons
+         */
         urlField.setOnAction(goAction);
         goButton.setOnAction(goAction);
         toggleJs.setOnAction(toggleJS);
