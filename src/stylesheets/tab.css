@@ -3,6 +3,7 @@
     -fx-text-fill: #ffffff;
     -fx-border-width: 0 0 0 1;
     -fx-border-color: #6f6f6f;
+    -fx-focus-color: transparent;
 }
 
 .tab:hover {
@@ -10,6 +11,7 @@
     -fx-text-fill: #ffffff;
     -fx-border-width: 0 0 0 1;
     -fx-border-color: #6f6f6f;
+    -fx-width: 20px;
 }
 
 .tab .tab-label {

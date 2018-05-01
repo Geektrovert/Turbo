@@ -14,8 +14,9 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
 class TabManager {
-    private boolean JSval = true;
+    private boolean JSval;
     Tab createNewTab() {
+        JSval=true;
         final String DEFAULT_URL = "https://duckduckgo.com";
         final String DEFAULT_Search = "Search";
         final Tab tab = new Tab();
