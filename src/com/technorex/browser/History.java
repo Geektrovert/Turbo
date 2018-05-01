@@ -4,7 +4,7 @@ import javafx.scene.control.ComboBox;
 
 import java.util.ArrayList;
 
-public class History {
+class History {
     private ArrayList<String> history;
     private int currIndex;
     History() {
