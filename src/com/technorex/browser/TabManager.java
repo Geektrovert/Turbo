@@ -113,6 +113,7 @@ class TabManager {
         forward.getStylesheets().add("/stylesheets/Forward.css");
         backward.getStylesheets().add("/stylesheets/Backward.css");
         history.getStylesheets().add("/stylesheets/HistoryButton.css");
+        urlField.getStylesheets().add("/stylesheets/URLField.css");
         bookmark.getStylesheets().add("/stylesheets/bookmark.css");
         notePad.getStylesheets().add("/stylesheets/notePad.css");
 
@@ -129,7 +130,7 @@ class TabManager {
 
         HBox hBox = new HBox(5);
         hBox.getChildren().setAll(backward, forward, toggleJs, history, urlField, goButton, bookmark, notePad);
-        hBox.setStyle("-fx-background-color: #f7f7f7");
+        hBox.setStyle("-fx-background-color: #323234");
         hBox.setMinHeight(36);
         HBox.setHgrow(urlField, Priority.ALWAYS);
         final VBox vBox = new VBox();
