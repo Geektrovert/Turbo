@@ -26,7 +26,7 @@ public class App extends Application {
 
     private double scWidth = Screen.getPrimary().getBounds().getWidth();
     private double scHeight = Screen.getPrimary().getBounds().getHeight();
-    private static History localHistory = new History();
+    public static History localHistory = new History();
     public static void main(String[] args) {
         launch(args);
     }

@@ -16,7 +16,7 @@ class History {
         if(currIndex==history.size()-1)
             history.add(++currIndex,string);
         else {
-            for(int ind = currIndex; ind<history.size(); ind++)
+            for(int ind = currIndex+1; ind<history.size(); ind++)
                 history.remove(ind);
             history.add(++currIndex,string);
         }
