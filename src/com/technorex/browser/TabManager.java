@@ -14,9 +14,7 @@ import javafx.scene.web.WebView;
 import java.util.ArrayList;
 
 class TabManager {
-    private boolean JSval;
     Tab createNewTab() {
-        JSval=true;
         final String DEFAULT_URL = "https://duckduckgo.com";
         final String DEFAULT_Search = "Search";
         final Tab tab = new Tab();
@@ -68,8 +66,7 @@ class TabManager {
                 Action handler for JS toggle button
                  */
         EventHandler<ActionEvent> toggleJS = event -> {
-            JSval = !JSval;
-            if (JSval) {
+            if (!webEngine.isJavaScriptEnabled()) {
                 webEngine.setJavaScriptEnabled(true);
                 toggleJs.getStylesheets().removeAll(toggleJs.getStylesheets());
                 toggleJs.getStylesheets().add("/stylesheets/ToggleJs.css");
