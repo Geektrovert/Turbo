@@ -22,8 +22,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.File;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Main class that extends Application Class as to initiate the Turbo browser.
@@ -37,14 +35,18 @@ public class App extends Application {
     private final String DEFAULT_URL = "https://www.duckduckgo.com";
     private double scWidth = Screen.getPrimary().getBounds().getWidth();
     private double scHeight = Screen.getPrimary().getBounds().getHeight();
-    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:s a");
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     /**
      * Performs activity associated with the initialization of the Stage and Scene
      *
      * @param stage Input Stage.
      */
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws InterruptedException {
         InitPage initPage = new InitPage();
         stage.setScene(initPage.getInitPage());
         stage.setMaximized(true);
@@ -52,7 +54,7 @@ public class App extends Application {
         stage.getIcons().add(new Image("Icons/icon.png"));
         stage.initStyle(StageStyle.DECORATED);
         stage.show();
-        waitSeconds(5);
+        Thread.sleep(1000);
         init(stage);
     }
 
@@ -61,7 +63,7 @@ public class App extends Application {
         /*
           Necessary Variables
          */
-        Group root = new  Group();
+        Group root = new Group();
         BorderPane borderPane = new BorderPane();
         final TabPane tabPane = new TabPane();
         final Tab newTab = new Tab();
@@ -72,13 +74,12 @@ public class App extends Application {
         ComboBox<String> history = new ComboBox<>();
         ComboBox<TextField> notePad = new ComboBox<>();
         Button bookmark = new Button();
-        History webHistory = new History();
 
         /*
           Logic and Graphics handling
          */
-        stage.setScene(new Scene(root,scWidth,scHeight));
-        tabPane.setPrefSize(scWidth,scHeight);
+        stage.setScene(new Scene(root, scWidth, scHeight));
+        tabPane.setPrefSize(scWidth, scHeight);
         tabPane.setSide(Side.TOP);
         tabPane.setStyle("-fx-background-color: #f7f7f7");
         newTab.setText("+");
@@ -88,11 +89,13 @@ public class App extends Application {
         tabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldSelectedTab, newSelectedTab) -> {
             if (newSelectedTab == newTab) {
                 Tab tab = new Tab();
-                tab.setText("New Tab");
-                tab.setStyle("-fx-background-color: #f7f7f7");
                 WebView webView = new WebView();
                 final WebEngine webEngine = webView.getEngine();
                 final TextField urlField = new TextField(DEFAULT_URL);
+                History webHistory = new History();
+
+                tab.setText("New Tab");
+                tab.setStyle("-fx-background-color: #f7f7f7");
                 urlField.setMinHeight(36.0);
 
 
@@ -102,7 +105,7 @@ public class App extends Application {
                 webEngine.locationProperty().addListener((observable1, oldValue, newValue) -> urlField.setText(newValue));
 
                 EventHandler<ActionEvent> goAction = event -> {
-                    webEngine.load( (urlField.getText().startsWith("http://") ||urlField.getText().startsWith("https://"))
+                    webEngine.load((urlField.getText().startsWith("http://") || urlField.getText().startsWith("https://"))
                             ? urlField.getText()
                             : "https://" + urlField.getText());
                     webHistory.addHistory(webEngine.getLocation());
@@ -113,14 +116,13 @@ public class App extends Application {
                 Action handler for JS toggle button
                  */
                 EventHandler<ActionEvent> toggleJS = event -> {
-                    JSval=!JSval;
-                    if(JSval) {
+                    JSval = !JSval;
+                    if (JSval) {
                         webEngine.setJavaScriptEnabled(true);
                         toggleJs.getStylesheets().removeAll(toggleJs.getStylesheets());
                         toggleJs.getStylesheets().add("/stylesheets/ToggleJs.css");
                         webEngine.reload();
-                    }
-                    else {
+                    } else {
                         webEngine.setJavaScriptEnabled(false);
                         toggleJs.getStylesheets().removeAll(toggleJs.getStylesheets());
                         toggleJs.getStylesheets().add("/stylesheets/notToggleJs.css");
@@ -150,21 +152,21 @@ public class App extends Application {
                 /*
                 Defining button sizes and styles
                  */
-                goButton.setPrefSize(36.0,36.0);
-                toggleJs.setPrefSize(36.0,36.0);
-                forward.setPrefSize(36.0,36.0);
-                backward.setPrefSize(36.0,36.0);
-                history.setPrefSize(36.0,36.0);
-                bookmark.setPrefSize(36.0,36.0);
-                notePad.setPrefSize(36.0,36.0);
+                goButton.setPrefSize(36.0, 36.0);
+                toggleJs.setPrefSize(36.0, 36.0);
+                forward.setPrefSize(36.0, 36.0);
+                backward.setPrefSize(36.0, 36.0);
+                history.setPrefSize(36.0, 36.0);
+                bookmark.setPrefSize(36.0, 36.0);
+                notePad.setPrefSize(36.0, 36.0);
 
-                goButton.setMinSize(36.0,36.0);
-                toggleJs.setMinSize(36.0,36.0);
-                forward.setMinSize(36.0,36.0);
-                backward.setMinSize(36.0,36.0);
-                history.setMinSize(36.0,36.0);
-                bookmark.setMinSize(36.0,36.0);
-                notePad.setMinSize(36.0,36.0);
+                goButton.setMinSize(36.0, 36.0);
+                toggleJs.setMinSize(36.0, 36.0);
+                forward.setMinSize(36.0, 36.0);
+                backward.setMinSize(36.0, 36.0);
+                history.setMinSize(36.0, 36.0);
+                bookmark.setMinSize(36.0, 36.0);
+                notePad.setMinSize(36.0, 36.0);
 
                 goButton.setDefaultButton(true);
                 toggleJs.setDefaultButton(true);
@@ -190,9 +192,8 @@ public class App extends Application {
                 history.setOnAction(showHistory);
 
 
-
                 HBox hBox = new HBox(5);
-                hBox.getChildren().setAll(backward,forward,toggleJs,history,urlField,goButton,bookmark,notePad);
+                hBox.getChildren().setAll(backward, forward, toggleJs, history, urlField, goButton, bookmark, notePad);
                 hBox.setStyle("-fx-background-color: #f7f7f7");
                 hBox.setMinHeight(36);
                 HBox.setHgrow(urlField, Priority.ALWAYS);
@@ -223,19 +224,5 @@ public class App extends Application {
         tab.closableProperty().bind(Bindings.size(tabs).greaterThan(2));
         tabs.add(tabs.size() - 1, tab);
         tabPane.getSelectionModel().select(tab);
-    }
-
-    private void waitSeconds(int seconds) {
-        String currTime = LocalDateTime.now().format(formatter);
-        currTime = currTime.substring(6,currTime.length()-3);
-        String temp = currTime;
-        while ((Integer.parseInt(currTime) + seconds) != Integer.parseInt(temp)) {
-            temp = LocalDateTime.now().format(formatter);
-            temp = temp.substring(6,temp.length()-3);
-        }
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }
