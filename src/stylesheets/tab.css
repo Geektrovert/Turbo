@@ -1,0 +1,33 @@
+.tab {
+    -fx-background-color: #0c0c0d;
+    -fx-text-fill: #ffffff;
+    -fx-border-width: 0 1 0 1;
+    -fx-border-color: #6f6f6f;
+}
+
+.tab:hover {
+    -fx-background-color: #1f1f1f;
+    -fx-text-fill: #ffffff;
+    -fx-border-width: 0 1 0 1;
+    -fx-border-color: #6f6f6f;
+}
+
+.tab .tab-label {
+    -fx-background-color: transparent;
+    -fx-alignment: CENTER;
+    -fx-text-fill: #f7f7f7;
+}
+
+.tab:selected {
+    -fx-background-color: #363636;
+    -fx-text-fill: #ffffff;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-radius: 2;
+    -fx-border-width: 2 1 0 1;
+    -fx-border-color: #9f9f9f;
+}
+
+.tab-pane *.tab-header-background {
+    -fx-background-color: #0c0c0d;
+}

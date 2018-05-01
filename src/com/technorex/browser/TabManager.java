@@ -16,22 +16,25 @@ class TabManager {
     private boolean JSval = true;
     Tab createNewTab() {
         final String DEFAULT_URL = "https://duckduckgo.com";
-        Tab tab = new Tab();
-        Button goButton = new Button();
-        Button forward = new Button();
-        Button toggleJs = new Button();
-        Button backward = new Button();
-        ComboBox<String> history = new ComboBox<>();
-        ComboBox<TextField> notePad = new ComboBox<>();
-        Button bookmark = new Button();
-        WebView webView = new WebView();
+        final String DEFAULT_Search = "Search";
+        final Tab tab = new Tab();
+        final Button goButton = new Button();
+        final Button forward = new Button();
+        final Button toggleJs = new Button();
+        final Button backward = new Button();
+        final ComboBox<String> history = new ComboBox<>();
+        final ComboBox<TextField> notePad = new ComboBox<>();
+        final Button bookmark = new Button();
+        final WebView webView = new WebView();
         final WebEngine webEngine = webView.getEngine();
         final TextField urlField = new TextField(DEFAULT_URL);
-        History webHistory = new History();
+        final TextField searchField = new TextField(DEFAULT_Search);
+        final History webHistory = new History();
 
         tab.setText("New Tab");
-        tab.setStyle("-fx-background-color: #f7f7f7");
         urlField.setMinHeight(36.0);
+        searchField.setPromptText(DEFAULT_Search);
+        searchField.setMinHeight(36.0);
 
 
                 /*
@@ -108,12 +111,13 @@ class TabManager {
         forward.setDefaultButton(true);
         backward.setDefaultButton(true);
         bookmark.setDefaultButton(true);
-        goButton.getStylesheets().add("/stylesheets/GoButton.css");
         toggleJs.getStylesheets().add("/stylesheets/ToggleJs.css");
         forward.getStylesheets().add("/stylesheets/Forward.css");
         backward.getStylesheets().add("/stylesheets/Backward.css");
         history.getStylesheets().add("/stylesheets/HistoryButton.css");
         urlField.getStylesheets().add("/stylesheets/URLField.css");
+        searchField.getStylesheets().add("/stylesheets/URLField.css");
+        goButton.getStylesheets().add("/stylesheets/GoButton.css");
         bookmark.getStylesheets().add("/stylesheets/bookmark.css");
         notePad.getStylesheets().add("/stylesheets/notePad.css");
 
@@ -129,7 +133,7 @@ class TabManager {
 
 
         HBox hBox = new HBox(5);
-        hBox.getChildren().setAll(backward, forward, toggleJs, history, urlField, goButton, bookmark, notePad);
+        hBox.getChildren().setAll(backward, forward, toggleJs, history, urlField, searchField, goButton, bookmark, notePad);
         hBox.setStyle("-fx-background-color: #323234");
         hBox.setMinHeight(36);
         HBox.setHgrow(urlField, Priority.ALWAYS);

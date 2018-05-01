@@ -64,7 +64,7 @@ public class App extends Application {
         stage.getIcons().add(new Image("Icons/icon.png"));
 
         tabPane.setSide(Side.TOP);
-        tabPane.setStyle("-fx-background-color: #f7f7f7");
+        tabPane.getStylesheets().add("/stylesheets/tab.css");
         newTab.setText("+");
         newTab.setClosable(false);
         tabPane.getTabs().addAll(newTab);
