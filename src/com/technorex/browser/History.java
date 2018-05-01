@@ -40,4 +40,7 @@ class History {
             ref.getItems().add(history.get(ind));
         return ref;
     }
+    int getCurrIndex(){
+        return currIndex;
+    }
 }

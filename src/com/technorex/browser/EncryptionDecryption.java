@@ -6,7 +6,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 
-public class EncryptionDecryption {
+class EncryptionDecryption {
     /**
      * The @param key must be at least 8 bytes
      * @param key encryption key
@@ -14,7 +14,7 @@ public class EncryptionDecryption {
      * @param out file output stream
      * @throws Exception for illegalKeyException
      */
-    public static void encrypt(String key, String in, File out) throws Exception{
+    static void encrypt(String key, String in, File out) throws Exception{
         InputStream inputStream = new ByteArrayInputStream(in.getBytes(StandardCharsets.UTF_8));
         FileOutputStream fileOutputStream = new FileOutputStream(out);
         DESKeySpec desKeySpec = new DESKeySpec(key.getBytes());

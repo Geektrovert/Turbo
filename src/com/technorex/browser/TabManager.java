@@ -3,15 +3,15 @@ package com.technorex.browser;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+
+import java.util.ArrayList;
 
 class TabManager {
     private boolean JSval;
@@ -26,6 +26,7 @@ class TabManager {
         final Button backward = new Button();
         final ComboBox<String> history = new ComboBox<>();
         final ComboBox<TextField> notePad = new ComboBox<>();
+        final ArrayList<String> tempHistory = new ArrayList<>();
         final Button bookmark = new Button();
         final WebView webView = new WebView();
         final WebEngine webEngine = webView.getEngine();
@@ -46,13 +47,20 @@ class TabManager {
                 /*
                 Action Handler for WebEngine
                  */
-        webEngine.locationProperty().addListener((observable1, oldValue, newValue) -> urlField.setText(newValue));
+        webEngine.locationProperty().addListener((observable1, oldValue, newValue) -> {
+            urlField.setText(newValue);
+            webHistory.addHistory(webEngine.getLocation());
+            App.localHistory.addHistory(webEngine.getLocation());
+            tempHistory.add(webEngine.getLocation());
+        });
 
         EventHandler<ActionEvent> goAction = event -> {
             webEngine.load((urlField.getText().startsWith("http://") || urlField.getText().startsWith("https://"))
                     ? urlField.getText()
                     : "https://" + urlField.getText());
             webHistory.addHistory(webEngine.getLocation());
+            App.localHistory.addHistory(webEngine.getLocation());
+            tempHistory.add(webEngine.getLocation());
         };
 
 
@@ -86,16 +94,40 @@ class TabManager {
                 /*
                 Action handler for history button
                  */
-        EventHandler<ActionEvent> showHistory = event -> {
+        EventHandler<MouseEvent> showHistory = event -> {
             history.getItems().removeAll(history.getItems());
-            ComboBox<String> temp = webHistory.getHistory(history);
-            history.getItems().addAll(temp.getItems());
+            for(int i=tempHistory.size()-1;i>=0;i--) {
+                history.getItems().add(tempHistory.get(i));
+            }
         };
 
+        EventHandler<ActionEvent> chooseEntry = event -> {
+            if(history.getValue()!=null){
+                webEngine.load(history.getValue());
+                urlField.setText(webEngine.getLocation());
+                tempHistory.add(webEngine.getLocation());
+                history.getItems().removeAll(history.getItems());
+                for(int i=tempHistory.size()-1;i>=0;i--) {
+                    history.getItems().add(tempHistory.get(i));
+                }
+            }
+        };
 
-                /*
-                Defining button sizes and styles
-                 */
+        EventHandler<ActionEvent> goBackward = event -> {
+            if(webHistory.backward()!=null) {
+                webEngine.load(webHistory.backward());
+            }
+        };
+
+        EventHandler<ActionEvent> goForward = event -> {
+            if(webHistory.forward()!=null) {
+                webEngine.load(webHistory.forward());
+            }
+        };
+
+        /*
+        Defining button sizes and styles
+        */
         goButton.setPrefSize(26.0, 26.0);
         toggleJs.setPrefSize(26.0, 26.0);
         forward.setPrefSize(26.0, 26.0);
@@ -111,6 +143,8 @@ class TabManager {
         history.setMinSize(26.0, 26.0);
         bookmark.setMinSize(26.0, 26.0);
         notePad.setMinSize(26.0, 26.0);
+
+
 
         goButton.setDefaultButton(true);
         toggleJs.setDefaultButton(true);
@@ -135,8 +169,10 @@ class TabManager {
         goButton.setOnAction(goAction);
         toggleJs.setOnAction(toggleJS);
         notePad.setOnAction(notePadClicked);
-        history.setOnAction(showHistory);
-
+        history.setOnMouseClicked(showHistory);
+        history.setOnAction(chooseEntry);
+        backward.setOnAction(goBackward);
+        forward.setOnAction(goForward);
 
         HBox hBox = new HBox(5);
         hBox.getChildren().setAll(backward, forward, toggleJs, history, urlField, searchField, goButton, bookmark, notePad);

@@ -26,7 +26,7 @@ public class App extends Application {
 
     private double scWidth = Screen.getPrimary().getBounds().getWidth();
     private double scHeight = Screen.getPrimary().getBounds().getHeight();
-
+    private static History localHistory = new History();
     public static void main(String[] args) {
         launch(args);
     }
@@ -52,7 +52,6 @@ public class App extends Application {
         final TabPane tabPane = new TabPane();
         TabManager tabManager = new TabManager();
         final Tab newTab = new Tab();
-
         /*
           Logic and Graphics handling
          */
