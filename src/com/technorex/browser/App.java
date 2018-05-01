@@ -59,13 +59,16 @@ public class App extends Application {
         stage.setTitle("Turbo");
         stage.setMaximized(true);
         stage.initStyle(StageStyle.DECORATED);
-        tabPane.setPrefSize(scWidth, scHeight);
         stage.setScene(new Scene(root, scWidth, scHeight));
         stage.getIcons().add(new Image("Icons/icon.png"));
 
         tabPane.setSide(Side.TOP);
+        tabPane.setPrefSize(scWidth, scHeight);
         tabPane.getStylesheets().add("/stylesheets/tab.css");
+        tabPane.setMinHeight(44.0);
+
         newTab.setText("+");
+        newTab.setStyle("-fx-font-size: 12pt;");
         newTab.setClosable(false);
         tabPane.getTabs().addAll(newTab);
         createHomeTab(tabPane);
@@ -84,6 +87,7 @@ public class App extends Application {
 
     private void createHomeTab(final TabPane tabPane) {
         Tab tab = new Tab("Home");
+        tab.setStyle("-fx-border-width: 0 0 0 0");
         final VBox vBox = new VBox();
         ImageView imageView = new ImageView(new Image("/Icons/InitPage.png"));
         imageView.setFitWidth(scWidth);

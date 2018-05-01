@@ -2,6 +2,7 @@ package com.technorex.browser;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Tab;
@@ -32,9 +33,13 @@ class TabManager {
         final History webHistory = new History();
 
         tab.setText("New Tab");
-        urlField.setMinHeight(36.0);
+        urlField.setMinHeight(30.0);
+        urlField.setMaxHeight(30.0);
+        urlField.setPrefHeight(30.0);
         searchField.setPromptText(DEFAULT_Search);
-        searchField.setMinHeight(36.0);
+        searchField.setMinHeight(30.0);
+        searchField.setMaxHeight(30.0);
+        searchField.setPrefHeight(30.0);
 
 
                 /*
@@ -90,21 +95,21 @@ class TabManager {
                 /*
                 Defining button sizes and styles
                  */
-        goButton.setPrefSize(36.0, 36.0);
-        toggleJs.setPrefSize(36.0, 36.0);
-        forward.setPrefSize(36.0, 36.0);
-        backward.setPrefSize(36.0, 36.0);
-        history.setPrefSize(36.0, 36.0);
-        bookmark.setPrefSize(36.0, 36.0);
-        notePad.setPrefSize(36.0, 36.0);
+        goButton.setPrefSize(26.0, 26.0);
+        toggleJs.setPrefSize(26.0, 26.0);
+        forward.setPrefSize(26.0, 26.0);
+        backward.setPrefSize(26.0, 26.0);
+        history.setPrefSize(26.0, 26.0);
+        bookmark.setPrefSize(26.0, 26.0);
+        notePad.setPrefSize(26.0, 26.0);
 
-        goButton.setMinSize(36.0, 36.0);
-        toggleJs.setMinSize(36.0, 36.0);
-        forward.setMinSize(36.0, 36.0);
-        backward.setMinSize(36.0, 36.0);
-        history.setMinSize(36.0, 36.0);
-        bookmark.setMinSize(36.0, 36.0);
-        notePad.setMinSize(36.0, 36.0);
+        goButton.setMinSize(26.0, 26.0);
+        toggleJs.setMinSize(26.0, 26.0);
+        forward.setMinSize(26.0, 26.0);
+        backward.setMinSize(26.0, 26.0);
+        history.setMinSize(26.0, 26.0);
+        bookmark.setMinSize(26.0, 26.0);
+        notePad.setMinSize(26.0, 26.0);
 
         goButton.setDefaultButton(true);
         toggleJs.setDefaultButton(true);
@@ -135,7 +140,8 @@ class TabManager {
         HBox hBox = new HBox(5);
         hBox.getChildren().setAll(backward, forward, toggleJs, history, urlField, searchField, goButton, bookmark, notePad);
         hBox.setStyle("-fx-background-color: #323234");
-        hBox.setMinHeight(36);
+        hBox.setMinHeight(40.0);
+        hBox.setAlignment(Pos.CENTER);
         HBox.setHgrow(urlField, Priority.ALWAYS);
         final VBox vBox = new VBox();
         vBox.getChildren().setAll(hBox, webView);
