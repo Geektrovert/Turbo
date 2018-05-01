@@ -9,7 +9,7 @@ import javafx.stage.Screen;
 
 import java.io.File;
 
-public class InitPage {
+class InitPage {
     private double scWidth =  Screen.getPrimary().getBounds().getWidth();
     private double scHeight = Screen.getPrimary().getBounds().getHeight();
     private File file = new File("/Icons/InitPage.png");
@@ -19,9 +19,9 @@ public class InitPage {
         Scene scene = new Scene(group,scWidth,scHeight);
         HBox box = new HBox();
         ImageView imageView = new ImageView(initImage);
-        imageView.setPreserveRatio(true);
-        imageView.setFitHeight(560.0);
-        imageView.setFitWidth(960.0);
+        //imageView.setPreserveRatio(true);
+        imageView.setFitHeight(scHeight);
+        imageView.setFitWidth(scWidth);
         imageView.setSmooth(true);
         box.getChildren().add(imageView);
         group.getChildren().add(box);

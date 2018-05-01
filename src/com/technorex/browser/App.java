@@ -5,24 +5,23 @@ import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -48,7 +47,7 @@ public class App extends Application {
     public void start(Stage stage) {
         InitPage initPage = new InitPage();
         stage.setScene(initPage.getInitPage());
-        stage.setMaximized(false);
+        stage.setMaximized(true);
         stage.setTitle("Turbo");
         stage.getIcons().add(new Image("Icons/icon.png"));
         stage.initStyle(StageStyle.DECORATED);
@@ -117,11 +116,13 @@ public class App extends Application {
                     JSval=!JSval;
                     if(JSval) {
                         webEngine.setJavaScriptEnabled(true);
+                        toggleJs.getStylesheets().removeAll(toggleJs.getStylesheets());
                         toggleJs.getStylesheets().add("/stylesheets/ToggleJs.css");
                         webEngine.reload();
                     }
                     else {
                         webEngine.setJavaScriptEnabled(false);
+                        toggleJs.getStylesheets().removeAll(toggleJs.getStylesheets());
                         toggleJs.getStylesheets().add("/stylesheets/notToggleJs.css");
                         webEngine.reload();
                     }
@@ -214,14 +215,10 @@ public class App extends Application {
 
     private void createAndSelectNewTab(final TabPane tabPane) {
         Tab tab = new Tab("Home");
-        Label aboutLabel = new Label();
-        aboutLabel.setText("\n\nTURBO" +
-                "\n\n--->>> A lightweight, Secure and User Friendly Web Browser <<<---" +
-                  "\n  ----------------(CSE-2112 Java project, CSEDU)---------------- " +
-                  "\n            -->  Start browsing by opening new tab <--" +
-                "\n\n\n\n  <-------- FEATURES -------->");
-        aboutLabel.setFont(Font.font("Consolas", FontWeight.BOLD, 20));
-        aboutLabel.setAlignment(Pos.BOTTOM_CENTER);
+        File file = new File("/Icons/InitPage.png");
+        Image initImage = new Image(file.getPath());
+        ImageView imageView = new ImageView(initImage);
+        imageView.setSmooth(true);
         final ObservableList<Tab> tabs = tabPane.getTabs();
         tab.closableProperty().bind(Bindings.size(tabs).greaterThan(2));
         tabs.add(tabs.size() - 1, tab);
