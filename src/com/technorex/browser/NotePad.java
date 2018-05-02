@@ -94,6 +94,7 @@ class NotePad {
         File file = new File(path+name);
         PrintStream printStream = new PrintStream(new FileOutputStream(file));
         printStream.println(data);
+        printStream.close();
     }
 
     private static Scene pad() throws FileNotFoundException {
