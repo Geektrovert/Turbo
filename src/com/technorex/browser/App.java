@@ -24,9 +24,11 @@ import javafx.stage.StageStyle;
 
 public class App extends Application {
 
+    public static Stage stage = new Stage();
     private double scWidth = Screen.getPrimary().getBounds().getWidth();
     private double scHeight = Screen.getPrimary().getBounds().getHeight();
     static History localHistory = new History();
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -38,8 +40,8 @@ public class App extends Application {
      */
     @Override
     public void start(Stage stage) {
-        init(stage);
-        stage.show();
+        init(App.stage);
+        App.stage.show();
     }
 
     private void init(Stage stage) {

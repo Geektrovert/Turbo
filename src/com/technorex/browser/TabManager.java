@@ -35,7 +35,7 @@ class TabManager {
         final TextField urlField = new TextField(DEFAULT_URL);
         final TextField searchField = new TextField(DEFAULT_Search);
         final History webHistory = new History();
-        final ProgressBar progressBar = new ProgressBar(0.4);
+        final ProgressBar progressBar = new ProgressBar(0.3);
         final Worker<Void> worker = webEngine.getLoadWorker();
         final double scWidth = Screen.getPrimary().getBounds().getWidth();
         tab.setText("New Tab");
@@ -55,23 +55,26 @@ class TabManager {
         webEngine.locationProperty().addListener((observable1, oldValue, newValue) -> {
             progressBar.setVisible(true);
             urlField.setText(newValue);
-            webHistory.addHistory(webEngine.getLocation());
-            App.localHistory.addHistory(webEngine.getLocation());
-            tempHistory.add(webEngine.getLocation());
         });
 
         EventHandler<ActionEvent> goAction = event ->{
             progressBar.setVisible(true);
             webEngine.load((urlField.getText().startsWith("http://") || urlField.getText().startsWith("https://")) ? urlField.getText() : "https://" + urlField.getText());
         };
+
         worker.stateProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == Worker.State.SUCCEEDED) {
                 progressBar.setVisible(false);
+                webHistory.addHistory(webEngine.getLocation());
+                App.localHistory.addHistory(webEngine.getLocation());
+                tempHistory.add(webEngine.getLocation());
             }
         });
-                /*
-                Action handler for JS toggle button
-                 */
+
+
+        /*
+        Action handler for JS toggle button
+         */
         EventHandler<ActionEvent> toggleJS = event -> {
             if (!webEngine.isJavaScriptEnabled()) {
                 webEngine.setJavaScriptEnabled(true);
@@ -94,6 +97,7 @@ class TabManager {
             notePad.getItems().removeAll(notePad.getItems());
             notePad.getItems().add(new TextField());
         };
+
 
         /*
         Action handler for history button
@@ -130,6 +134,8 @@ class TabManager {
                 webEngine.load(url);
             }
         };
+
+        EventHandler<ActionEvent> takeNote = event -> NotePad.takeNote();
 
         /*
         Defining button sizes and styles
@@ -184,11 +190,12 @@ class TabManager {
         history.setOnAction(chooseEntry);
         backward.setOnAction(goBackward);
         forward.setOnAction(goForward);
+        notePad.setOnAction(takeNote);
 
         HBox hBox = new HBox(10);
         hBox.getChildren().setAll(backward, forward, toggleJs, history, urlField, searchField, goButton, bookmark, notePad, menu);
         hBox.setPadding(new Insets(0,10,0,10));
-        hBox.setStyle("-fx-background-color: #323234");
+        hBox.setStyle("-fx-background-color: #343434");
         hBox.setMinHeight(40.0);
         hBox.setAlignment(Pos.CENTER);
         HBox.setHgrow(urlField, Priority.ALWAYS);
