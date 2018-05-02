@@ -1,0 +1,32 @@
+.text-field {
+    -fx-background-color: transparent;
+    -fx-background-radius: 2;
+    -fx-background-insets: 10 10 10 10;
+    -fx-border-radius: 2;
+    -fx-border-width: 5 5 5 5;
+    -fx-border-insets: 10 10 10 10;
+    -fx-border-color: #767676;
+    -fx-text-fill: #373737;
+    -fx-text-alignment: left;
+    -fx-font-family: Book Antique;
+    -fx-font-size: 18px;
+}
+
+.text-input {
+    -fx-text-fill: #f7f7f7;
+}
+
+.text-field:hover{
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 2;
+    -fx-background-insets: 10 10 10 10;
+    -fx-border-radius: 2;
+    -fx-border-width: 5 5 5 5;
+    -fx-border-insets: 10 10 10 10;
+    -fx-border-color: #373737;
+    -fx-text-fill: #373737;
+    -fx-text-alignment: left;
+    -fx-font-family: Book Antique;
+    -fx-font-size: 18px;
+    -fx-opacity: 1.0;
+}

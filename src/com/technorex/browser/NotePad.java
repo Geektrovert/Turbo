@@ -5,11 +5,12 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.*;
-import javafx.scene.text.*;
-import javafx.scene.text.Font;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
-import javafx.scene.control.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -28,17 +29,15 @@ class NotePad {
             HBox hBox = new HBox();
             for(int i=0;i<4;i++,ind++) {
                 if(ind<cnt) {
-                    Text text = new Text(notes.get(ind));
-                    text.setTextAlignment(TextAlignment.CENTER);
-                    text.setFont(Font.font("Calibri", FontPosture.REGULAR, 24));
-                    text.setStyle("-fx-text-fill: #fafafa; -fx-text-alignment: center");
-                    TextFlow textFlow = new TextFlow(text);
-                    textFlow.setPrefWidth(scWidth/4.0);
-                    textFlow.setMinWidth(scWidth/4.0);
-                    textFlow.setMaxHeight(scHeight/3.0-50);
-                    textFlow.setStyle("-fx-border-radius: 2; -fx-border-color: #9f9f9f; -fx-border-insets: 10 10 10 10; -fx-border-width: 2 ");
-                    hBox.getChildren().add(textFlow);
-                    hBox.setAlignment(Pos.TOP_LEFT);
+                    Button button = new Button();
+                    button.setText(notes.get(ind));
+                    button.setAlignment(Pos.TOP_LEFT);
+                    button.setPrefWidth(scWidth/4.0);
+                    button.setMinWidth(scWidth/4.0);
+                    button.setMaxHeight(scHeight/3.0-50);
+                    button.setMinHeight(scHeight/3.0-50);
+                    button.getStylesheets().add("/stylesheets/NotePadTextButton.css");
+                    hBox.getChildren().add(button);
                 }
             }
             row.add(hBox);
@@ -69,9 +68,6 @@ class NotePad {
         listFilesForFolder(folder);
     }
 
-    private static void onExit() {
-        App.stage.setScene(lastScene);
-    }
 
     private static Scene pad() throws FileNotFoundException {
         Group notePad = new Group();
@@ -86,11 +82,13 @@ class NotePad {
         HBox toolBar= new HBox();
         toolBar.setMinHeight(48.0);
         Button newNote = new Button("New Note");
-        Button close = new Button("Close");
+        Button close = new Button("Exit notepad");
         newNote.getStylesheets().add("/stylesheets/NotePadButton.css");
         close.getStylesheets().add("/stylesheets/NotePadButton.css");
-        EventHandler<ActionEvent> closeNotepad = event -> onExit();
+        EventHandler<ActionEvent> closeNotepad = event -> App.stage.setScene(NotePad.lastScene);
+        EventHandler<ActionEvent> openPad = event -> newNote();
         close.setOnAction(closeNotepad);
+        newNote.setOnAction(openPad);
         toolBar.setAlignment(Pos.CENTER);
         toolBar.setMinHeight(80);
         toolBar.setSpacing(scWidth-420);
@@ -102,7 +100,45 @@ class NotePad {
         return scene;
     }
 
+    private static void newNote() {
+        Group notePad = new Group();
+        Scene scene = new Scene(notePad,scWidth,scHeight);
+        VBox sceneContainer = new VBox();
+        sceneContainer.setStyle("-fx-background-color: #fafafa; -fx-alignment: center");
+        sceneContainer.setMinSize(scWidth,scHeight);
+        TextField textField = new TextField();
+        textField.setPromptText("Type here to take note");
+        textField.setAlignment(Pos.TOP_LEFT);
+        textField.setMinSize(scWidth/4.0,7.0*scHeight/10.0);
+        textField.setMaxSize(scWidth/4.0,7.0*scHeight/10.0);
+        HBox toolBar= new HBox();
+        toolBar.setMinHeight(48.0);
+        Button newNote = new Button("Save note");
+        Button close = new Button("Exit notepad");
+        newNote.getStylesheets().add("/stylesheets/NotePadButton.css");
+        close.getStylesheets().add("/stylesheets/NotePadButton.css");
+        textField.getStylesheets().add("/stylesheets/TakeNote.css");
+        EventHandler<ActionEvent> closeNotepad = event -> {
+            try {
+                App.stage.setScene(NotePad.pad());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        };
+        close.setOnAction(closeNotepad);
+        toolBar.setAlignment(Pos.CENTER);
+        toolBar.setMinHeight(80);
+        toolBar.setSpacing(scWidth-3.0*scWidth/4.0-420);
+        toolBar.getChildren().addAll(newNote,close);
+        VBox toolBarContainer = new VBox();
+        toolBarContainer.getChildren().add(toolBar);
+        sceneContainer.getChildren().addAll(toolBarContainer,textField);
+        notePad.getChildren().add(sceneContainer);
+        App.stage.setScene(scene);
+    }
+
     public static void takeNote() throws FileNotFoundException {
+        NotePad.lastScene = App.stage.getScene();
         App.stage.setScene(pad());
     }
 }
