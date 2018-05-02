@@ -26,7 +26,7 @@ class TabManager {
         final Button toggleJs = new Button();
         final Button backward = new Button();
         final ComboBox<String> history = new ComboBox<>();
-        final ComboBox<TextField> notePad = new ComboBox<>();
+        final Button notePad = new Button();
         final ArrayList<String> tempHistory = new ArrayList<>();
         final Button bookmark = new Button();
         final Button menu = new Button();
@@ -40,11 +40,11 @@ class TabManager {
         final double scWidth = Screen.getPrimary().getBounds().getWidth();
         tab.setText("New Tab");
         urlField.setMinHeight(30.0);
-        urlField.setMaxHeight(30.0);
+        urlField.setMaxHeight(36.0);
         urlField.setPrefHeight(30.0);
         searchField.setPromptText(DEFAULT_Search);
         searchField.setMinHeight(30.0);
-        searchField.setMaxHeight(30.0);
+        searchField.setMaxHeight(36.0);
         searchField.setPrefHeight(30.0);
         progressBar.setPrefWidth(scWidth);
         progressBar.progressProperty().bind(worker.progressProperty());
@@ -69,7 +69,6 @@ class TabManager {
                 App.localHistory.addHistory(webEngine.getLocation());
                 tempHistory.add(webEngine.getLocation());
                 String titleName = webEngine.getHistory().getEntries().get(webEngine.getHistory().getEntries().size()-1).getTitle();
-                System.out.println(titleName);
                 tab.setText(titleName);
             }
         });
@@ -164,6 +163,7 @@ class TabManager {
         forward.setDefaultButton(true);
         backward.setDefaultButton(true);
         bookmark.setDefaultButton(true);
+        notePad.setDefaultButton(true);
         menu.setDefaultButton(true);
         toggleJs.getStylesheets().add("/stylesheets/ToggleJs.css");
         forward.getStylesheets().add("/stylesheets/Forward.css");
@@ -175,7 +175,6 @@ class TabManager {
         bookmark.getStylesheets().add("/stylesheets/bookmark.css");
         notePad.getStylesheets().add("/stylesheets/notePad.css");
         menu.getStylesheets().add("/stylesheets/menuButton.css");
-
         progressBar.getStylesheets().add("/stylesheets/ProgressBar.css");
 
         /*
@@ -192,9 +191,9 @@ class TabManager {
 
         HBox hBox = new HBox(10);
         hBox.getChildren().setAll(backward, forward, toggleJs, history, urlField, searchField, goButton, bookmark, notePad, menu);
-        hBox.setPadding(new Insets(0,10,0,10));
+        hBox.setPadding(new Insets(6,12,6,12));
         hBox.setStyle("-fx-background-color: #343434");
-        hBox.setMinHeight(40.0);
+        hBox.setMinHeight(48.0);
         hBox.setAlignment(Pos.CENTER);
         HBox.setHgrow(urlField, Priority.ALWAYS);
         final VBox vBox = new VBox();
