@@ -14,6 +14,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Screen;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 class TabManager {
@@ -95,7 +96,13 @@ class TabManager {
         /*
         Action handler for notePad button
          */
-        EventHandler<ActionEvent> takeNote = event -> NotePad.takeNote();
+        EventHandler<ActionEvent> takeNote = event -> {
+            try {
+                NotePad.takeNote();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        };
 
 
         /*
