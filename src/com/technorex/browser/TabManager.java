@@ -93,10 +93,7 @@ class TabManager {
         /*
         Action handler for notePad button
          */
-        EventHandler<ActionEvent> notePadClicked = event -> {
-            notePad.getItems().removeAll(notePad.getItems());
-            notePad.getItems().add(new TextField());
-        };
+        EventHandler<ActionEvent> takeNote = event -> NotePad.takeNote();
 
 
         /*
@@ -135,7 +132,6 @@ class TabManager {
             }
         };
 
-        EventHandler<ActionEvent> takeNote = event -> NotePad.takeNote();
 
         /*
         Defining button sizes and styles
@@ -185,12 +181,11 @@ class TabManager {
         urlField.setOnAction(goAction);
         goButton.setOnAction(goAction);
         toggleJs.setOnAction(toggleJS);
-        notePad.setOnAction(notePadClicked);
+        notePad.setOnAction(takeNote);
         history.setOnMouseClicked(showHistory);
         history.setOnAction(chooseEntry);
         backward.setOnAction(goBackward);
         forward.setOnAction(goForward);
-        notePad.setOnAction(takeNote);
 
         HBox hBox = new HBox(10);
         hBox.getChildren().setAll(backward, forward, toggleJs, history, urlField, searchField, goButton, bookmark, notePad, menu);
