@@ -69,7 +69,6 @@ class TabManager {
                 App.localHistory.addHistory(webEngine.getLocation());
                 tempHistory.add(webEngine.getLocation());
                 String titleName = webEngine.getHistory().getEntries().get(webEngine.getHistory().getEntries().size()-1).getTitle();
-                System.out.println(titleName);
                 tab.setText(titleName);
             }
         });
