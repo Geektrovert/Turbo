@@ -1,0 +1,12 @@
+.root{
+    -fx-background-color: transparent;
+    -fx-border-width: 0px;
+    -fx-border-color: transparent;
+}
+
+.progress-bar > .bar {
+    -fx-background-insets: 0 0 0 0;
+    -fx-padding: 0.25em;
+    -fx-background-color: #00FFA3;
+    -fx-padding-color: transparent;
+}

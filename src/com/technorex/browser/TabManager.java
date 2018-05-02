@@ -1,5 +1,6 @@
 package com.technorex.browser;
 
+import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -11,6 +12,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.Screen;
 
 import java.util.ArrayList;
 
@@ -33,7 +35,9 @@ class TabManager {
         final TextField urlField = new TextField(DEFAULT_URL);
         final TextField searchField = new TextField(DEFAULT_Search);
         final History webHistory = new History();
-
+        final ProgressBar progressBar = new ProgressBar(0.4);
+        final Worker<Void> worker = webEngine.getLoadWorker();
+        final double scWidth = Screen.getPrimary().getBounds().getWidth();
         tab.setText("New Tab");
         urlField.setMinHeight(30.0);
         urlField.setMaxHeight(30.0);
@@ -42,23 +46,29 @@ class TabManager {
         searchField.setMinHeight(30.0);
         searchField.setMaxHeight(30.0);
         searchField.setPrefHeight(30.0);
-
-
+        progressBar.setPrefWidth(scWidth);
+        progressBar.progressProperty().bind(worker.progressProperty());
+        progressBar.setVisible(false);
         /*
         Action Handler for WebEngine
          */
         webEngine.locationProperty().addListener((observable1, oldValue, newValue) -> {
+            progressBar.setVisible(true);
             urlField.setText(newValue);
             webHistory.addHistory(webEngine.getLocation());
             App.localHistory.addHistory(webEngine.getLocation());
             tempHistory.add(webEngine.getLocation());
         });
 
-        EventHandler<ActionEvent> goAction = event -> webEngine.load((urlField.getText().startsWith("http://") || urlField.getText().startsWith("https://"))
-                ? urlField.getText()
-                : "https://" + urlField.getText());
-
-
+        EventHandler<ActionEvent> goAction = event ->{
+            progressBar.setVisible(true);
+            webEngine.load((urlField.getText().startsWith("http://") || urlField.getText().startsWith("https://")) ? urlField.getText() : "https://" + urlField.getText());
+        };
+        worker.stateProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == Worker.State.SUCCEEDED) {
+                progressBar.setVisible(false);
+            }
+        });
                 /*
                 Action handler for JS toggle button
                  */
@@ -161,6 +171,7 @@ class TabManager {
         notePad.getStylesheets().add("/stylesheets/notePad.css");
         menu.getStylesheets().add("/stylesheets/menuButton.css");
 
+        progressBar.getStylesheets().add("/stylesheets/ProgressBar.css");
 
         /*
         Adding event handlers to buttons
@@ -182,7 +193,7 @@ class TabManager {
         hBox.setAlignment(Pos.CENTER);
         HBox.setHgrow(urlField, Priority.ALWAYS);
         final VBox vBox = new VBox();
-        vBox.getChildren().setAll(hBox, webView);
+        vBox.getChildren().setAll(hBox, progressBar, webView);
         VBox.setVgrow(webView, Priority.ALWAYS);
         vBox.setMinHeight(40);
         tab.setContent(vBox);
