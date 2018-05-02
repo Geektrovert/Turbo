@@ -1,27 +1,23 @@
-.combo-box {
+.button{
     -fx-background-image: url('/Icons/Note.png');
     -fx-opacity: 0.85;
-    -fx-pref-width: 30px;
-    -fx-pref-height: 30px;
-    -fx-background-repeat: repeat;
+    -fx-width: 30px;
+    -fx-height: 30px;
     -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
     -fx-border-width: 0;
-    -fx-border-color: transparent;
     -fx-background-color: transparent;
+    -fx-border-color: transparent;
 }
 
-.combo-box:hover {
+.button:hover {
     -fx-background-image: url('/Icons/Note.png');
     -fx-opacity: 1.0;
-    -fx-pref-width: 30px;
-    -fx-pref-height: 30px;
-    -fx-background-repeat: repeat;
+    -fx-width: 30px;
+    -fx-height: 30px;
     -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
     -fx-border-width: 0;
+    -fx-background-color: transparent;
     -fx-border-color: transparent;
-    -fx-background-color: transparent;
-}
-
-.combo-box .arrow, .arrow-button{
-    -fx-background-color: transparent;
 }

@@ -39,7 +39,7 @@ class NotePad {
     }
 
     private static void readSavedNotes() {
-        final File folder = new File("/data/nts");
+        final File folder = new File("/data/nts/");
         listFilesForFolder(folder);
     }
 
