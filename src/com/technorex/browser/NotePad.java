@@ -8,7 +8,6 @@ import javafx.scene.layout.VBox;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Objects;
 
 class NotePad {
     private static Scene lastScene = App.stage.getScene();
@@ -29,17 +28,19 @@ class NotePad {
     }
 
     private static void listFilesForFolder(final File folder) {
-        for (final File fileEntry : Objects.requireNonNull(folder.listFiles())) {
-            if (fileEntry.isDirectory()) {
-                listFilesForFolder(fileEntry);
-            } else {
-                System.out.println(fileEntry.getName());
+        File[] listOfFiles = folder.listFiles();
+        assert listOfFiles != null;
+        for (File listOfFile : listOfFiles) {
+            if (listOfFile.isFile()) {
+                System.out.println("File " + listOfFile.getName());
+            } else if (listOfFile.isDirectory()) {
+                System.out.println("Directory " + listOfFile.getName());
             }
         }
     }
 
     private static void readSavedNotes() {
-        final File folder = new File("/data/nts/");
+        final File folder = new File("C:\\Users\\User\\Desktop\\Turbo\\src\\data\\nts\\");
         listFilesForFolder(folder);
     }
 
