@@ -42,9 +42,9 @@ class TabManager {
         searchField.setPrefHeight(30.0);
 
 
-                /*
-                Action Handler for WebEngine
-                 */
+        /*
+        Action Handler for WebEngine
+         */
         webEngine.locationProperty().addListener((observable1, oldValue, newValue) -> {
             urlField.setText(newValue);
             webHistory.addHistory(webEngine.getLocation());
@@ -52,14 +52,9 @@ class TabManager {
             tempHistory.add(webEngine.getLocation());
         });
 
-        EventHandler<ActionEvent> goAction = event -> {
-            webEngine.load((urlField.getText().startsWith("http://") || urlField.getText().startsWith("https://"))
-                    ? urlField.getText()
-                    : "https://" + urlField.getText());
-            webHistory.addHistory(webEngine.getLocation());
-            App.localHistory.addHistory(webEngine.getLocation());
-            tempHistory.add(webEngine.getLocation());
-        };
+        EventHandler<ActionEvent> goAction = event -> webEngine.load((urlField.getText().startsWith("http://") || urlField.getText().startsWith("https://"))
+                ? urlField.getText()
+                : "https://" + urlField.getText());
 
 
                 /*
@@ -80,17 +75,17 @@ class TabManager {
         };
 
 
-                /*
-                Action handler for notePad button
-                 */
+        /*
+        Action handler for notePad button
+         */
         EventHandler<ActionEvent> notePadClicked = event -> {
             notePad.getItems().removeAll(notePad.getItems());
             notePad.getItems().add(new TextField());
         };
 
-                /*
-                Action handler for history button
-                 */
+        /*
+        Action handler for history button
+         */
         EventHandler<MouseEvent> showHistory = event -> {
             history.getItems().removeAll(history.getItems());
             for(int i=tempHistory.size()-1;i>=0;i--) {
@@ -111,35 +106,37 @@ class TabManager {
         };
 
         EventHandler<ActionEvent> goBackward = event -> {
-            if(webHistory.backward()!=null) {
-                webEngine.load(webHistory.backward());
+            String url = webHistory.backward();
+            if(url!=null) {
+                webEngine.load(url);
             }
         };
 
         EventHandler<ActionEvent> goForward = event -> {
-            if(webHistory.forward()!=null) {
-                webEngine.load(webHistory.forward());
+            String url = webHistory.forward();
+            if(url!=null) {
+                webEngine.load(url);
             }
         };
 
         /*
         Defining button sizes and styles
         */
-        goButton.setPrefSize(26.0, 26.0);
-        toggleJs.setPrefSize(26.0, 26.0);
-        forward.setPrefSize(26.0, 26.0);
-        backward.setPrefSize(26.0, 26.0);
-        history.setPrefSize(26.0, 26.0);
-        bookmark.setPrefSize(26.0, 26.0);
-        notePad.setPrefSize(26.0, 26.0);
+        goButton.setPrefSize(30.0, 30.0);
+        toggleJs.setPrefSize(30.0, 30.0);
+        forward.setPrefSize(30.0, 30.0);
+        backward.setPrefSize(30.0, 30.0);
+        history.setPrefSize(30.0, 30.0);
+        bookmark.setPrefSize(30.0, 30.0);
+        notePad.setPrefSize(30.0, 30.0);
 
-        goButton.setMinSize(26.0, 26.0);
-        toggleJs.setMinSize(26.0, 26.0);
-        forward.setMinSize(26.0, 26.0);
-        backward.setMinSize(26.0, 26.0);
-        history.setMinSize(26.0, 26.0);
-        bookmark.setMinSize(26.0, 26.0);
-        notePad.setMinSize(26.0, 26.0);
+        goButton.setMinSize(30.0, 30.0);
+        toggleJs.setMinSize(30.0, 30.0);
+        forward.setMinSize(30.0, 30.0);
+        backward.setMinSize(30.0, 30.0);
+        history.setMinSize(30.0, 30.0);
+        bookmark.setMinSize(30.0, 30.0);
+        notePad.setMinSize(30.0, 30.0);
 
 
 
@@ -159,9 +156,9 @@ class TabManager {
         notePad.getStylesheets().add("/stylesheets/notePad.css");
 
 
-                /*
-                Adding event handlers to buttons
-                 */
+        /*
+        Adding event handlers to buttons
+         */
         urlField.setOnAction(goAction);
         goButton.setOnAction(goAction);
         toggleJs.setOnAction(toggleJS);

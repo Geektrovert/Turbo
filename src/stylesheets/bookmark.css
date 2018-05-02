@@ -1,8 +1,8 @@
 .button{
     -fx-background-image: url('/Icons/Bookmark.png');
-    -fx-opacity: 0.7;
-    -fx-width: 36px;
-    -fx-height: 36px;
+    -fx-opacity: 0.9;
+    -fx-width: 30px;
+    -fx-height: 30px;
     -fx-background-size: 100% 100%;
     -fx-background-repeat: repeat;
     -fx-border-width: 0;
@@ -13,8 +13,8 @@
 .button:hover {
     -fx-background-image: url('/Icons/Bookmark.png');
     -fx-opacity: 1.0;
-    -fx-width: 36px;
-    -fx-height: 36px;
+    -fx-width: 30px;
+    -fx-height: 30px;
     -fx-background-size: 100% 100%;
     -fx-background-repeat: repeat;
     -fx-border-width: 0;
