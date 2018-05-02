@@ -1,14 +1,15 @@
 package com.technorex.browser;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.*;
+import javafx.scene.text.Font;
 import javafx.stage.Screen;
-
+import javafx.scene.control.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -75,15 +76,25 @@ class NotePad {
     private static Scene pad() throws FileNotFoundException {
         Group notePad = new Group();
         Scene scene = new Scene(notePad,scWidth,scHeight);
-        AnchorPane anchorPane = new AnchorPane();
-        anchorPane.setStyle("-fx-background-color: #fafafa;");
-        anchorPane.setMinSize(scWidth,scHeight);
+        VBox sceneContainer = new VBox();
+        sceneContainer.setStyle("-fx-background-color: #fafafa;");
+        sceneContainer.setMinSize(scWidth,scHeight);
         VBox vBox = new VBox();
         readSavedNotes();
         for(HBox hBox: row)
             vBox.getChildren().add(hBox);
-        anchorPane.getChildren().add(vBox);
-        notePad.getChildren().add(anchorPane);
+        HBox toolBar= new HBox();
+        toolBar.setMinHeight(48.0);
+        Button newNote = new Button("New Note");
+        Button close = new Button("Close");
+        EventHandler<ActionEvent> closeNotepad = event -> onExit();
+        close.setOnAction(closeNotepad);
+        toolBar.setAlignment(Pos.TOP_RIGHT);
+        toolBar.getChildren().addAll(newNote,close);
+        VBox toolBarContainer = new VBox();
+        toolBarContainer.getChildren().add(toolBar);
+        sceneContainer.getChildren().addAll(toolBarContainer,vBox);
+        notePad.getChildren().add(sceneContainer);
         return scene;
     }
 
