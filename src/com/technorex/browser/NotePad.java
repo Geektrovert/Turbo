@@ -11,8 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -25,17 +24,17 @@ class NotePad {
     private static void addToHBox(ArrayList<String> notes) {
         int cnt = notes.size();
         int ind = 0;
-        while (ind<cnt) {
+        while (ind < cnt) {
             HBox hBox = new HBox();
-            for(int i=0;i<4;i++,ind++) {
-                if(ind<cnt) {
+            for (int i = 0; i < 4; i++, ind++) {
+                if (ind < cnt) {
                     Button button = new Button();
                     button.setText(notes.get(ind));
                     button.setAlignment(Pos.TOP_LEFT);
-                    button.setPrefWidth(scWidth/4.0);
-                    button.setMinWidth(scWidth/4.0);
-                    button.setMaxHeight(scHeight/3.0-50);
-                    button.setMinHeight(scHeight/3.0-50);
+                    button.setPrefWidth(scWidth / 4.0);
+                    button.setMinWidth(scWidth / 4.0);
+                    button.setMaxHeight(scHeight / 3.0 - 50);
+                    button.setMinHeight(scHeight / 3.0 - 50);
                     button.getStylesheets().add("/stylesheets/NotePadTextButton.css");
                     hBox.getChildren().add(button);
                 }
@@ -53,8 +52,8 @@ class NotePad {
                 String str = "";
                 Scanner scanner = new Scanner(new File(file.getPath()));
                 while (scanner.hasNextLine()) {
-                    str=str.concat(scanner.nextLine());
-                    str+="\n";
+                    str = str.concat(scanner.nextLine());
+                    str += "\n";
                 }
                 notes.add(str);
             }
@@ -64,10 +63,38 @@ class NotePad {
 
     private static void readSavedNotes() throws FileNotFoundException {
         row.clear();
-        final File folder = new File(System.getProperty("user.dir")+"\\src\\data\\nts\\");
+        final File folder = new File(System.getProperty("user.dir") + "\\src\\data\\nts\\");
         listFilesForFolder(folder);
     }
 
+    private static String getNextName(String name) {
+        name = name.substring(0,name.length()-4);
+        int num = Integer.parseInt(name);
+        num++;
+        name = Integer.toString(num);
+        name = name.concat(".txt");
+        return name;
+    }
+
+    private static String getLastFileName() {
+        String string = "";
+        final File folder = new File(System.getProperty("user.dir") + "\\src\\data\\nts\\");
+        File[] listOfFiles = folder.listFiles();
+        assert listOfFiles != null;
+        for (File file : listOfFiles) {
+            if (file.isFile()) {
+                string = file.getName();
+            }
+        }
+        return string;
+    }
+
+    private static void saveDataAsFile(String name, String data, String path) throws FileNotFoundException {
+        name = getNextName(name);
+        File file = new File(path+name);
+        PrintStream printStream = new PrintStream(new FileOutputStream(file));
+        printStream.println(data);
+    }
 
     private static Scene pad() throws FileNotFoundException {
         Group notePad = new Group();
@@ -113,9 +140,9 @@ class NotePad {
         textField.setMaxSize(scWidth/4.0,7.0*scHeight/10.0);
         HBox toolBar= new HBox();
         toolBar.setMinHeight(48.0);
-        Button newNote = new Button("Save note");
+        Button saveNote = new Button("Save note");
         Button close = new Button("Exit notepad");
-        newNote.getStylesheets().add("/stylesheets/NotePadButton.css");
+        saveNote.getStylesheets().add("/stylesheets/NotePadButton.css");
         close.getStylesheets().add("/stylesheets/NotePadButton.css");
         textField.getStylesheets().add("/stylesheets/TakeNote.css");
         EventHandler<ActionEvent> closeNotepad = event -> {
@@ -125,11 +152,26 @@ class NotePad {
                 e.printStackTrace();
             }
         };
+
+        EventHandler<ActionEvent> save = event -> {
+            String note = textField.getText();
+            try {
+                NotePad.saveDataAsFile(getLastFileName(),note,System.getProperty("user.dir") + "\\src\\data\\nts\\");
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            try {
+                App.stage.setScene(NotePad.pad());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        };
         close.setOnAction(closeNotepad);
+        saveNote.setOnAction(save);
         toolBar.setAlignment(Pos.CENTER);
         toolBar.setMinHeight(80);
         toolBar.setSpacing(scWidth-3.0*scWidth/4.0-420);
-        toolBar.getChildren().addAll(newNote,close);
+        toolBar.getChildren().addAll(saveNote,close);
         VBox toolBarContainer = new VBox();
         toolBarContainer.getChildren().add(toolBar);
         sceneContainer.getChildren().addAll(toolBarContainer,textField);
