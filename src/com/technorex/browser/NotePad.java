@@ -36,7 +36,7 @@ class NotePad {
                     textFlow.setPrefWidth(scWidth/4.0);
                     textFlow.setMinWidth(scWidth/4.0);
                     textFlow.setMaxHeight(scHeight/3.0-50);
-                    textFlow.setStyle("-fx-border-radius: 5; -fx-border-color: #9f9f9f; -fx-border-insets: 10 10 10 10; -fx-text-fill: #fafafa");
+                    textFlow.setStyle("-fx-border-radius: 2; -fx-border-color: #9f9f9f; -fx-border-insets: 10 10 10 10; -fx-border-width: 2 ");
                     hBox.getChildren().add(textFlow);
                     hBox.setAlignment(Pos.TOP_LEFT);
                 }
@@ -87,9 +87,13 @@ class NotePad {
         toolBar.setMinHeight(48.0);
         Button newNote = new Button("New Note");
         Button close = new Button("Close");
+        newNote.getStylesheets().add("/stylesheets/NotePadButton.css");
+        close.getStylesheets().add("/stylesheets/NotePadButton.css");
         EventHandler<ActionEvent> closeNotepad = event -> onExit();
         close.setOnAction(closeNotepad);
-        toolBar.setAlignment(Pos.TOP_RIGHT);
+        toolBar.setAlignment(Pos.CENTER);
+        toolBar.setMinHeight(80);
+        toolBar.setSpacing(scWidth-420);
         toolBar.getChildren().addAll(newNote,close);
         VBox toolBarContainer = new VBox();
         toolBarContainer.getChildren().add(toolBar);
