@@ -1,6 +1,6 @@
 .combo-box {
     -fx-background-image: url('/Icons/Note.png');
-    -fx-opacity: 0.7;
+    -fx-opacity: 0.85;
     -fx-pref-width: 30px;
     -fx-pref-height: 30px;
     -fx-background-repeat: repeat;

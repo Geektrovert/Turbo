@@ -1,6 +1,6 @@
 .button{
     -fx-background-image: url('/Icons/Bookmark.png');
-    -fx-opacity: 0.7;
+    -fx-opacity: 0.85;
     -fx-width: 30px;
     -fx-height: 30px;
     -fx-background-size: 100% 100%;

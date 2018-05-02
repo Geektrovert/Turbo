@@ -2,6 +2,7 @@ package com.technorex.browser;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -26,6 +27,7 @@ class TabManager {
         final ComboBox<TextField> notePad = new ComboBox<>();
         final ArrayList<String> tempHistory = new ArrayList<>();
         final Button bookmark = new Button();
+        final Button menu = new Button();
         final WebView webView = new WebView();
         final WebEngine webEngine = webView.getEngine();
         final TextField urlField = new TextField(DEFAULT_URL);
@@ -129,6 +131,7 @@ class TabManager {
         history.setPrefSize(30.0, 30.0);
         bookmark.setPrefSize(30.0, 30.0);
         notePad.setPrefSize(30.0, 30.0);
+        menu.setPrefSize(30.0, 30.0);
 
         goButton.setMinSize(30.0, 30.0);
         toggleJs.setMinSize(30.0, 30.0);
@@ -137,6 +140,7 @@ class TabManager {
         history.setMinSize(30.0, 30.0);
         bookmark.setMinSize(30.0, 30.0);
         notePad.setMinSize(30.0, 30.0);
+        menu.setMinSize(30.0, 30.0);
 
 
 
@@ -145,6 +149,7 @@ class TabManager {
         forward.setDefaultButton(true);
         backward.setDefaultButton(true);
         bookmark.setDefaultButton(true);
+        menu.setDefaultButton(true);
         toggleJs.getStylesheets().add("/stylesheets/ToggleJs.css");
         forward.getStylesheets().add("/stylesheets/Forward.css");
         backward.getStylesheets().add("/stylesheets/Backward.css");
@@ -154,6 +159,7 @@ class TabManager {
         goButton.getStylesheets().add("/stylesheets/GoButton.css");
         bookmark.getStylesheets().add("/stylesheets/bookmark.css");
         notePad.getStylesheets().add("/stylesheets/notePad.css");
+        menu.getStylesheets().add("/stylesheets/menuButton.css");
 
 
         /*
@@ -168,8 +174,9 @@ class TabManager {
         backward.setOnAction(goBackward);
         forward.setOnAction(goForward);
 
-        HBox hBox = new HBox(5);
-        hBox.getChildren().setAll(backward, forward, toggleJs, history, urlField, searchField, goButton, bookmark, notePad);
+        HBox hBox = new HBox(10);
+        hBox.getChildren().setAll(backward, forward, toggleJs, history, urlField, searchField, goButton, bookmark, notePad, menu);
+        hBox.setPadding(new Insets(0,10,0,10));
         hBox.setStyle("-fx-background-color: #323234");
         hBox.setMinHeight(40.0);
         hBox.setAlignment(Pos.CENTER);
@@ -177,7 +184,7 @@ class TabManager {
         final VBox vBox = new VBox();
         vBox.getChildren().setAll(hBox, webView);
         VBox.setVgrow(webView, Priority.ALWAYS);
-        vBox.setMinHeight(36);
+        vBox.setMinHeight(40);
         tab.setContent(vBox);
         webEngine.load(DEFAULT_URL);
         webHistory.addHistory(DEFAULT_URL);
