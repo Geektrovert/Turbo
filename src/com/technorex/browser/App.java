@@ -91,7 +91,7 @@ public class App extends Application {
         final VBox vBox = new VBox();
         ImageView imageView = new ImageView(new Image("/Icons/InitPage.png"));
         imageView.setFitWidth(scWidth);
-        imageView.setFitHeight(scHeight);
+        imageView.setFitHeight(scHeight-10);
         vBox.getChildren().setAll(imageView);
         vBox.setMinSize(scWidth,scHeight);
         vBox.setPrefSize(scWidth,scHeight);
