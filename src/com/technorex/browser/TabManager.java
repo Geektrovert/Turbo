@@ -75,7 +75,21 @@ class TabManager {
                 App.localHistory.addHistory(webEngine.getLocation());
                 tempHistory.add(webEngine.getLocation());
                 String titleName = webEngine.getHistory().getEntries().get(webEngine.getHistory().getEntries().size()-1).getTitle();
-                tab.setText(titleName);
+                if(!titleName.isEmpty())
+                    tab.setText(titleName);
+                else {
+                    titleName = urlField.getText();
+                    if(titleName.contains("https://"))
+                        titleName = titleName.replace("https://","");
+                    else if(titleName.contains("http://"))
+                        titleName = titleName.replace("http://","");
+                    if(titleName.contains("www."))
+                        titleName = titleName.replace("www.","");
+                    if(titleName.contains("."))
+                        titleName = titleName.substring(0,titleName.indexOf('.'));
+                    titleName = Character.toTitleCase(titleName.charAt(0))+titleName.substring(1,titleName.length());
+                    tab.setText(titleName);
+                }
             }
         });
 
@@ -211,9 +225,11 @@ class TabManager {
         HBox.setHgrow(urlField, Priority.ALWAYS);
         final VBox vBox = new VBox();
         vBox.getChildren().setAll(hBox, progressBar, webView);
+        vBox.setStyle("-fx-background-color: #343434");
         VBox.setVgrow(webView, Priority.ALWAYS);
         vBox.setMinHeight(40);
         tab.setContent(vBox);
+        tab.setOnCloseRequest(event -> webEngine.load("https://www.example.com"));
         webEngine.load(DEFAULT_URL);
         webHistory.addHistory(DEFAULT_URL);
         return tab;

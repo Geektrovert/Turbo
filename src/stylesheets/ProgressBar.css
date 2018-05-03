@@ -6,7 +6,7 @@
 
 .progress-bar > .bar {
     -fx-background-insets: 0 0 0 0;
-    -fx-padding: 0.15em;
-    -fx-background-color: #00FFA3;
+    -fx-padding: 0.20em;
+    -fx-background-color: #00FF70;
     -fx-padding-color: transparent;
 }
