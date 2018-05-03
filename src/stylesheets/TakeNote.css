@@ -1,5 +1,5 @@
 .text-area {
-    -fx-background-color: #fafafa;
+    text-area-background: #fafafa;
     -fx-background-radius: 2;
     -fx-background-insets: 10 10 10 10;
     -fx-border-radius: 2;
@@ -12,12 +12,17 @@
     -fx-font-size: 18px;
 }
 
+
+.text-area .content {
+    -fx-background-color: text-area-background ;
+}
+
 .text-input {
     -fx-text-fill: #373737;
 }
 
 .text-area:hover{
-    -fx-background-color: #ffffff;
+    text-area-background: #ffffff;
     -fx-background-radius: 2;
     -fx-background-insets: 10 10 10 10;
     -fx-border-radius: 2;
@@ -29,4 +34,8 @@
     -fx-font-family: Book Antique;
     -fx-font-size: 18px;
     -fx-opacity: 1.0;
+}
+
+.text-area:hover .content {
+    -fx-background-color: text-area-background ;
 }
