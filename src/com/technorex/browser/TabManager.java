@@ -34,7 +34,7 @@ class TabManager {
         final WebView webView = new WebView();
         final WebEngine webEngine = webView.getEngine();
         final TextField urlField = new TextField(DEFAULT_URL);
-        final TextField searchField = new TextField(DEFAULT_Search);
+        final TextField searchField = new TextField();
         final History webHistory = new History();
         final ProgressBar progressBar = new ProgressBar(0.3);
         final Worker<Void> worker = webEngine.getLoadWorker();
@@ -61,6 +61,11 @@ class TabManager {
         EventHandler<ActionEvent> goAction = event ->{
             progressBar.setVisible(true);
             webEngine.load((urlField.getText().startsWith("http://") || urlField.getText().startsWith("https://")) ? urlField.getText() : "https://" + urlField.getText());
+        };
+
+        EventHandler<ActionEvent> searchAction =  event ->{
+            progressBar.setVisible(true);
+            webEngine.load("https://www.google.com/search?q=" + searchField.getText().replace(' ','+') + "&ie=utf-8&oe=utf-8");
         };
 
         worker.stateProperty().addListener((observable, oldValue, newValue) -> {
@@ -195,6 +200,7 @@ class TabManager {
         history.setOnAction(chooseEntry);
         backward.setOnAction(goBackward);
         forward.setOnAction(goForward);
+        searchField.setOnAction(searchAction);
 
         HBox hBox = new HBox(10);
         hBox.getChildren().setAll(backward, forward, toggleJs, history, urlField, searchField, goButton, bookmark, notePad, menu);
