@@ -31,7 +31,7 @@ class EncryptionDecryption {
      * @param in the string
      * @throws Exception for illegalKeyException
      */
-    public static String decrypt(File in) throws Exception{
+    static String decrypt(File in) throws Exception{
         FileInputStream fileInputStream = new FileInputStream(in);
         File temp = new File(System.getProperty("user.dir")+"\\src\\data\\nts\\tmp");
         FileOutputStream fileOutputStream = new FileOutputStream(temp);
