@@ -39,6 +39,7 @@ class TabManager {
         final ProgressBar progressBar = new ProgressBar(0.3);
         final Worker<Void> worker = webEngine.getLoadWorker();
         final double scWidth = Screen.getPrimary().getBounds().getWidth();
+        final Button burn = new Button();
         tab.setText("New Tab");
         urlField.setMinHeight(30.0);
         urlField.setMaxHeight(36.0);
@@ -172,6 +173,7 @@ class TabManager {
         bookmark.setPrefSize(30.0, 30.0);
         notePad.setPrefSize(30.0, 30.0);
         menu.setPrefSize(30.0, 30.0);
+        burn.setPrefSize(30.0,30.0);
 
         goButton.setMinSize(30.0, 30.0);
         toggleJs.setMinSize(30.0, 30.0);
@@ -181,6 +183,7 @@ class TabManager {
         bookmark.setMinSize(30.0, 30.0);
         notePad.setMinSize(30.0, 30.0);
         menu.setMinSize(30.0, 30.0);
+        burn.setPrefSize(30.0,30.0);
 
 
 
@@ -191,6 +194,7 @@ class TabManager {
         bookmark.setDefaultButton(true);
         notePad.setDefaultButton(true);
         menu.setDefaultButton(true);
+        burn.setDefaultButton(true);
         toggleJs.getStylesheets().add("/stylesheets/ToggleJs.css");
         forward.getStylesheets().add("/stylesheets/Forward.css");
         backward.getStylesheets().add("/stylesheets/Backward.css");
@@ -202,6 +206,7 @@ class TabManager {
         notePad.getStylesheets().add("/stylesheets/notePad.css");
         menu.getStylesheets().add("/stylesheets/menuButton.css");
         progressBar.getStylesheets().add("/stylesheets/ProgressBar.css");
+        burn.getStylesheets().add("/stylesheets/Burn.css");
 
         /*
         Adding event handlers to buttons
@@ -217,7 +222,7 @@ class TabManager {
         searchField.setOnAction(searchAction);
 
         HBox hBox = new HBox(10);
-        hBox.getChildren().setAll(backward, forward, toggleJs, history, urlField, searchField, goButton, bookmark, notePad, menu);
+        hBox.getChildren().setAll(backward, forward, toggleJs, history, burn, urlField, searchField, goButton, bookmark, notePad, menu);
         hBox.setPadding(new Insets(6,12,6,12));
         hBox.setStyle("-fx-background-color: #343434");
         hBox.setMinHeight(48.0);
