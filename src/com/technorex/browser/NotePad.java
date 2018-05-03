@@ -2,6 +2,7 @@ package com.technorex.browser;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -34,8 +35,8 @@ class NotePad {
                     Button button = new Button();
                     button.setText(notes.get(ind));
                     button.setAlignment(Pos.TOP_LEFT);
-                    button.setPrefWidth(scWidth / 4.0);
-                    button.setMinWidth(scWidth / 4.0);
+                    button.setPrefWidth(scWidth / 4.0-5);
+                    button.setMinWidth(scWidth / 4.0 - 5);
                     button.setMaxHeight(scHeight / 3.0 - 50);
                     button.setMinHeight(scHeight / 3.0 - 50);
                     button.getStylesheets().add("/stylesheets/NotePadTextButton.css");
@@ -110,6 +111,7 @@ class NotePad {
         readSavedNotes();
         for(HBox hBox: row)
             vBox.getChildren().add(hBox);
+        vBox.setPadding(new Insets(10, 10, 10, 10));
         HBox toolBar= new HBox();
         toolBar.setMinHeight(48.0);
         Button newNote = new Button("New Note");
