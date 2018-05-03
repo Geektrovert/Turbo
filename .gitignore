@@ -3,6 +3,7 @@
 .idea
 out/
 src/META-INF/
+*MF
 
 # Compiled class file
 *.class
