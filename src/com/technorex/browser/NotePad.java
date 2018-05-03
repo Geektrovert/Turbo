@@ -6,12 +6,15 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -134,18 +137,17 @@ class NotePad {
         VBox sceneContainer = new VBox();
         sceneContainer.setStyle("-fx-background-color: #fafafa; -fx-alignment: center");
         sceneContainer.setMinSize(scWidth,scHeight);
-        TextField textField = new TextField();
-        textField.setPromptText("Type here to take note");
-        textField.setAlignment(Pos.TOP_LEFT);
-        textField.setMinSize(scWidth/4.0,7.0*scHeight/10.0);
-        textField.setMaxSize(scWidth/4.0,7.0*scHeight/10.0);
+        TextArea textArea = new TextArea();
+        textArea.setPromptText("Type here to take note");
+        textArea.setMinSize(scWidth/4.0,7.0*scHeight/10.0);
+        textArea.setMaxSize(scWidth/4.0,7.0*scHeight/10.0);
         HBox toolBar= new HBox();
         toolBar.setMinHeight(48.0);
         Button saveNote = new Button("Save note");
         Button close = new Button("Exit notepad");
         saveNote.getStylesheets().add("/stylesheets/NotePadButton.css");
         close.getStylesheets().add("/stylesheets/NotePadButton.css");
-        textField.getStylesheets().add("/stylesheets/TakeNote.css");
+        textArea.getStylesheets().add("/stylesheets/TakeNote.css");
         EventHandler<ActionEvent> closeNotepad = event -> {
             try {
                 App.stage.setScene(NotePad.pad());
@@ -155,7 +157,7 @@ class NotePad {
         };
 
         EventHandler<ActionEvent> save = event -> {
-            String note = textField.getText();
+            String note = textArea.getText();
             try {
                 NotePad.saveDataAsFile(getLastFileName(),note,System.getProperty("user.dir") + "\\src\\data\\nts\\");
             } catch (FileNotFoundException e) {
@@ -175,12 +177,12 @@ class NotePad {
         toolBar.getChildren().addAll(saveNote,close);
         VBox toolBarContainer = new VBox();
         toolBarContainer.getChildren().add(toolBar);
-        sceneContainer.getChildren().addAll(toolBarContainer,textField);
+        sceneContainer.getChildren().addAll(toolBarContainer,textArea);
         notePad.getChildren().add(sceneContainer);
         App.stage.setScene(scene);
     }
 
-    public static void takeNote() throws FileNotFoundException {
+    static void takeNote() throws FileNotFoundException {
         NotePad.lastScene = App.stage.getScene();
         App.stage.setScene(pad());
     }
