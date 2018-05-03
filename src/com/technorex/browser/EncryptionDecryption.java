@@ -5,16 +5,17 @@ import javax.crypto.spec.DESKeySpec;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
+import java.util.Scanner;
 
 class EncryptionDecryption {
+    private final static String key = "abcdefgh";
     /**
      * The @param key must be at least 8 bytes
-     * @param key encryption key
      * @param in the string
      * @param out file output stream
      * @throws Exception for illegalKeyException
      */
-    static void encrypt(String key, String in, File out) throws Exception{
+    static void encrypt(String in, File out) throws Exception{
         InputStream inputStream = new ByteArrayInputStream(in.getBytes(StandardCharsets.UTF_8));
         FileOutputStream fileOutputStream = new FileOutputStream(out);
         DESKeySpec desKeySpec = new DESKeySpec(key.getBytes());
@@ -27,14 +28,13 @@ class EncryptionDecryption {
     }
     /**
      * The @param key must be at least 8 bytes
-     * @param key decryption key
      * @param in the string
-     * @param out file output stream
      * @throws Exception for illegalKeyException
      */
-    public static void decrypt(String key, File in, File out) throws Exception{
+    public static String decrypt(File in) throws Exception{
         FileInputStream fileInputStream = new FileInputStream(in);
-        FileOutputStream fileOutputStream = new FileOutputStream(out);
+        File temp = new File(System.getProperty("user.dir")+"\\src\\data\\nts\\tmp");
+        FileOutputStream fileOutputStream = new FileOutputStream(temp);
         DESKeySpec desKeySpec = new DESKeySpec(key.getBytes());
         SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance("DES");
         SecretKey secretKey = secretKeyFactory.generateSecret(desKeySpec);
@@ -42,6 +42,13 @@ class EncryptionDecryption {
         cipher.init(Cipher.DECRYPT_MODE,secretKey,SecureRandom.getInstance("SHA1PRNG"));
         CipherOutputStream cipherOutputStream = new CipherOutputStream(fileOutputStream,cipher);
         write(fileInputStream,cipherOutputStream);
+        Scanner scanner = new Scanner(temp);
+        String data = "";
+        while (scanner.hasNextLine())
+            data = data.concat(scanner.nextLine()+"\n");
+        scanner.close();
+        if(temp.delete()) return data;
+        return data;
     }
     private static void write(InputStream inputStream, OutputStream outputStream) throws Exception{
         byte[] buffer = new byte[64];
