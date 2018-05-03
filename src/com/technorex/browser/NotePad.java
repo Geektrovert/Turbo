@@ -8,6 +8,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
@@ -32,15 +33,16 @@ class NotePad {
             HBox hBox = new HBox();
             for (int i = 0; i < 4; i++, ind++) {
                 if (ind < cnt) {
-                    Button button = new Button();
-                    button.setText(notes.get(ind));
-                    button.setAlignment(Pos.TOP_LEFT);
-                    button.setPrefWidth(scWidth / 4.0-5);
-                    button.setMinWidth(scWidth / 4.0 - 5);
-                    button.setMaxHeight(scHeight / 3.0 - 50);
-                    button.setMinHeight(scHeight / 3.0 - 50);
-                    button.getStylesheets().add("/stylesheets/NotePadTextButton.css");
-                    hBox.getChildren().add(button);
+                    TextArea textArea = new TextArea();
+                    textArea.setText(notes.get(ind));
+                    textArea.setWrapText(true);
+                    textArea.setPrefWidth(scWidth / 4.0-5);
+                    textArea.setMinWidth(scWidth / 4.0 - 5);
+                    textArea.setMaxHeight(scHeight / 3.0 - 50);
+                    textArea.setMinHeight(scHeight / 3.0 - 50);
+                    textArea.setEditable(false);
+                    textArea.getStylesheets().add("/stylesheets/NotePadTextButton.css");
+                    hBox.getChildren().add(textArea);
                 }
             }
             row.add(hBox);
