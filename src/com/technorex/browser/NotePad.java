@@ -21,7 +21,8 @@ class NotePad {
     private static double scWidth = Screen.getPrimary().getBounds().getWidth();
     private static double scHeight = Screen.getPrimary().getBounds().getHeight();
 
-    private static void addToHBox(ArrayList<String> notes) {
+
+    private static void addToHBox(ArrayList<String> notes, ArrayList<String> paths) {
         int cnt = notes.size();
         int ind = 0;
         while (ind < cnt) {
@@ -29,6 +30,7 @@ class NotePad {
             for (int i = 0; i < 4; i++, ind++) {
                 if (ind < cnt) {
                     TextArea textArea = new TextArea();
+                    textArea.setId(paths.get(ind));
                     textArea.setText(notes.get(ind));
                     textArea.setWrapText(true);
                     textArea.setPrefWidth(scWidth / 4.0-5);
@@ -38,6 +40,7 @@ class NotePad {
                     textArea.setEditable(false);
                     textArea.getStylesheets().add("/stylesheets/NotePadTextButton.css");
                     hBox.getChildren().add(textArea);
+                    textArea.setOnMouseClicked(event -> NotePad.newNote(textArea));
                 }
             }
             row.add(hBox);
@@ -47,13 +50,15 @@ class NotePad {
     private static void listFilesForFolder(final File folder) throws Exception {
         File[] listOfFiles = folder.listFiles();
         ArrayList<String> notes = new ArrayList<>();
+        ArrayList<String> paths = new ArrayList<>();
         assert listOfFiles != null;
         for (File file : listOfFiles) {
             if (file.isFile()) {
                 notes.add(EncryptionDecryption.decrypt(file));
+                paths.add(file.getName());
             }
         }
-        addToHBox(notes);
+        addToHBox(notes,paths);
     }
 
     private static void readSavedNotes() throws Exception {
@@ -110,6 +115,68 @@ class NotePad {
         TextArea titleArea = new TextArea();
         titleArea.setPromptText("Title");
         textArea.setPromptText("Type here to take note");
+        textArea.setMinSize(scWidth/4.0,scHeight*0.7);
+        textArea.setMaxSize(scWidth/4.0,scHeight*0.7);
+        titleArea.setMinSize(scWidth/4.0,scHeight*0.075);
+        titleArea.setMaxSize(scWidth/4.0,scHeight*0.075);
+        HBox toolBar= new HBox();
+        Button saveNote = new Button("Save note");
+        Button close = new Button("Exit notepad");
+        saveNote.getStylesheets().add("/stylesheets/NotePadButton.css");
+        close.getStylesheets().add("/stylesheets/NotePadButton.css");
+        saveNote.setPrefWidth(scWidth/8.0 - 10);
+        close.setPrefWidth(scWidth/8.0 - 10);
+        textArea.getStylesheets().add("/stylesheets/TakeNote.css");
+        EventHandler<ActionEvent> closeNotepad = event -> {
+            try {
+                App.stage.setScene(NotePad.pad());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        };
+
+        close.setOnAction(closeNotepad);
+        saveNote.setOnAction(event -> {
+            String note = textArea.getText();
+            try {
+                NotePad.saveDataAsFile(titleArea.getText(),note,System.getProperty("user.dir") + "\\src\\data\\nts\\");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                App.stage.setScene(NotePad.pad());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        HBox titleBar = new HBox();
+        toolBar.setAlignment(Pos.CENTER);
+        toolBar.setMinHeight(scHeight*0.075);
+        toolBar.setSpacing(0);
+        toolBar.getChildren().addAll(saveNote,close);
+        titleBar.getChildren().add(titleArea);
+        titleBar.setAlignment(Pos.CENTER);
+        textArea.setWrapText(false);
+        titleArea.getStylesheets().add("/stylesheets/TakeNote.css");
+        VBox toolBarContainer = new VBox();
+        toolBarContainer.getChildren().add(toolBar);
+        sceneContainer.setAlignment(Pos.CENTER);
+        sceneContainer.getChildren().addAll(toolBarContainer,titleBar,textArea);
+        notePad.getChildren().add(sceneContainer);
+        notePad.setAutoSizeChildren(true);
+        App.stage.setScene(scene);
+    }
+
+    private static void newNote(TextArea resource) {
+        Group notePad = new Group();
+        Scene scene = new Scene(notePad,scWidth,scHeight);
+        VBox sceneContainer = new VBox();
+        sceneContainer.setStyle("-fx-background-color: #fafafa; -fx-alignment: center");
+        sceneContainer.setMinSize(scWidth,scHeight);
+        TextArea textArea = new TextArea();
+        TextArea titleArea = new TextArea();
+        titleArea.setText(resource.getId());
+        textArea.setText(resource.getText());
         textArea.setMinSize(scWidth/4.0,scHeight*0.7);
         textArea.setMaxSize(scWidth/4.0,scHeight*0.7);
         titleArea.setMinSize(scWidth/4.0,scHeight*0.075);
