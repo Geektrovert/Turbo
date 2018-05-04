@@ -14,6 +14,9 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Screen;
 
+import java.io.IOException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 
 class TabManager {
@@ -56,6 +59,17 @@ class TabManager {
         webEngine.locationProperty().addListener((observable1, oldValue, newValue) -> {
             progressBar.setVisible(true);
             urlField.setText(newValue);
+            try {
+                URL url = new URL(webEngine.getLocation());
+                URLConnection c = url.openConnection();
+                String contentType = c.getContentType();
+                if(!contentType.contains("text")) {
+                    DownloadThread downloadThread = new DownloadThread(url.toExternalForm(), App.stage);
+                    downloadThread.fleDirectory();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
 
         EventHandler<ActionEvent> goAction = event ->{

@@ -14,6 +14,7 @@ import java.net.URL;
  * @author Sihan Tawsik, Samnan Rahee
  *
  */
+
 class DownloadThread {
     private static final int BUFFER_SIZE = 4096;
     private String fileURL;
