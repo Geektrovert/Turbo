@@ -14,6 +14,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Screen;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -173,6 +174,20 @@ class TabManager {
                 webEngine.load(url);
             }
         };
+        EventHandler<ActionEvent> burnActivity = event -> {
+            File dir = new File(System.getProperty("user.dir")+"\\src\\data\\nts\\");
+            File[] listOfFiles = null;
+            if(dir.isDirectory())
+                listOfFiles = dir.listFiles();
+            assert listOfFiles != null;
+            for (File file : listOfFiles) {
+                if (file.isFile()) {
+                    file.delete();
+                }
+            }
+            App.stage.close();
+            //App.main(null);
+        };
 
 
         /*
@@ -235,6 +250,7 @@ class TabManager {
         backward.setOnAction(goBackward);
         forward.setOnAction(goForward);
         searchField.setOnAction(searchAction);
+        burn.setOnAction(burnActivity);
 
         HBox hBox = new HBox(10);
         hBox.getChildren().setAll(backward, forward, toggleJs, history, burn, urlField, searchField, goButton, bookmark, notePad, menu);
