@@ -240,7 +240,7 @@ class TabManager {
         notePad.setDefaultButton(true);
         burn.setDefaultButton(true);
 
-        menu.getItems().addAll("History","Bookmarks","Downloads","Zoom","About");
+        menu.getItems().addAll("History","Bookmarks","Downloads","About");
 
         toggleJs.getStylesheets().add("/stylesheets/ToggleJs.css");
         forward.getStylesheets().add("/stylesheets/Forward.css");
