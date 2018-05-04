@@ -69,7 +69,7 @@ class NotePad {
 
     private static void saveDataAsFile(String name, String data, String path) throws Exception {
         File file = new File(path+name);
-        EncryptionDecryption.encrypt(data,file);
+        EncryptionDecryption.encrypt(data,file,false);
     }
 
     private static Scene pad() throws Exception {

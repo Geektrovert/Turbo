@@ -110,7 +110,7 @@ class TabManager {
         EventHandler<ActionEvent> addBookmark = event -> {
             File file = new File(System.getProperty("user.dir")+"\\src\\data\\sv\\cache");
             try {
-                EncryptionDecryption.encrypt(webEngine.getLocation(),file);
+                EncryptionDecryption.encrypt(webEngine.getLocation(),file,false);
             } catch (Exception e) {
                 e.printStackTrace();
             }

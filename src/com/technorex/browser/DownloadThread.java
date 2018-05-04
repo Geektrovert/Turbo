@@ -15,7 +15,7 @@ import java.net.URL;
  *
  */
 
-class DownloadThread {
+class DownloadThread extends Thread{
     private static final int BUFFER_SIZE = 4096;
     private String fileURL;
     private Stage primaryStage;
@@ -81,5 +81,14 @@ class DownloadThread {
             System.out.println("No file to download. Server replied HTTP code: " + responseCode);
         }
         httpConn.disconnect();
+    }
+
+    @Override
+    public void run() {
+        try {
+            fileDirectory();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

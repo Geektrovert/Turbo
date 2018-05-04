@@ -15,9 +15,9 @@ class EncryptionDecryption {
      * @param out file output stream
      * @throws Exception for illegalKeyException
      */
-    static void encrypt(String in, File out) throws Exception{
+    static void encrypt(String in, File out,boolean append) throws Exception{
         InputStream inputStream = new ByteArrayInputStream(in.getBytes(StandardCharsets.UTF_8));
-        FileOutputStream fileOutputStream = new FileOutputStream(out,true);
+        FileOutputStream fileOutputStream = new FileOutputStream(out,append);
         DESKeySpec desKeySpec = new DESKeySpec(key.getBytes());
         SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance("DES");
         SecretKey secretKey = secretKeyFactory.generateSecret(desKeySpec);
