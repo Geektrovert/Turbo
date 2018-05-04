@@ -85,6 +85,11 @@ class TabManager {
 
         worker.stateProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == Worker.State.SUCCEEDED) {
+                try {
+                    EncryptionDecryption.encrypt(webEngine.getLocation()+"\n",new File(System.getProperty("user.dir")+"\\src\\data\\sv\\history"),true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 progressBar.setVisible(false);
                 webHistory.addHistory(webEngine.getLocation());
                 App.localHistory.addHistory(webEngine.getLocation());
@@ -110,7 +115,7 @@ class TabManager {
         EventHandler<ActionEvent> addBookmark = event -> {
             File file = new File(System.getProperty("user.dir")+"\\src\\data\\sv\\cache");
             try {
-                EncryptionDecryption.encrypt(webEngine.getLocation(),file,false);
+                EncryptionDecryption.encrypt(webEngine.getLocation()+"\n",file,false);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -145,6 +150,15 @@ class TabManager {
             }
         };
 
+        EventHandler<ActionEvent> menuChoose = event -> {
+            if(menu.getValue().equals("History")){
+                try {
+                    HistoryWindow.start();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
 
         /*
         Action handler for history button
@@ -269,6 +283,7 @@ class TabManager {
         forward.setOnAction(goForward);
         searchField.setOnAction(searchAction);
         burn.setOnAction(burnActivity);
+        menu.setOnAction(menuChoose);
 
         HBox hBox = new HBox(10);
         hBox.getChildren().setAll(backward, forward, toggleJs, history, burn, urlField, searchField, goButton, bookmark, notePad, menu);

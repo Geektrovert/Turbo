@@ -1,7 +1,4 @@
 package com.technorex.browser;
-
-import javafx.scene.control.ComboBox;
-
 import java.util.ArrayList;
 
 class History {
@@ -32,15 +29,5 @@ class History {
         if(currIndex>0)
             return history.get(--currIndex);
         return null;
-    }
-
-    ComboBox<String> getHistory(ComboBox<String> ref) {
-        ref.getItems().removeAll(ref.getItems());
-        for (int ind = history.size()-1; ind>-1; ind--)
-            ref.getItems().add(history.get(ind));
-        return ref;
-    }
-    int getCurrIndex(){
-        return currIndex;
     }
 }
