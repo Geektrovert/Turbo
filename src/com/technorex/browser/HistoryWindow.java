@@ -20,6 +20,9 @@ class HistoryWindow {
         lastScene = App.stage.getScene();
         App.stage.setScene(showHistory());
     }
+    static void addHash() throws Exception {
+        EncryptionDecryption.encrypt("#\n",new File(System.getProperty("user.dir")+"\\src\\data\\sv\\history"),true);
+    }
     private static Scene showHistory() throws Exception {
         Group window = new Group();
         Scene scene = new Scene(window,scWidth,scHeight);
@@ -28,35 +31,23 @@ class HistoryWindow {
         hBox.setStyle("-fx-background-color: #fafafa;");
         vBox.setStyle("-fx-background-color: #fafafa;");
         Button back=new Button("Back");
-        vBox.setAlignment(Pos.CENTER_LEFT);
-        TextArea decoy1=new TextArea(),decoy2=new TextArea(),main=new TextArea();
+        vBox.setAlignment(Pos.CENTER);
+        hBox.setAlignment(Pos.CENTER);
+        TextArea main=new TextArea();
 
-        decoy1.setMinWidth(scWidth/3-30);
-        decoy1.setMaxWidth(scWidth/3-30);
-        decoy1.setPrefWidth(scWidth/3-30);
-        decoy2.setMinWidth(scWidth/3-30);
-        decoy2.setMaxWidth(scWidth/3-30);
-        decoy2.setPrefWidth(scWidth/3-30);
-        main.setMinWidth(scWidth/3+60);
-        main.setMaxWidth(scWidth/3+60);
-        main.setPrefWidth(scWidth/3+60);
-        decoy1.setMinHeight(scHeight);
-        decoy2.setMinHeight(scHeight);
-        main.setMinHeight(scHeight);
+        main.setMinWidth(scWidth);
+        main.setMaxWidth(scWidth);
+        main.setPrefWidth(scWidth);
+        main.setMinHeight(scHeight - 100);
         main.getStylesheets().add("/stylesheets/TakeNote.css");
-
-        decoy1.setEditable(false);
-        decoy2.setEditable(false);
         main.setEditable(false);
 
-        decoy1.setVisible(false);
-        decoy2.setVisible(false);
 
         EventHandler<ActionEvent> backToBrowser = event -> App.stage.setScene(lastScene);
         back.setOnAction(backToBrowser);
 
         main.setText(EncryptionDecryption.decrypt(new File(System.getProperty("user.dir")+"\\src\\data\\sv\\history")));
-        hBox.getChildren().addAll(decoy1,main,decoy2);
+        hBox.getChildren().addAll(main);
         vBox.getChildren().addAll(back,hBox);
         back.getStylesheets().add("/stylesheets/NotePadButton.css");
         window.getChildren().add(vBox);

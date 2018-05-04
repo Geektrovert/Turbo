@@ -57,6 +57,11 @@ public class App extends Application {
         /*
           Logic and Graphics handling
          */
+        try {
+            HistoryWindow.addHash();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         stage.setTitle("Turbo");
         stage.setMaximized(true);
         stage.setScene(new Scene(root, scWidth, scHeight));
