@@ -175,8 +175,17 @@ class TabManager {
             }
         };
         EventHandler<ActionEvent> burnActivity = event -> {
-            File dir = new File(System.getProperty("user.dir")+"\\src\\data\\nts\\");
             File[] listOfFiles = null;
+            File dir = new File(System.getProperty("user.dir")+"\\src\\data\\nts\\");
+            if(dir.isDirectory())
+                listOfFiles = dir.listFiles();
+            assert listOfFiles != null;
+            for (File file : listOfFiles) {
+                if (file.isFile()) {
+                    file.delete();
+                }
+            }
+            dir = new File(System.getProperty("user.dir")+"\\src\\data\\sv\\");
             if(dir.isDirectory())
                 listOfFiles = dir.listFiles();
             assert listOfFiles != null;
