@@ -1,7 +1,7 @@
 package com.technorex.browser;
-
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -14,28 +14,18 @@ import java.net.URL;
  * @author Sihan Tawsik, Samnan Rahee
  *
  */
-class DownloadThread extends Thread {
+class DownloadThread {
     private static final int BUFFER_SIZE = 4096;
     private String fileURL;
     private Stage primaryStage;
-    DownloadThread(String name,String fileURL,Stage primaryStage){
-        super(name);
+    DownloadThread(String fileURL,Stage primaryStage){
         this.fileURL=fileURL;
         this.primaryStage=primaryStage;
     }
-    @Override
-    public void run() {
-        try {
-            fleDirectory();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void fleDirectory() throws IOException {
+    void fleDirectory() throws IOException {
         DirectoryChooser chooser = new DirectoryChooser();
         chooser.setTitle("JavaFX Projects");
-        File defaultDirectory = new File("c:/dev/javafx");
+        File defaultDirectory = new File("C:\\Users\\User\\Desktop\\");
         chooser.setInitialDirectory(defaultDirectory);
         downloadFile(chooser.showDialog(primaryStage).getPath());
     }
