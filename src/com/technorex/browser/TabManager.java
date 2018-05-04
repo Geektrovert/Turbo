@@ -29,7 +29,7 @@ class TabManager {
         final Button notePad = new Button();
         final ArrayList<String> tempHistory = new ArrayList<>();
         final Button bookmark = new Button();
-        final Button menu = new Button();
+        final ComboBox<String> menu = new ComboBox<>();
         final WebView webView = new WebView();
         final WebEngine webEngine = webView.getEngine();
         final TextField urlField = new TextField(DEFAULT_URL);
@@ -192,8 +192,10 @@ class TabManager {
         backward.setDefaultButton(true);
         bookmark.setDefaultButton(true);
         notePad.setDefaultButton(true);
-        menu.setDefaultButton(true);
         burn.setDefaultButton(true);
+
+        menu.getItems().addAll("History","Bookmarks","Downloads","Zoom","About");
+
         toggleJs.getStylesheets().add("/stylesheets/ToggleJs.css");
         forward.getStylesheets().add("/stylesheets/Forward.css");
         backward.getStylesheets().add("/stylesheets/Backward.css");
