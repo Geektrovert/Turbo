@@ -25,8 +25,8 @@ import javafx.stage.StageStyle;
 public class App extends Application {
 
     public static Stage stage = new Stage();
-    private double scWidth = Screen.getPrimary().getBounds().getWidth();
-    private double scHeight = Screen.getPrimary().getBounds().getHeight();
+    private static double scWidth = Screen.getPrimary().getBounds().getWidth();
+    private static double scHeight = Screen.getPrimary().getBounds().getHeight();
     static History localHistory = new History();
     public static void main(String[] args) {
         launch(args);
@@ -40,10 +40,11 @@ public class App extends Application {
     @Override
     public void start(Stage stage) {
         init(App.stage);
+        stage.initStyle(StageStyle.DECORATED);
         App.stage.show();
     }
 
-    private void init(Stage stage) {
+    public static void init(Stage stage) {
 
         /*
           Necessary Variables
@@ -58,7 +59,6 @@ public class App extends Application {
          */
         stage.setTitle("Turbo");
         stage.setMaximized(true);
-        stage.initStyle(StageStyle.DECORATED);
         stage.setScene(new Scene(root, scWidth, scHeight));
         stage.getIcons().add(new Image("Icons/icon.png"));
 
@@ -85,7 +85,7 @@ public class App extends Application {
         root.getChildren().add(borderPane);
     }
 
-    private void createHomeTab(final TabPane tabPane) {
+    private static void createHomeTab(final TabPane tabPane) {
         Tab tab = new Tab("Home");
         tab.setStyle("-fx-border-width: 0 0 0 0");
         final VBox vBox = new VBox();

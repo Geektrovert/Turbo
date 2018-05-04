@@ -186,7 +186,8 @@ class TabManager {
                 }
             }
             App.stage.close();
-            //App.main(null);
+            App.init(App.stage);
+            App.stage.show();
         };
 
 
