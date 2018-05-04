@@ -23,7 +23,7 @@ class DownloadThread {
         this.fileURL=fileURL;
         this.primaryStage=primaryStage;
     }
-    void fleDirectory() throws IOException {
+    void fileDirectory() throws IOException {
         DirectoryChooser chooser = new DirectoryChooser();
         chooser.setTitle("JavaFX Projects");
         File defaultDirectory = new File("C:\\Users\\User\\Desktop\\");

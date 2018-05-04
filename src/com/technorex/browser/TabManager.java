@@ -65,7 +65,7 @@ class TabManager {
                 String contentType = c.getContentType();
                 if(!contentType.contains("text")) {
                     DownloadThread downloadThread = new DownloadThread(url.toExternalForm(), App.stage);
-                    downloadThread.fleDirectory();
+                    downloadThread.fileDirectory();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
