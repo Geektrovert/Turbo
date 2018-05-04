@@ -17,7 +17,7 @@ class EncryptionDecryption {
      */
     static void encrypt(String in, File out) throws Exception{
         InputStream inputStream = new ByteArrayInputStream(in.getBytes(StandardCharsets.UTF_8));
-        FileOutputStream fileOutputStream = new FileOutputStream(out);
+        FileOutputStream fileOutputStream = new FileOutputStream(out,true);
         DESKeySpec desKeySpec = new DESKeySpec(key.getBytes());
         SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance("DES");
         SecretKey secretKey = secretKeyFactory.generateSecret(desKeySpec);

@@ -107,7 +107,14 @@ class TabManager {
                 }
             }
         });
-
+        EventHandler<ActionEvent> addBookmark = event -> {
+            File file = new File(System.getProperty("user.dir")+"\\src\\data\\sv\\cache");
+            try {
+                EncryptionDecryption.encrypt(webEngine.getLocation(),file);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        };
 
         /*
         Action handler for JS toggle button
@@ -255,6 +262,7 @@ class TabManager {
         goButton.setOnAction(goAction);
         toggleJs.setOnAction(toggleJS);
         notePad.setOnAction(takeNote);
+        bookmark.setOnAction(addBookmark);
         history.setOnMouseClicked(showHistory);
         history.setOnAction(chooseEntry);
         backward.setOnAction(goBackward);
