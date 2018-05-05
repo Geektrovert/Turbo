@@ -65,8 +65,7 @@ class TabManager {
                 URLConnection c = url.openConnection();
                 String contentType = c.getContentType();
                 if(!contentType.contains("text")) {
-                    DownloadThread downloadThread = new DownloadThread(url.toExternalForm(), App.stage);
-                    downloadThread.fileDirectory();
+                    App.startTask(webEngine.getLocation());
                 }
             } catch (IOException e) {
                 e.printStackTrace();

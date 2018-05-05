@@ -1,6 +1,7 @@
 package com.technorex.browser;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.geometry.Side;
@@ -15,6 +16,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import java.io.IOException;
 
 /**
  * Main class that extends Application Class as to initiate the Turbo browser.
@@ -106,5 +109,29 @@ public class App extends Application {
         tab.closableProperty().bind(Bindings.size(tabs).greaterThan(2));
         tabs.add(tabs.size() - 1, tab);
         tabPane.getSelectionModel().select(tab);
+    }
+    public static void startTask(String Url)
+    {
+        Runnable task = () -> runTask(Url);
+        Thread backgroundThread = new Thread(task);
+        backgroundThread.setDaemon(true);
+        backgroundThread.start();
+    }
+    public static void runTask(String Url)
+    {
+        try {
+            Platform.runLater(() -> {
+                try {
+                    DownloadThread downloadThread = new DownloadThread(Url);
+                    downloadThread.load();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }

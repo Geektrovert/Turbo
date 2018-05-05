@@ -1,7 +1,7 @@
 package com.technorex.browser;
-import javafx.stage.DirectoryChooser;
-import javafx.stage.Stage;
-
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -9,29 +9,65 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-/**
- * A utility that downloads a file from a URL.
- * @author Sihan Tawsik, Samnan Rahee
- *
- */
 
-class DownloadThread extends Thread{
+public class DownloadThread extends JPanel
+        implements ActionListener {
+    JButton go;
+    String Url;
+    JFileChooser chooser;
+    String choosertitle;
     private static final int BUFFER_SIZE = 4096;
-    private String fileURL;
-    private Stage primaryStage;
-    DownloadThread(String fileURL,Stage primaryStage){
-        this.fileURL=fileURL;
-        this.primaryStage=primaryStage;
+    public DownloadThread(String url) {
+        go = new JButton("ok");
+        go.addActionListener(this);
+        Url=url;
+        add(go);
     }
-    void fileDirectory() throws IOException {
-        DirectoryChooser chooser = new DirectoryChooser();
-        chooser.setTitle("JavaFX Projects");
-        File defaultDirectory = new File("C:\\Users\\User\\Desktop\\");
-        chooser.setInitialDirectory(defaultDirectory);
-        downloadFile(chooser.showDialog(primaryStage).getPath());
+
+    public void actionPerformed(ActionEvent e) {
+        int result;
+
+        chooser = new JFileChooser();
+        chooser.setCurrentDirectory(new java.io.File("."));
+        chooser.setDialogTitle(choosertitle);
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        //
+        // disable the "All files" option.
+        //
+        chooser.setAcceptAllFileFilterUsed(false);
+        //
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            try {
+                System.out.println(chooser.getCurrentDirectory());
+                downloadFile(chooser.getCurrentDirectory());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
+        else {
+            System.out.println("No Selection ");
+        }
     }
-    private void downloadFile(String saveDir) throws IOException {
-        URL url = new URL(fileURL);
+
+    public Dimension getPreferredSize(){
+        return new Dimension(200, 200);
+    }
+
+    public void load() {
+        JFrame frame = new JFrame("");
+        DownloadThread panel = new DownloadThread(Url);
+        frame.addWindowListener(
+                new WindowAdapter() {
+                    public void windowClosing(WindowEvent e) {
+                    }
+                }
+        );
+        frame.getContentPane().add(panel,"Center");
+        frame.setSize(panel.getPreferredSize());
+        frame.setVisible(true);
+    }
+    private void downloadFile(File saveDir) throws IOException {
+        URL url = new URL(Url);
         HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
         int responseCode = httpConn.getResponseCode();
 
@@ -51,8 +87,8 @@ class DownloadThread extends Thread{
                 }
             } else {
                 // extracts file name from URL
-                fileName = fileURL.substring(fileURL.lastIndexOf("/") + 1,
-                        fileURL.length());
+                fileName = Url.substring(Url.lastIndexOf("/") + 1,
+                        Url.length());
             }
 
             System.out.println("Content-Type = " + contentType);
@@ -62,7 +98,7 @@ class DownloadThread extends Thread{
 
             // opens input stream from the HTTP connection
             InputStream inputStream = httpConn.getInputStream();
-            String saveFilePath = saveDir + File.separator + fileName;
+            String saveFilePath = saveDir.getPath() + File.separator + fileName;
 
             // opens an output stream to save into file
             FileOutputStream outputStream = new FileOutputStream(saveFilePath);
@@ -81,14 +117,6 @@ class DownloadThread extends Thread{
             System.out.println("No file to download. Server replied HTTP code: " + responseCode);
         }
         httpConn.disconnect();
-    }
 
-    @Override
-    public void run() {
-        try {
-            fileDirectory();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
