@@ -26,7 +26,6 @@ class TabManager {
     Tab createNewTab() {
         DateTimeFormatter dateTimeFormatter= DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         final LocalDateTime[] now = {LocalDateTime.now()};
-        System.out.println(dateTimeFormatter.format(now[0]));
         final String DEFAULT_URL = "https://duckduckgo.com";
         final String DEFAULT_Search = "Search";
         final Tab tab = new Tab();
