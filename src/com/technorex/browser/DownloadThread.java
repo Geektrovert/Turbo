@@ -21,6 +21,8 @@ public class DownloadThread extends JPanel
         go.addActionListener(this);
         Url=url;
         chooserTitle="Choose Directory";
+        JLabel jLabel = new JLabel("Are you sure to download the file?");
+        add(jLabel);
         add(go);
     }
 
@@ -30,6 +32,7 @@ public class DownloadThread extends JPanel
         chooser.setDialogTitle(chooserTitle);
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         chooser.setAcceptAllFileFilterUsed(false);
+
         if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
                 System.out.println(chooser.getCurrentDirectory());
