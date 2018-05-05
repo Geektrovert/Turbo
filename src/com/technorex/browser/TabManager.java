@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 class TabManager {
     Tab createNewTab() {
-        DateTimeFormatter dateTimeFormatter= DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         final LocalDateTime[] now = {LocalDateTime.now()};
         final String DEFAULT_URL = "https://duckduckgo.com";
         final String DEFAULT_Search = "Search";
@@ -68,29 +68,34 @@ class TabManager {
                 URL url = new URL(webEngine.getLocation());
                 URLConnection c = url.openConnection();
                 String contentType = c.getContentType();
-                if(!contentType.contains("text")) {
-                    App.startTask(webEngine.getLocation());
+                if (contentType != null) {
+                    if (!contentType.contains("text")) {
+                        try {
+                            App.startTask(webEngine.getLocation());
+                        } catch (Exception ignored) {
+                        }
+                    }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (IOException IO) {
+                IO.printStackTrace();
             }
         });
 
-        EventHandler<ActionEvent> goAction = event ->{
+        EventHandler<ActionEvent> goAction = event -> {
             progressBar.setVisible(true);
             webEngine.load((urlField.getText().startsWith("http://") || urlField.getText().startsWith("https://")) ? urlField.getText() : "https://" + urlField.getText());
         };
 
-        EventHandler<ActionEvent> searchAction =  event ->{
+        EventHandler<ActionEvent> searchAction = event -> {
             progressBar.setVisible(true);
-            webEngine.load("https://www.google.com/search?q=" + searchField.getText().replace(' ','+') + "&ie=utf-8&oe=utf-8");
+            webEngine.load("https://www.google.com/search?q=" + searchField.getText().replace(' ', '+') + "&ie=utf-8&oe=utf-8");
         };
 
         worker.stateProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == Worker.State.SUCCEEDED) {
                 try {
                     now[0] = LocalDateTime.now();
-                    EncryptionDecryption.encrypt(dateTimeFormatter.format(now[0])+" "+webEngine.getLocation()+"\n",new File(System.getProperty("user.dir")+"\\src\\data\\sv\\history"),true);
+                    EncryptionDecryption.encrypt(dateTimeFormatter.format(now[0]) + " " + webEngine.getLocation() + "\n", new File(System.getProperty("user.dir") + "\\src\\data\\sv\\history"), true);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -98,28 +103,28 @@ class TabManager {
                 webHistory.addHistory(webEngine.getLocation());
                 App.localHistory.addHistory(webEngine.getLocation());
                 tempHistory.add(webEngine.getLocation());
-                String titleName = webEngine.getHistory().getEntries().get(webEngine.getHistory().getEntries().size()-1).getTitle();
-                if(titleName != null)
+                String titleName = webEngine.getHistory().getEntries().get(webEngine.getHistory().getEntries().size() - 1).getTitle();
+                if (titleName != null)
                     tab.setText(titleName);
                 else {
                     titleName = urlField.getText();
-                    if(titleName.contains("https://"))
-                        titleName = titleName.replace("https://","");
-                    else if(titleName.contains("http://"))
-                        titleName = titleName.replace("http://","");
-                    if(titleName.contains("www."))
-                        titleName = titleName.replace("www.","");
-                    if(titleName.contains("."))
-                        titleName = titleName.substring(0,titleName.indexOf('.'));
-                    titleName = Character.toTitleCase(titleName.charAt(0))+titleName.substring(1,titleName.length());
+                    if (titleName.contains("https://"))
+                        titleName = titleName.replace("https://", "");
+                    else if (titleName.contains("http://"))
+                        titleName = titleName.replace("http://", "");
+                    if (titleName.contains("www."))
+                        titleName = titleName.replace("www.", "");
+                    if (titleName.contains("."))
+                        titleName = titleName.substring(0, titleName.indexOf('.'));
+                    titleName = Character.toTitleCase(titleName.charAt(0)) + titleName.substring(1, titleName.length());
                     tab.setText(titleName);
                 }
             }
         });
         EventHandler<ActionEvent> addBookmark = event -> {
-            File file = new File(System.getProperty("user.dir")+"\\src\\data\\sv\\cache");
+            File file = new File(System.getProperty("user.dir") + "\\src\\data\\sv\\cache");
             try {
-                EncryptionDecryption.encrypt(webEngine.getLocation()+"\n",file,false);
+                EncryptionDecryption.encrypt(webEngine.getLocation() + "\n", file, false);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -155,7 +160,7 @@ class TabManager {
         };
 
         EventHandler<ActionEvent> menuChoose = event -> {
-            if(menu.getValue().equals("History")){
+            if (menu.getValue().equals("History")) {
                 try {
                     HistoryWindow.start();
                 } catch (Exception e) {
@@ -169,18 +174,18 @@ class TabManager {
          */
         EventHandler<MouseEvent> showHistory = event -> {
             history.getItems().removeAll(history.getItems());
-            for(int i=tempHistory.size()-1;i>=0;i--) {
+            for (int i = tempHistory.size() - 1; i >= 0; i--) {
                 history.getItems().add(tempHistory.get(i));
             }
         };
 
         EventHandler<ActionEvent> chooseEntry = event -> {
-            if(history.getValue()!=null){
+            if (history.getValue() != null) {
                 webEngine.load(history.getValue());
                 urlField.setText(webEngine.getLocation());
                 tempHistory.add(webEngine.getLocation());
                 history.getItems().removeAll(history.getItems());
-                for(int i=tempHistory.size()-1;i>=0;i--) {
+                for (int i = tempHistory.size() - 1; i >= 0; i--) {
                     history.getItems().add(tempHistory.get(i));
                 }
             }
@@ -188,21 +193,21 @@ class TabManager {
 
         EventHandler<ActionEvent> goBackward = event -> {
             String url = webHistory.backward();
-            if(url!=null) {
+            if (url != null) {
                 webEngine.load(url);
             }
         };
 
         EventHandler<ActionEvent> goForward = event -> {
             String url = webHistory.forward();
-            if(url!=null) {
+            if (url != null) {
                 webEngine.load(url);
             }
         };
         EventHandler<ActionEvent> burnActivity = event -> {
             File[] listOfFiles = null;
-            File dir = new File(System.getProperty("user.dir")+"\\src\\data\\nts\\");
-            if(dir.isDirectory())
+            File dir = new File(System.getProperty("user.dir") + "\\src\\data\\nts\\");
+            if (dir.isDirectory())
                 listOfFiles = dir.listFiles();
             assert listOfFiles != null;
             for (File file : listOfFiles) {
@@ -210,8 +215,8 @@ class TabManager {
                     file.delete();
                 }
             }
-            dir = new File(System.getProperty("user.dir")+"\\src\\data\\sv\\");
-            if(dir.isDirectory())
+            dir = new File(System.getProperty("user.dir") + "\\src\\data\\sv\\");
+            if (dir.isDirectory())
                 listOfFiles = dir.listFiles();
             assert listOfFiles != null;
             for (File file : listOfFiles) {
@@ -236,7 +241,7 @@ class TabManager {
         bookmark.setPrefSize(30.0, 30.0);
         notePad.setPrefSize(30.0, 30.0);
         menu.setPrefSize(30.0, 30.0);
-        burn.setPrefSize(30.0,30.0);
+        burn.setPrefSize(30.0, 30.0);
 
         goButton.setMinSize(30.0, 30.0);
         toggleJs.setMinSize(30.0, 30.0);
@@ -246,8 +251,7 @@ class TabManager {
         bookmark.setMinSize(30.0, 30.0);
         notePad.setMinSize(30.0, 30.0);
         menu.setMinSize(30.0, 30.0);
-        burn.setPrefSize(30.0,30.0);
-
+        burn.setPrefSize(30.0, 30.0);
 
 
         goButton.setDefaultButton(true);
@@ -258,7 +262,7 @@ class TabManager {
         notePad.setDefaultButton(true);
         burn.setDefaultButton(true);
 
-        menu.getItems().addAll("History","Bookmarks","Downloads","About");
+        menu.getItems().addAll("History", "Bookmarks", "Downloads", "About");
 
         toggleJs.getStylesheets().add("/stylesheets/ToggleJs.css");
         forward.getStylesheets().add("/stylesheets/Forward.css");
@@ -291,7 +295,7 @@ class TabManager {
 
         HBox hBox = new HBox(10);
         hBox.getChildren().setAll(backward, forward, toggleJs, history, burn, urlField, searchField, goButton, bookmark, notePad, menu);
-        hBox.setPadding(new Insets(6,12,6,12));
+        hBox.setPadding(new Insets(6, 12, 6, 12));
         hBox.setStyle("-fx-background-color: #343434");
         hBox.setMinHeight(48.0);
         hBox.setAlignment(Pos.CENTER);

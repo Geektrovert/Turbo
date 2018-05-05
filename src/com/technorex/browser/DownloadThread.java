@@ -1,4 +1,5 @@
 package com.technorex.browser;
+
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
@@ -12,15 +13,16 @@ import java.net.URL;
 
 public class DownloadThread extends JPanel
         implements ActionListener {
+    private static final int BUFFER_SIZE = 4096;
     private String Url;
     private String chooserTitle;
-    private static final int BUFFER_SIZE = 4096;
+
     DownloadThread(String url) {
         JButton go;
         go = new JButton("ok");
         go.addActionListener(this);
-        Url=url;
-        chooserTitle="Choose Directory";
+        Url = url;
+        chooserTitle = "Choose Directory";
         JLabel jLabel = new JLabel("Are you sure to download the file?");
         add(jLabel);
         add(go);
@@ -37,16 +39,14 @@ public class DownloadThread extends JPanel
             try {
                 System.out.println(chooser.getCurrentDirectory());
                 downloadFile(chooser.getCurrentDirectory());
-            } catch (IOException e1) {
-                e1.printStackTrace();
+            } catch (IOException ignored) {
             }
-        }
-        else {
+        } else {
             System.out.println("No Selection ");
         }
     }
 
-    public Dimension getPreferredSize(){
+    public Dimension getPreferredSize() {
         return new Dimension(200, 200);
     }
 
@@ -60,10 +60,11 @@ public class DownloadThread extends JPanel
                     }
                 }
         );
-        frame.getContentPane().add(panel,"Center");
+        frame.getContentPane().add(panel, "Center");
         frame.setSize(panel.getPreferredSize());
         frame.setVisible(true);
     }
+
     private void downloadFile(File saveDir) throws IOException {
         URL url = new URL(Url);
         HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
@@ -87,7 +88,7 @@ public class DownloadThread extends JPanel
             }
             System.out.println("Downloading");
             System.out.println("fileName = " + fileName);
-            System.out.println("File-Size = " + contentLength+" bytes");
+            System.out.println("File-Size = " + contentLength + " bytes");
             System.out.println("File-Type = " + contentType);
             InputStream inputStream = httpConn.getInputStream();
             String saveFilePath = saveDir + File.separator + fileName;

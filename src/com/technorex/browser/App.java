@@ -17,8 +17,6 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.io.IOException;
-
 /**
  * Main class that extends Application Class as to initiate the Turbo browser.
  *
@@ -117,7 +115,7 @@ public class App extends Application {
         backgroundThread.setDaemon(true);
         backgroundThread.start();
     }
-    public static void runTask(String Url)
+    private static void runTask(String Url)
     {
         try {
             Platform.runLater(() -> {
