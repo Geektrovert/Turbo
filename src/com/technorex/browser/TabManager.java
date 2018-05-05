@@ -18,10 +18,15 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 class TabManager {
     Tab createNewTab() {
+        DateTimeFormatter dateTimeFormatter= DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        final LocalDateTime[] now = {LocalDateTime.now()};
+        System.out.println(dateTimeFormatter.format(now[0]));
         final String DEFAULT_URL = "https://duckduckgo.com";
         final String DEFAULT_Search = "Search";
         final Tab tab = new Tab();
@@ -85,7 +90,8 @@ class TabManager {
         worker.stateProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == Worker.State.SUCCEEDED) {
                 try {
-                    EncryptionDecryption.encrypt(webEngine.getLocation()+"\n",new File(System.getProperty("user.dir")+"\\src\\data\\sv\\history"),true);
+                    now[0] = LocalDateTime.now();
+                    EncryptionDecryption.encrypt(dateTimeFormatter.format(now[0])+" "+webEngine.getLocation()+"\n",new File(System.getProperty("user.dir")+"\\src\\data\\sv\\history"),true);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -94,7 +100,7 @@ class TabManager {
                 App.localHistory.addHistory(webEngine.getLocation());
                 tempHistory.add(webEngine.getLocation());
                 String titleName = webEngine.getHistory().getEntries().get(webEngine.getHistory().getEntries().size()-1).getTitle();
-                if(!titleName.isEmpty())
+                if(titleName != null)
                     tab.setText(titleName);
                 else {
                     titleName = urlField.getText();

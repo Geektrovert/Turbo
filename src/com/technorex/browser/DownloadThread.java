@@ -53,6 +53,7 @@ public class DownloadThread extends JPanel
         frame.addWindowListener(
                 new WindowAdapter() {
                     public void windowClosing(WindowEvent e) {
+                        frame.dispose();
                     }
                 }
         );
