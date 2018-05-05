@@ -12,30 +12,24 @@ import java.net.URL;
 
 public class DownloadThread extends JPanel
         implements ActionListener {
-    JButton go;
-    String Url;
-    JFileChooser chooser;
-    String choosertitle;
+    private String Url;
+    private String chooserTitle;
     private static final int BUFFER_SIZE = 4096;
-    public DownloadThread(String url) {
+    DownloadThread(String url) {
+        JButton go;
         go = new JButton("ok");
         go.addActionListener(this);
         Url=url;
+        chooserTitle="Choose Directory";
         add(go);
     }
 
     public void actionPerformed(ActionEvent e) {
-        int result;
-
-        chooser = new JFileChooser();
+        JFileChooser chooser = new JFileChooser();
         chooser.setCurrentDirectory(new java.io.File("."));
-        chooser.setDialogTitle(choosertitle);
+        chooser.setDialogTitle(chooserTitle);
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        //
-        // disable the "All files" option.
-        //
         chooser.setAcceptAllFileFilterUsed(false);
-        //
         if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
                 System.out.println(chooser.getCurrentDirectory());
@@ -53,7 +47,7 @@ public class DownloadThread extends JPanel
         return new Dimension(200, 200);
     }
 
-    public void load() {
+    void load() {
         JFrame frame = new JFrame("");
         DownloadThread panel = new DownloadThread(Url);
         frame.addWindowListener(
@@ -70,8 +64,6 @@ public class DownloadThread extends JPanel
         URL url = new URL(Url);
         HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
         int responseCode = httpConn.getResponseCode();
-
-        // always check HTTP response code first
         if (responseCode == HttpURLConnection.HTTP_OK) {
             String fileName = "";
             String disposition = httpConn.getHeaderField("Content-Disposition");
@@ -79,7 +71,6 @@ public class DownloadThread extends JPanel
             int contentLength = httpConn.getContentLength();
 
             if (disposition != null) {
-                // extracts file name from header field
                 int index = disposition.indexOf("filename=");
                 if (index > 0) {
                     fileName = disposition.substring(index + 10,
@@ -90,17 +81,12 @@ public class DownloadThread extends JPanel
                 fileName = Url.substring(Url.lastIndexOf("/") + 1,
                         Url.length());
             }
-
-            System.out.println("Content-Type = " + contentType);
-            System.out.println("Content-Disposition = " + disposition);
-            System.out.println("Content-Length = " + contentLength);
+            System.out.println("Downloading");
             System.out.println("fileName = " + fileName);
-
-            // opens input stream from the HTTP connection
+            System.out.println("File-Size = " + contentLength+" bytes");
+            System.out.println("File-Type = " + contentType);
             InputStream inputStream = httpConn.getInputStream();
-            String saveFilePath = saveDir.getPath() + File.separator + fileName;
-
-            // opens an output stream to save into file
+            String saveFilePath = saveDir + File.separator + fileName;
             FileOutputStream outputStream = new FileOutputStream(saveFilePath);
 
             int bytesRead;
