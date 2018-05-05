@@ -10,4 +10,8 @@ A lightweight, Secure and User Friendly Web Browser (CSE-2112 Java project, CSED
 * Simple 'Burn' button to clean up every thing at one click
 
 This is an under-development OpenSource project. So everyone is welcome to
-collaborate.
+contribute.
+
+**Happy Coding!!!**
+
+**Happy Browsing!**
