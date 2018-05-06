@@ -153,7 +153,7 @@ class TabManager {
         /*
         Action handler for notePad button
          */
-        EventHandler<ActionEvent> takeNote = event -> {
+        EventHandler<MouseEvent> takeNote = event -> {
             try {
                 NotePad.takeNote();
             } catch (Exception e) {
@@ -287,7 +287,7 @@ class TabManager {
         urlField.setOnAction(goAction);
         goButton.setOnAction(goAction);
         toggleJs.setOnAction(toggleJS);
-        notePad.setOnAction(takeNote);
+        notePad.setOnMouseClicked(takeNote);
         bookmark.setOnAction(addBookmark);
         history.setOnMouseClicked(showHistory);
         history.setOnAction(chooseEntry);
