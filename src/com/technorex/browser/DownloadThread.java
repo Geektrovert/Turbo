@@ -10,7 +10,6 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-
 public class DownloadThread extends JPanel
         implements ActionListener {
     private static final int BUFFER_SIZE = 4096;
@@ -24,6 +23,7 @@ public class DownloadThread extends JPanel
         Url = url;
         chooserTitle = "Choose Directory";
         JLabel jLabel = new JLabel("Are you sure to download the file?");
+        jLabel.setForeground(new Color(255, 255, 255));
         add(jLabel);
         add(go);
     }
@@ -51,7 +51,7 @@ public class DownloadThread extends JPanel
     }
 
     void load() {
-        JFrame frame = new JFrame("");
+        JFrame frame = new JFrame("Choose File");
         DownloadThread panel = new DownloadThread(Url);
         frame.addWindowListener(
                 new WindowAdapter() {
@@ -60,8 +60,11 @@ public class DownloadThread extends JPanel
                     }
                 }
         );
+        panel.setBackground(new Color(63,63,63));
+        panel.setMinimumSize(new Dimension(1000,1000));
         frame.getContentPane().add(panel, "Center");
-        frame.setSize(panel.getPreferredSize());
+        frame.setSize(panel.getMinimumSize());
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 

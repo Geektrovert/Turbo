@@ -108,7 +108,7 @@ public class App extends Application {
         tabs.add(tabs.size() - 1, tab);
         tabPane.getSelectionModel().select(tab);
     }
-    public static void startTask(String Url)
+    static void startTask(String Url)
     {
         Runnable task = () -> runTask(Url);
         Thread backgroundThread = new Thread(task);
