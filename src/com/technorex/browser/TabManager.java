@@ -33,6 +33,7 @@ class TabManager {
         final Button forward = new Button();
         final Button toggleJs = new Button();
         final Button backward = new Button();
+        final Button reload = new Button();
         final ComboBox<String> history = new ComboBox<>();
         final Button notePad = new Button();
         final ArrayList<String> tempHistory = new ArrayList<>();
@@ -130,6 +131,7 @@ class TabManager {
             }
         };
 
+        EventHandler<ActionEvent> reloadPage = event -> webEngine.reload();
         /*
         Action handler for JS toggle button
          */
@@ -242,6 +244,7 @@ class TabManager {
         notePad.setPrefSize(30.0, 30.0);
         menu.setPrefSize(30.0, 30.0);
         burn.setPrefSize(30.0, 30.0);
+        reload.setPrefSize(36.0,36.0);
 
         goButton.setMinSize(30.0, 30.0);
         toggleJs.setMinSize(30.0, 30.0);
@@ -251,8 +254,8 @@ class TabManager {
         bookmark.setMinSize(30.0, 30.0);
         notePad.setMinSize(30.0, 30.0);
         menu.setMinSize(30.0, 30.0);
-        burn.setPrefSize(30.0, 30.0);
-
+        burn.setMinSize(30.0, 30.0);
+        reload.setPrefSize(36.0,36.0);
 
         goButton.setDefaultButton(true);
         toggleJs.setDefaultButton(true);
@@ -261,6 +264,7 @@ class TabManager {
         bookmark.setDefaultButton(true);
         notePad.setDefaultButton(true);
         burn.setDefaultButton(true);
+        reload.setDefaultButton(true);
 
         menu.getItems().addAll("History", "Bookmarks", "Downloads", "About");
 
@@ -276,7 +280,7 @@ class TabManager {
         menu.getStylesheets().add("/stylesheets/menuButton.css");
         progressBar.getStylesheets().add("/stylesheets/ProgressBar.css");
         burn.getStylesheets().add("/stylesheets/Burn.css");
-
+        reload.getStylesheets().add("/stylesheets/Reload.css");
         /*
         Adding event handlers to buttons
          */
@@ -292,9 +296,10 @@ class TabManager {
         searchField.setOnAction(searchAction);
         burn.setOnAction(burnActivity);
         menu.setOnAction(menuChoose);
+        reload.setOnAction(reloadPage);
 
         HBox hBox = new HBox(10);
-        hBox.getChildren().setAll(backward, forward, toggleJs, history, burn, urlField, searchField, goButton, bookmark, notePad, menu);
+        hBox.getChildren().setAll(backward, forward, reload, toggleJs, history, burn, urlField, searchField, goButton, bookmark, notePad, menu);
         hBox.setPadding(new Insets(6, 12, 6, 12));
         hBox.setStyle("-fx-background-color: #343434");
         hBox.setMinHeight(48.0);
