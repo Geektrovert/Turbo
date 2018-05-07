@@ -32,7 +32,7 @@ public class App extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
+    private static TabPane tabPan;
     /**
      * Performs activity associated with the initialization of the Stage and Scene
      *
@@ -53,6 +53,7 @@ public class App extends Application {
         Group root = new Group();
         BorderPane borderPane = new BorderPane();
         final TabPane tabPane = new TabPane();
+        tabPan=tabPane;
         TabManager tabManager = new TabManager();
         final Tab newTab = new Tab();
         /*
@@ -107,6 +108,23 @@ public class App extends Application {
         tab.closableProperty().bind(Bindings.size(tabs).greaterThan(2));
         tabs.add(tabs.size() - 1, tab);
         tabPane.getSelectionModel().select(tab);
+    }
+    static void createAboutTab() {
+        Tab tab = new Tab("About");
+        tab.setStyle("-fx-border-width: 0 0 0 0");
+        final VBox vBox = new VBox();
+        ImageView imageView = new ImageView(new Image("/Icons/AboutPage.png"));
+        imageView.setFitWidth(scWidth);
+        imageView.setFitHeight(scHeight-10);
+        vBox.getChildren().setAll(imageView);
+        vBox.setMinSize(scWidth,scHeight);
+        vBox.setPrefSize(scWidth,scHeight);
+        vBox.setMaxSize(scWidth,scHeight);
+        tab.setContent(vBox);
+        final ObservableList<Tab> tabs = tabPan.getTabs();
+        tab.closableProperty().bind(Bindings.size(tabs).greaterThan(2));
+        tabs.add(tabs.size() - 1, tab);
+        tabPan.getSelectionModel().select(tab);
     }
     static void startTask(String Url)
     {

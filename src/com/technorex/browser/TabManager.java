@@ -162,12 +162,24 @@ class TabManager {
         };
 
         EventHandler<ActionEvent> menuChoose = event -> {
-            if (menu.getValue().equals("History")) {
-                try {
-                    HistoryWindow.start();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            switch (menu.getValue()) {
+                case "History":
+                    try {
+                        HistoryWindow.start();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case "About":
+                    App.createAboutTab();
+                    break;
+                case "Bookmarks":
+                    try {
+                        BookmarkWindow.start();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
             }
         };
 
