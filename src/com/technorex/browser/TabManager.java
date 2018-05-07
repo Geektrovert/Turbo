@@ -299,7 +299,7 @@ class TabManager {
         reload.setOnAction(reloadPage);
 
         HBox hBox = new HBox(10);
-        hBox.getChildren().setAll(backward, forward, reload, toggleJs, history, burn, urlField, searchField, goButton, bookmark, notePad, menu);
+        hBox.getChildren().setAll(backward, forward, reload, history, burn, urlField, searchField, toggleJs, goButton, bookmark, notePad, menu);
         hBox.setPadding(new Insets(6, 12, 6, 12));
         hBox.setStyle("-fx-background-color: #343434");
         hBox.setMinHeight(48.0);
