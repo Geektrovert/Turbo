@@ -139,7 +139,7 @@ public class App extends Application {
             Platform.runLater(() -> {
                 try {
                     DownloadThread downloadThread = new DownloadThread(Url);
-                    downloadThread.load(stage);
+                    downloadThread.load();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
