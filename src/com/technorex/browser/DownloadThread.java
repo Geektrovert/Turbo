@@ -18,7 +18,7 @@ class DownloadThread {
     }
     void load(Stage primaryStage) throws IOException {
         DirectoryChooser chooser = new DirectoryChooser();
-        chooser.setTitle("JavaFX Projects");
+        chooser.setTitle("Choose Directory");
         File defaultDirectory = new File("C:\\Users\\User\\Desktop\\");
         chooser.setInitialDirectory(defaultDirectory);
         downloadFile(chooser.showDialog(primaryStage).getPath());
