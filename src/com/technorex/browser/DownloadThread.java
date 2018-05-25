@@ -1,8 +1,7 @@
 package com.technorex.browser;
 
-import javax.swing.*;
-import java.awt.event.*;
-import java.awt.*;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,65 +9,22 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class DownloadThread extends JPanel
-        implements ActionListener {
+class DownloadThread {
     private static final int BUFFER_SIZE = 4096;
     private String Url;
-    private String chooserTitle;
 
     DownloadThread(String url) {
-        JButton go;
-        go = new JButton("ok");
-        go.addActionListener(this);
-        Url = url;
-        chooserTitle = "Choose Directory";
-        JLabel jLabel = new JLabel("Are you sure to download the file?");
-        jLabel.setForeground(new Color(255, 255, 255));
-        add(jLabel);
-        add(go);
+        Url=url;
+    }
+    void load(Stage primaryStage) throws IOException {
+        DirectoryChooser chooser = new DirectoryChooser();
+        chooser.setTitle("JavaFX Projects");
+        File defaultDirectory = new File("C:\\Users\\User\\Desktop\\");
+        chooser.setInitialDirectory(defaultDirectory);
+        downloadFile(chooser.showDialog(primaryStage).getPath());
     }
 
-    public void actionPerformed(ActionEvent e) {
-        JFileChooser chooser = new JFileChooser();
-        chooser.setCurrentDirectory(new java.io.File("."));
-        chooser.setDialogTitle(chooserTitle);
-        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        chooser.setAcceptAllFileFilterUsed(false);
-
-        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-            try {
-                System.out.println(chooser.getCurrentDirectory());
-                downloadFile(chooser.getCurrentDirectory());
-            } catch (IOException ignored) {
-            }
-        } else {
-            System.out.println("No Selection ");
-        }
-    }
-
-    public Dimension getPreferredSize() {
-        return new Dimension(200, 200);
-    }
-
-    void load() {
-        JFrame frame = new JFrame("Choose File");
-        DownloadThread panel = new DownloadThread(Url);
-        frame.addWindowListener(
-                new WindowAdapter() {
-                    public void windowClosing(WindowEvent e) {
-                        frame.dispose();
-                    }
-                }
-        );
-        panel.setBackground(new Color(63,63,63));
-        panel.setMinimumSize(new Dimension(1000,1000));
-        frame.getContentPane().add(panel, "Center");
-        frame.setSize(panel.getMinimumSize());
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-    }
-
-    private void downloadFile(File saveDir) throws IOException {
+    private void downloadFile(String saveDir) throws IOException {
         URL url = new URL(Url);
         HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
         int responseCode = httpConn.getResponseCode();
